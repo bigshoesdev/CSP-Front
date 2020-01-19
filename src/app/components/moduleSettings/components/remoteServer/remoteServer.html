@@ -1,0 +1,106 @@
+<content-header>Remote Server</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+    <md-button class="md-raised md-primary"
+               ng-click="update()"
+               ng-disabled="ctrl.settingsForm.$invalid || waitResponse">
+        <md-icon md-font-set="material-icons"
+                 class="ng-binding ng-scope md-csp-theme material-icons"
+                 role="img">loop
+        </md-icon>
+        Force Update
+    </md-button>
+    <md-button
+        class="md-raised md-primary"
+        ng-click="save()"
+        ng-disabled="ctrl.settingsForm.$invalid || waitResponse">
+        <md-icon md-font-set="material-icons" class="ng-binding ng-scope md-csp-theme material-icons" role="img">
+            save
+        </md-icon>
+        Save
+    </md-button>
+</div>
+
+<div class="formContainer">
+    <form name="ctrl.settingsForm">
+
+        <md-progress-linear md-mode="query" ng-show="waitResponse"></md-progress-linear>
+
+        <md-input-container class="md-block">
+            <label>Update time</label>
+            <md-select ng-model="updatePeriod"
+                       ng-model-options="{ trackBy: '$value.value'}"
+                       md-on-close="updateUpdateTime(updatePeriod)"
+                       aria-label="Update Period"
+                       name="fUpdateTime"
+                       required="true">
+                <md-option ng-value="p" ng-repeat="p in updatePeriods">
+                    {{ ::displayPeriod(p) }}
+                </md-option>
+            </md-select>
+            <div ng-messages="ctrl.settingsForm.fUpdateTime.$error">
+                <div ng-message="required">Update time is required.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex>
+            <content-header>URLs:</content-header>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex>
+            <label>Clients</label>
+            <input ng-model="settings.urls.clients" name="fClients" type="text" required>
+
+            <div ng-messages="ctrl.settingsForm.fClients.$error">
+                <div ng-message="required">Clients URL is required.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex>
+            <label>Client Info</label>
+            <input ng-model="settings.urls.clientInfo" name="fClientInfo" type="text" required>
+
+            <div ng-messages="ctrl.settingsForm.fClientInfo.$error">
+                <div ng-message="required">Client Info URL is required.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex>
+            <label>Therapists</label>
+            <input ng-model="settings.urls.therapists" name="fTherapists" type="text" required>
+
+            <div ng-messages="ctrl.settingsForm.fTherapists.$error">
+                <div ng-message="required">Therapists URL is required.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex>
+            <label>Services</label>
+            <input ng-model="settings.urls.services" name="fServices" type="text" required>
+
+            <div ng-messages="ctrl.settingsForm.fServices.$error">
+                <div ng-message="required">Services URL is required.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex>
+            <label>Events</label>
+            <input ng-model="settings.urls.events" name="fEvents" type="text" required>
+
+            <div ng-messages="ctrl.settingsForm.fEvents.$error">
+                <div ng-message="required">Events URL is required.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex>
+            <label>Protocols</label>
+            <input ng-model="settings.urls.protocols" name="fProtocols" type="text" required>
+
+            <div ng-messages="ctrl.settingsForm.fProtocols.$error">
+                <div ng-message="required">Protocols URL is required.</div>
+            </div>
+        </md-input-container>
+
+    </form>
+</div>
+

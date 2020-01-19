@@ -1,0 +1,99 @@
+<md-dialog flex="30">
+    <md-toolbar>
+        <div class="md-toolbar-tools">Concrete Calendar Event</div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+        <div layout="row" layout-xs="column" class="formContainer">
+            <div flex>
+                <form name="ctrl.form" layout="row" layout-xs="column">
+                    <div flex>
+                        <div flex>
+                            <a href ng-click="editCalendarEvent(calendarEvent.calendarEvent.id)">
+                                Calendar Event
+                            </a>
+                        </div>
+
+                        <md-datepicker ng-model="date"
+                                       ng-change="calendarEvent.date = dateToString(date)"
+                                       md-placeholder="Date"
+                                       md-max-date=""
+                                       md-min-date=""
+                                       name="fDate"
+                                       required
+                                       ng-disabled="isReadOnly"
+                        ></md-datepicker>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Time start</label>
+                            <input type="time"
+                                   ng-model="time"
+                                   ng-change="calendarEvent.time = timeToString(time)"
+                                   name="fTimeStart"
+                                   required
+                                   ng-max="maxTime"
+                                   ng-disabled="isReadOnly">
+                            <div ng-messages="ctrl.form.fTime.$error">
+                                <div ng-message="required">Time is require</div>
+                                <div ng-message="time">Fill in the time field</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container layout="row" layout-align="start center">
+                            <label>Event</label>
+                            <input value="{{calendarEvent.event.name}}" disabled>
+                        </md-input-container>
+
+                        <md-input-container layout="row" layout-align="start center">
+                            <label>Room</label>
+                            <input value="{{calendarEvent.room.name}}" disabled>
+                        </md-input-container>
+
+                        <md-input-container layout="row" layout-align="start center">
+                            <label>Therapist</label>
+                            <input value="{{calendarEvent.therapist.name}}" disabled>
+                        </md-input-container>
+                    </div>
+
+                    <div flex>
+                        <md-input-container class="md-block">
+                            <label>Client goals</label>
+                            <textarea
+                                ng-model="baseConcreteEvent.goals_client"
+                                placeholder="..."
+                                name="cClientGoals"
+                                ng-disabled="!canEdit"
+                                autofocus=""
+                            ></textarea>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>Therapist goals</label>
+                            <textarea
+                                ng-model="baseConcreteEvent.goals_therapist"
+                                name="cTherapistGoals"
+                                placeholder="..."
+                                ng-disabled="!canEdit"
+                                autofocus=""
+                            ></textarea>
+                        </md-input-container>
+
+                        <div autocomplete-list="autocompleteClientsConfig"
+                             read-only="isReadOnly"></div>
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="Close" ng-click="cancel()" class="md-raised">Close</md-button>
+        <md-button aria-label="Remove" ng-click="remove()" class="md-raised md-warn" ng-if="!isReadOnly && canRemove">
+            Remove
+        </md-button>
+        <md-button aria-label="Save" ng-click="save()" class="md-raised md-primary" ng-if="!isReadOnly"
+                   ng-disabled="ctrl.form.$invalid">Save
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

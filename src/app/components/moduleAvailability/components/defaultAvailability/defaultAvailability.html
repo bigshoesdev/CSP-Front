@@ -1,0 +1,8 @@
+<md-radio-group ng-model="defaultAvailability"
+                ng-change="applyDefaultAvailability(defaultAvailability)"
+                class="defaultAvailability"
+                layout="row" layout-align="start center">
+    <md-radio-button value="" aria-label="Undefined" class="">Undefined</md-radio-button>
+    <md-radio-button value="A" aria-label="Available" class="md-primary">Available</md-radio-button>
+    <md-radio-button value="U" aria-label="Unavailable" class="md-warn">Unavailable</md-radio-button>
+</md-radio-group>

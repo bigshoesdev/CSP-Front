@@ -1,0 +1,16 @@
+<form name="ctrl.form">
+    <div layout="row" layout-xs="column" layout-align="start center">
+
+        <md-datepicker ng-model="date" md-min-date="minDate" md-max-date="maxDate"
+                       ng-change="onDateChange(date)"
+                       md-placeholder="Day"
+                       name="fDate" required>
+        </md-datepicker>
+
+    </div>
+
+    <div mb-table="mbTableConf"
+         mb-table-row-type="rowType"></div>
+
+
+</form>

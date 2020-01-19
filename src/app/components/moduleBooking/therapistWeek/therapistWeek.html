@@ -1,0 +1,34 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+
+            <md-input-container class="md-block">
+                <label>Therapist Week name *</label>
+                <input ng-model="model.name"
+                       ng-change="onNameChange()"
+                       ng-disabled="disableEdit"
+                       name="cName" type="text"
+                       placeholder="Therapist Week name"
+                       required
+                       ng-maxlength="255"
+                       autofocus="">
+
+                <div ng-messages="ctrl.form.cName.$error">
+                    <div ng-message="required">Therapist Week name is required.</div>
+                    <div ng-message="notUniqueName">Therapist Week name is not unique.</div>
+                    <div ng-message="maxlength">Therapist Week name is too long.</div>
+                </div>
+            </md-input-container>
+
+            <div objects-selector="model.therapists"
+                 disabled="disableEdit"
+                 objects-selector-all="therapists"
+                 objects-selector-text="Select therapists">
+            </div>
+
+            </md-input-container>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<md-dialog flex="30">
+    <md-toolbar>
+        <div class="md-toolbar-tools">Correct a preliminary event</div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+
+        <div ng-if="changeTherapist">
+            <p>{{therapistNote}}</p>
+
+            <md-input-container class="md-block">
+                <label>Change Therapist</label>
+                <div selector="therapist"
+                     selector-all="therapists"
+                     selector-title="Search for therapist.."
+                     selector-id-property=".id"
+                     selector-on-close="onTherapistChange(therapist)"
+                     selector-display-item="displayItem"
+                ></div>
+            </md-input-container>
+        </div>
+
+        <div ng-if="changeRoom">
+            <p>{{roomNote}}</p>
+
+            <md-input-container class="md-block">
+                <label>Change Room</label>
+                <div selector="room"
+                     selector-all="rooms"
+                     selector-title="Search for rooms.."
+                     selector-id-property=".id"
+                     selector-on-close="onRoomChange(room)"
+                     selector-display-item="displayItem"
+                ></div>
+            </md-input-container>
+        </div>
+
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="Close" ng-click="cancel()" class="md-raised">Close</md-button>
+        <md-button aria-label="Hide" ng-click="hide()" class="md-raised md-warn" ng-disabled="isApplyDisabled()">Apply Changes</md-button>
+    </md-dialog-actions>
+</md-dialog>

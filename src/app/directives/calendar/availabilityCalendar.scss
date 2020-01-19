@@ -1,0 +1,11 @@
+@import "calendar.directive";
+
+[availability-calendar].calendar .item.Available {
+    background-color: $availableColor;
+}
+[availability-calendar].calendar .item.Unavailable {
+    background-color: $unavailableColor;
+}
+[availability-calendar].calendar .item.Undefined {
+    background-color: $borderColor;
+}

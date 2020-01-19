@@ -1,0 +1,41 @@
+<md-dialog flex="90">
+    <md-toolbar>
+        <div class="md-toolbar-tools">Crossing</div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+
+        <md-list>
+
+            <md-list-item layout="row">
+                <div flex>Date</div>
+                <div flex>Time</div>
+                <div flex>Type</div>
+                <div flex>Duration</div>
+                <div flex>Therapist</div>
+                <div flex>Room</div>
+                <div flex>Clients</div>
+            </md-list-item>
+
+            <md-divider></md-divider>
+
+            <div ng-repeat="crossingData in crossingDataArr">
+                <md-list-item ng-repeat="item in crossingData.items" layout="row">
+                    <div flex>{{showDate(crossingData.date)}}</div>
+                    <div flex>{{item.time}}</div>
+                    <div flex>{{item.type}}</div>
+                    <div flex>{{item.duration}} min</div>
+                    <div flex>{{item.therapist.name}}</div>
+                    <div flex>{{item.room.name}}</div>
+                    <div flex>{{showClients(item.clients)}}</div>
+                </md-list-item>
+            </div>
+
+        </md-list>
+
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="Close" ng-click="cancel()" class="md-raised">Close</md-button>
+        <md-button aria-label="Hide" ng-click="backToEdit()" class="md-raised md-primary" ng-if="dialogConf.useEditBtn">Back to Edit</md-button>
+        <md-button aria-label="Hide" ng-click="doAnyway()" class="md-raised md-warn" ng-if="dialogConf.useConfirmBtn">Apply anyway</md-button>
+    </md-dialog-actions>
+</md-dialog>

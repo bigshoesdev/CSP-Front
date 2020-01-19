@@ -1,0 +1,57 @@
+<md-dialog flex="30">
+    <md-toolbar>
+        <div class="md-toolbar-tools">Availability Type</div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+        <md-radio-group ng-model="timeItem.type">
+            <md-radio-button value="A" class="md-primary" aria-label="Available">Available</md-radio-button>
+            <md-radio-button value="U" class="md-warn" aria-label="Unavailable">Unavailable</md-radio-button>
+        </md-radio-group>
+
+        <md-datepicker ng-model="date"
+                       ng-change="dayRecord.date = dateToString(date)"
+                       md-placeholder="Date"
+                       md-max-date=""
+                       md-min-date=""
+                       name="fDate"
+                       required
+                       ng-show="showDate"
+        ></md-datepicker>
+
+        <div layout="row" layout-xs="column" layout-align="start center">
+            <md-input-container class="md-block" flex>
+                <label>Time start</label>
+                <input type="time"
+                       ng-model="timeStart"
+                       ng-change="timeItem.timeStart = minOfDay(timeStart)"
+                       name="fTimeStart"
+                       required
+                       ng-max="timeEnd">
+                <div ng-messages="ctrl.form.fTime.$error">
+                    <div ng-message="required">Time is require</div>
+                    <div ng-message="time">Fill in the time field</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex>
+                <label>Time end</label>
+                <input type="time"
+                       ng-model="timeEnd"
+                       ng-change="timeItem.timeEnd = minOfDay(timeEnd)"
+                       name="fTimeEnd"
+                       required
+                       ng-min="timeStart">
+                <div ng-messages="ctrl.form.fTime.$error">
+                    <div ng-message="required">Time is require</div>
+                    <div ng-message="time">Fill in the time field</div>
+                </div>
+            </md-input-container>
+
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="Save" ng-click="save()" class="md-raised md-primary">Save</md-button>
+        <md-button aria-label="Close" ng-click="cancel()" class="md-raised">Close</md-button>
+        <md-button aria-label="Remove" ng-click="remove()" class="md-raised md-warn" ng-show="isEdit">Remove</md-button>
+    </md-dialog-actions>
+</md-dialog>

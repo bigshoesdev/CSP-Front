@@ -1,0 +1,26 @@
+<form name="ctrl.form" class="myAvailability">
+
+    <div layout="row" layout-xs="column" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+        <menu-button></menu-button>
+        <h3 flex>My Availability</h3>
+    </div>
+
+    <div layout="row" layout-xs="column" layout-align="start center" class="datesRow">
+
+        <md-datepicker ng-model="startDate" md-placeholder="Beginning" md-max-date="endDate" name="startDate" required>
+        </md-datepicker>
+
+        <md-datepicker ng-model="endDate" md-placeholder="End" md-min-date="startDate" name="endDate" required>
+        </md-datepicker>
+
+    </div>
+
+    <md-button class="md-raised md-primary"
+               aria-label="Go to my availability"
+               ng-click="goToMyAvailability($event)"
+               ng-disabled="ctrl.form.$invalid">
+        <md-icon md-font-set="material-icons">event available</md-icon>
+        Go to my availability
+    </md-button>
+
+</form>

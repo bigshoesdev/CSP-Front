@@ -1,0 +1,30 @@
+<content-header>Mail Templates</content-header>
+
+<div class="formContainer">
+    <v-accordion class="ng-isolate-scope" multiple>
+        <v-pane ng-repeat="mailItem in tableData | orderBy:ctrl.mailSort">
+            <v-pane-header>
+                <md-list-item layout="row">
+                    <div>
+                        <md-button ng-click="$pane.toggle()"
+                                   class="md-icon-button md-primary"
+                                   aria-label="expand or collapse">
+                            <md-tooltip md-direction="top" md-delay="800">{{ $pane.isExpanded() ? 'collapse' :
+                                'expand'}}
+                            </md-tooltip>
+                            <md-icon md-font-set="material-icons">{{ $pane.isExpanded() ? 'arrow_drop_up' :
+                                'arrow_drop_down'}}
+                            </md-icon>
+                        </md-button>
+                    </div>
+                    <h4>{{mailItem.type.title}}</h4>
+                </md-list-item>
+            </v-pane-header>
+            <v-pane-content>
+                <div mail-table mail-table-data="mailItem"></div>
+            </v-pane-content>
+        </v-pane>
+    </v-accordion>
+</div>
+
+<!-- add `multiple` attribute to allow multiple sections to open at once -->

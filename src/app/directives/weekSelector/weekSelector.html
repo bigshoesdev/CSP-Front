@@ -1,0 +1,20 @@
+<md-select ng-model="selected"
+           md-selected-text="selectedText()"
+           md-container-class="selectAllHeader"
+           multiple
+           aria-label="Selected List">
+
+    <md-checkbox aria-label="Select All"
+                 ng-checked="ctrl.isChecked()"
+                 md-indeterminate="ctrl.isIndeterminate()"
+                 ng-click="ctrl.toggleAll()">
+        All
+    </md-checkbox>
+
+    <md-divider></md-divider>
+
+    <md-option ng-value="item" ng-repeat="item in items"
+               ng-disabled="ctrl.isDayDisabled(item)">
+        {{ ::weekDaysShort[item] }}
+    </md-option>
+</md-select>

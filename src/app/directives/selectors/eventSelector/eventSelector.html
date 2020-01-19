@@ -1,0 +1,53 @@
+<div selector="eventRecords"
+     selector-all="allEventRecords"
+     selector-title="{{ title }}"
+     selector-id-property=".event.id"
+     selector-display-item="displayItem"
+     disabled="disabled"
+     multiple="true"
+></div>
+<md-list ng-if="eventRecords && eventRecords.length > 0">
+
+    <md-list-item layout="row" class="md-list-item-text">
+        <div flex="75">
+            <p>Event name</p>
+        </div>
+
+        <div class="md-block" flex="15">
+            <p>Event capacity</p>
+        </div>
+
+        <section layout="row" layout-xs="column" layout-align="center center" layout-wrap flex>
+            <md-button class="md-icon-button md-secondary" disabled aria-label="none"></md-button>
+        </section>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <div ng-repeat="eventRecord in eventRecords" >
+        <md-list-item layout="row">
+            <div  flex="75">
+                <p>{{ ::eventRecord.event.name }}</p>
+            </div>
+
+            <md-input-container class="md-block" flex="15">
+                <!--<label>Event capacity</label>-->
+                <input type="number" ng-model="eventRecord.capacity" aria-label="event capacity"/>
+            </md-input-container>
+
+            <section layout="row"
+                     layout-xs="column"
+                     layout-align="center center"
+                     layout-wrap
+                     flex>
+                <md-button class="md-icon-button md-secondary md-warn"
+                           ng-click="unselect(eventRecord.event.id)"
+                           ng-hide="disabled">
+                    <md-tooltip md-direction="top" md-delay="800">Remove Event</md-tooltip>
+                    <md-icon md-font-set="material-icons">clear</md-icon>
+                </md-button>
+            </section>
+        </md-list-item>
+        <md-divider></md-divider>
+    </div>
+
+</md-list>

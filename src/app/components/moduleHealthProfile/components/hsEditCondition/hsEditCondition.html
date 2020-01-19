@@ -1,0 +1,100 @@
+<form name="ctrl.form" class="healthSectionsEditValues">
+
+    <div layout="row" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>Edit Condition ({{ sectionType }})</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-icon-button md-raised" ng-click="backOrDone()">
+                <md-tooltip md-direction="top" md-delay="800">Done and Back</md-tooltip>
+                <md-icon md-font-set="material-icons">arrow_back</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+
+    <div ng-repeat="healthCondition in healthConditionColumn.values"
+         ng-mouseover="showItemButtons=true" ng-mouseleave="showItemButtons=false"
+         layout="row">
+
+        <md-input-container class="md-block" flex>
+            <label>Condition Title</label>
+            <input ng-model="healthCondition.title" type="text" ng-model-options="{ updateOn: 'blur' }"
+                   aria-label=" "
+                   ng-change="onChange(healthCondition)">
+        </md-input-container>
+
+        <md-input-container flex>
+            <label>Sections</label>
+            <div selector="healthCondition.sections"
+                 selector-all="availableSections"
+                 selector-title="Sections"
+                 selector-on-close="onChange(healthCondition)"
+                 multiple="true"
+            ></div>
+        </md-input-container>
+
+        <md-input-container flex>
+            <md-select ng-model="healthCondition.defaultFlagColor"
+                       ng-change="onChange(healthCondition)"
+                       ng-model-options="{ trackBy: '$value' }"
+                       placeholder="Default Flag Color"
+                       aria-label=" ">
+                <md-option ng-repeat="color in flagsValues" value="{{color}}">
+                    {{color}}
+                    <md-icon md-font-set="material-icons" style="color: {{ ::color }}">flag</md-icon>
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-button ng-click="remove(healthCondition, $event)" class="md-icon-button md-warn"
+                   aria-label="Remove condition" ng-disabled="!showItemButtons">
+            <md-tooltip md-direction="top" md-delay="800">Remove condition</md-tooltip>
+            <md-icon md-font-set="material-icons" ng-show="showItemButtons">clear</md-icon>
+        </md-button>
+
+    </div>
+
+    <div ng-if="newHealthCondition" layout="row">
+
+        <md-input-container class="md-block" flex>
+            <label>Condition Title</label>
+            <input ng-model="newHealthCondition.title" type="text" ng-model-options="{ updateOn: 'blur' }"
+                   aria-label="New Condition Title">
+        </md-input-container>
+
+        <md-input-container flex>
+            <label>Sections</label>
+            <div selector="newHealthCondition.sections"
+                 selector-all="availableSections"
+                 selector-title="Sections"
+                 multiple="true"
+            ></div>
+        </md-input-container>
+
+        <md-input-container flex>
+            <md-select ng-model="newHealthCondition.defaultFlagColor"
+                       ng-model-options="{ trackBy: '$value' }"
+                       placeholder="Default Flag Color"
+                       aria-label="Default Flag Color">
+                <md-option ng-repeat="color in flagsValues" value="{{color}}">
+                    {{color}}
+                    <md-icon md-font-set="material-icons" style="color: {{ ::color }}">flag</md-icon>
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-button ng-click="applyNew()" class="md-icon-button md-raised md-primary"
+                   aria-label="Add new condition">
+            <md-tooltip md-direction="top" md-delay="800">Apply new condition</md-tooltip>
+            <md-icon md-font-set="material-icons">add</md-icon>
+        </md-button>
+
+    </div>
+
+    <div layout="row" layout-xs="column" layout-align="start center">
+        <md-button class="md-primary" ng-click="addNew()">+ Add new</md-button>
+    </div>
+
+</form>

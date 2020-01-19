@@ -1,0 +1,27 @@
+<content-header>{{ title }}</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+
+    <md-button type="submit" class="md-raised md-primary" ng-click="save()"
+               ng-disabled="ctrl.form.$invalid || waitResponse">
+        Edit
+    </md-button>
+    <md-button class="md-raised" ng-click="cancel()">
+        Back
+    </md-button>
+</div>
+
+<div class="formContainer">
+
+    <form name="ctrl.form">
+        <div layout="row" layout-xs="column">
+            <div flex>
+                <div ng-repeat="(key, value) in model">
+                    <h2 class="md-title">{{key}}</h2>
+                    {{ value }}
+                    <p>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

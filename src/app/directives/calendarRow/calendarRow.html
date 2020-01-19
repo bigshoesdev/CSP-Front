@@ -1,0 +1,75 @@
+
+<div class="calendarRow" layout="row" ng-cloak id="calendarRowId">
+    <div class="calendarTimes" style="width: 70px">
+        <div ng-repeat="time in times track by $index" style="height: 25px"
+             class="timeItem">{{ time }}
+        </div>
+    </div>
+
+    <!--dnd-droppable="isDndAble"-->
+    <!--dnd-model="ctrl"-->
+    <!--dnd-on-dragenter="onDragenter($dropmodel, $dragmodel)"-->
+    <!--dnd-on-dragleave="onDragleave($dropmodel, $dragmodel)"-->
+    <!--dnd-on-drop="onDrop($dropmodel, $dragmodel)"-->
+    <div class="calendarBody" id="calendarBodyId"  style="width: calc(100% - 70px);"
+         ng-mousemove="dMouseMove($event)"
+         ng-mouseup="dMouseUp($event)"
+         >
+
+        <div class="itemBg {{ bgItem.clazz }}"
+             ng-repeat="bgItem in bgItems"
+             dnd-rect="bgItem.rect">
+            <div ng-repeat="itemStr in showBgItem(bgItem)" class="itemRow" >{{itemStr}}**</div>
+        </div>
+
+        <!--dnd-draggable="isDndAble"-->
+        <!--dnd-rect="item.rect"-->
+        <!--dnd-model="item.model"-->
+        <!--dnd-on-dragstart="onDragstart($dropmodel, $dragmodel)"-->
+        <!--dnd-on-drag="onDrag(item.$$hashKey)"-->
+        <!--dnd-on-dragend="onDragend($dropmodel, $dragmodel)"-->
+        <!--dnd-draggable-opts="{useAsPoint: false}"-->
+
+        <!--draggable="{{isDndAble}}"-->
+        <!--ondragstart="angular.element(this).scope().dStart(event,$dropmodel, $dragmodel)"-->
+        <!--ondragend="angular.element(this).scope().onDragend($dropmodel, $dragmodel)"-->
+
+        <!-- render-rect="item.rect"-->
+
+        <div class="draggable item {{ item.clazz }} {{ item.model.state }}"
+             ng-repeat="item in items"
+             dnd-rect="item.rect"
+             dnd-model="item.model"
+             data-value="{{exp.expression}}"
+             ng-mousedown="dMouseDown($event, item.model)"
+             ng-dblclick="onItemDblClick($event, item)"
+             ng-attr-id="{{::item.$$hashKey}}"
+             changesize="item.rect">
+
+            <md-button ng-click="onItemDblClick($event, item)" class="md-icon-button md-raised md-primary editAction material-icons" aria-label="edit">
+                <md-icon md-font-set="material-icons">edit</md-icon>
+            </md-button>
+
+            <div ng-repeat="itemStr in showItem(item)"  class="itemRow">{{::itemStr}}</div>
+
+            <md-button class="md-icon-button md-raised md-primary showAction material-icons" aria-label="edit">
+                <md-icon class="material-icons iconShowAction" md-svg-icon="../../assets/images/menu.svg"  md-font-set="material-icons"></md-icon>
+            </md-button>
+        </div>
+
+
+        <div class="item itemAdd"
+             ng-show="isPlusItemShown"
+             dnd-rect="plusItem.rect"
+             ng-click="onPlusClick($event)">
+            + Add
+        </div>
+
+        <canvas class="virtualGrid"
+                ng-mousemove="onMouseMove($event)"
+                ng-mouseleave="onMouseOut()"
+                ng-click="onClick($event)"
+        ></canvas>
+
+    </div>
+</div>

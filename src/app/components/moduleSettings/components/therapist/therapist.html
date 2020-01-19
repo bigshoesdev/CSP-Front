@@ -1,0 +1,204 @@
+<md-header></md-header>
+
+<div class="formContainer">
+    <form name="ctrl.form">
+
+        <div layout="row" layout-xs="column">
+            <div flex>
+                <md-input-container class="md-block">
+                    <label>First Name *</label>
+                    <input ng-model="model.therapistInfo.firstName"
+                           name="cName" type="text" placeholder="First Name" required ng-maxlength="80" autofocus=""
+                           ng-disabled="disableEdit">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Last Name</label>
+                    <input ng-model="model.therapistInfo.lastName"
+                           name="cLastName" type="text" placeholder="Last Name" ng-maxlength="80" autofocus=""
+                           ng-disabled="disableEdit">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>E-Mail *</label>
+
+                    <input ng-model="model.email"
+                           ng-model-options="{ debounce: 200 }"
+                           ng-change="checkEmail()"
+                           name="cEmail"
+                           type="email"
+                           placeholder="mail@mail.com"
+                           required
+                           ng-disabled="disableEdit">
+
+                    <div ng-messages="ctrl.form.cEmail.$error" class="error-container">
+                        <div ng-message="unique">Such email exists already.</div>
+                    </div>
+
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>External ID:</label>
+                    <input ng-model="model.externalId"
+                           ng-disabled="true"
+                           name="cExternalId"
+                           type="number"
+                           placeholder="ID: 1587"
+                           ng-maxlength="50"
+                           autofocus=""/>
+                </md-input-container>
+
+                <div class="md-block select-container">
+                    <label>Services Categories</label>
+                    <div chips-selector-title="Select Services Categories"
+                         chips-selector="model.serviceCategories" chips-selector-all="categories"
+                         disabled="disableEdit">
+                    </div>
+                </div>
+
+                <div class="md-block select-container">
+                    <label>Services</label>
+                    <div chips-selector-title="Select Services"
+                         chips-selector="model.services"
+                         chips-selector-all="services"
+                         disabled="disableEdit">
+                    </div>
+                </div>
+
+                <div class="md-block select-container">
+                    <label>Preferred Rooms</label>
+                    <div chips-selector-title="Select Preferred Rooms"
+                         chips-selector="model.preferredRooms"
+                         chips-selector-all="rooms"
+                         disabled="disableEdit">
+                    </div>
+                </div>
+
+                <div class="md-block select-container">
+                    <label>Events</label>
+                    <div event-selector-title="Select Events"
+                         event-selector="model.events"
+                         event-selector-all="allEventRecords"
+                         event-display-item="displayEvent"
+                         disabled="disableEdit">
+                    </div>
+                </div>
+
+            </div>
+            <!-- Therapist Info board-->
+            <div flex>
+                <md-input-container class="md-block">
+                    <label>Preferred Name</label>
+                    <input ng-model="model.therapistInfo.preferredName"
+                           name="cPreferredName"
+                           type="text"
+                           placeholder="Preferred Name"
+                           ng-maxlength="80"
+                           ng-disabled="disableEdit"
+                           autofocus=""/>
+                </md-input-container>
+
+                <md-input-container class="md-block select-container">
+                    <label ng-if="model.therapistInfo.gender !== undefined">Gender</label>
+                    <md-select
+                        ng-model="model.therapistInfo.gender"
+                        ng-disabled="disableEdit"
+                        placeholder="Gender"
+                    >
+                        <md-option ng-value="0">Male</md-option>
+                        <md-option ng-value="1">Female</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Personal E-mail address</label>
+                    <input ng-model="model.therapistInfo.emailPersonal"
+                           name="cEmailPersonal" type="email" placeholder="mail@mail.com" ng-maxlength="320"
+                           ng-disabled="disableEdit"
+                           autofocus=""/>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Mobile Phone</label>
+                    <input ng-model="model.therapistInfo.phoneMobile"
+                           name="cPhoneMobile" type="text" placeholder="+X XXX XXX X XXX" ng-maxlength="50"
+                           ng-disabled="disableEdit"
+                           autofocus=""/>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Home Phone</label>
+                    <input ng-model="model.therapistInfo.phoneHome"
+                           ng-disabled="disableEdit"
+                           name="cPhoneHome" type="text" placeholder="" ng-maxlength="50" autofocus=""/>
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Birth Date</label>
+                    <md-datepicker ng-model="model.therapistInfo.birthday"
+                                   ng-disabled="disableEdit"
+                                   md-placeholder="maxDate">
+                    </md-datepicker>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Company Name</label>
+                    <input ng-model="model.therapistInfo.company"
+                           ng-disabled="disableEdit"
+                           name="cCompany" type="text" placeholder="Company Name" ng-maxlength="80" autofocus=""/>
+                </md-input-container>
+
+                <div class="md-block select-container">
+                    <label>Countries</label>
+                    <div chips-selector-title="Select Country"
+                         chips-selector="model.therapistInfo.country"
+                         chips-selector-all="countries"
+                         chips-selector-on-close="getRegions()"
+                         searchable="true"
+                         multiple="false"
+                         disabled="disableEdit"
+                    >
+                    </div>
+                </div>
+
+                <div class="md-block select-container">
+                    <label>State</label>
+                    <div chips-selector-title="Select State"
+                         chips-selector="model.therapistInfo.state"
+                         chips-selector-all="regions"
+                         multiple="false"
+                         required="false"
+                         name="cState"
+                         disabled="isDisableRegions() && disableEdit"
+                    >
+                    </div>
+                </div>
+
+                <md-input-container class="md-block">
+                    <label>City</label>
+                    <input ng-model="model.therapistInfo.city"
+                           ng-disabled="disableEdit"
+                           name="cCity" type="text" placeholder="City" ng-maxlength="20" autofocus=""/>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Street address</label>
+                    <input ng-model="model.therapistInfo.street"
+                           ng-disabled="disableEdit"
+                           name="cCity" type="text" placeholder="Street address" ng-maxlength="80" autofocus=""/>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Postal Code/Zip</label>
+                    <input ng-model="model.therapistInfo.postcode"
+                           ng-disabled="disableEdit"
+                           name="cPostcode" type="text" placeholder="Postal Code/Zip" ng-maxlength="80" autofocus=""/>
+                </md-input-container>
+
+            </div>
+            <!-- end therapistInfo board-->
+        </div>
+
+
+    </form>
+</div>

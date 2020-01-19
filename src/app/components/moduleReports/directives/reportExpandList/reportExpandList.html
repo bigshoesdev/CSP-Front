@@ -1,0 +1,101 @@
+<div class="list">
+
+    <md-input-container class="md-block" flex ng-show="hideOflineFilter">
+        <label>Filter</label>
+        <input ng-model="filterObj.$">
+    </md-input-container>
+
+    <!--start table-->
+    <table ng-cloak class="expanded-table">
+        <!--table-header-->
+        <tr class="no-hover expanded-table-header">
+            <th ng-repeat="th in ::config.thList"
+                class="alu-table-cell"
+                ng-style="{
+                    width: th.width ? th.width + '%' : auto
+                }"
+                nowrap>
+                <button class="column-title" ng-click="toggleSort(th.sortKey)">
+                    {{ ::th.title }}
+                    <md-icon
+                        md-font-set="material-icons"
+                        ng-class="{
+                            active: isSortActive(th.sortKey),
+                            inverse: isSortInverse(th.sortKey)
+                        }"
+                    >play_arrow
+                    </md-icon>
+                </button>
+            </th>
+            <!--info block-->
+            <th class="expanded-table-header last">
+                <md-button class="md-icon-button">
+                    <md-icon md-font-set="material-icons">info_outline</md-icon>
+                </md-button>
+            </th>
+        </tr>
+        <!--table-body-->
+        <tr class="alu-table-row"
+            ng-repeat-start="(index, tr) in config.trList | filter:filterObj:strict"
+            ng-click="toggleExpand(index)">
+            <td ng-repeat="td in tr.tdList" class="alu-table-cell">
+                <div class="listItem" render-as="td.renderAsConf" ng-click="config.itemClick(tr.model)"></div>
+            </td>
+            <!--edit button-->
+            <td class="alu-table-cell">
+                <md-button ng-repeat="action in config.actions"
+                           ng-click="action.fn(tr.model, $event)"
+                           class="md-icon-button"
+                           ng-class="{
+                                        'md-primary': 'md-primary'==action.buttonClass,
+                                        'md-warn': 'md-warn'==action.buttonClass,
+                                        'md-accent': 'md-accent'==action.buttonClass
+                                        }"
+                           aria-label="{{ ::action.label }}">
+                    <md-tooltip md-direction="top" md-delay="800">{{ ::action.label }}</md-tooltip>
+                    <md-icon md-font-set="material-icons" class="show-always">{{ ::action.iconName }}</md-icon>
+                </md-button>
+            </td>
+
+        </tr>
+        <tr ng-repeat-end class="no-hover">
+            <td colspan="7">
+                <div class="expand" id="expandPanel{{::index}}">
+                    <!--startExpandTable-->
+                    <button class="md-raised md-primary"
+                            ng-click="redirectToReportTable(tr.model.url)">
+                        Go to report data
+                        <md-icon md-font-set="material-icons">play_arrow</md-icon>
+                    </button>
+                    <!--endExpandTable-->
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <uib-pagination ng-model="paging.currentPage"
+                    total-items="paging.totalItems"
+                    items-per-page="paging.itemsPerPage"
+                    max-size="paging.maxSize"
+                    ng-change="paging.pageChanged()"
+                    class="pagination-sm"
+                    boundary-link-numbers="true"
+                    rotate="false"
+                    num-pages="numpages"
+                    ng-show="numpages > 1"></uib-pagination>
+
+    <div class="btn-group pagination_pages" uib-dropdown is-open="status.isopen" ng-show="paging.totalItems > 5">
+        <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+            {{ paging.itemsPerPage }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem" ng-repeat="page in pageElements">
+                <a ng-click="changeItemsPerPage(page)">{{ page }}</a>
+            </li>
+            <li class="divider"></li>
+            <li role="menuitem"><a ng-click="changeItemsPerPage(40)">40</a></li>
+        </ul>
+    </div>
+
+
+</div>

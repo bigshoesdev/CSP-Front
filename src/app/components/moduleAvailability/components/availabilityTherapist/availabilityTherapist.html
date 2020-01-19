@@ -1,0 +1,63 @@
+<content-header>{{ title }}</content-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+
+            <md-input-container class="md-block">
+                <label>Select session</label>
+                <div selector="session"
+                     selector-all="sessions"
+                     selector-title="Search for session.."
+                     selector-id-property=".id"
+                     selector-on-close="applySession(session)"
+                     selector-display-item="displayItem"
+                     name="nSession"
+                ></div>
+                <div ng-messages="ctrl.form.nSession.$error">
+                    <div ng-message="required">Session is required.</div>
+                </div>
+            </md-input-container>
+
+            <div ng-show="session">
+
+                <div layout="row" layout-xs="column" layout-align="start center">
+
+                    <md-datepicker ng-model="startDate" md-placeholder="Beginning" md-max-date="endDate"
+                                   name="startDate"
+                                   required>
+                    </md-datepicker>
+
+                    <md-datepicker ng-model="endDate" md-placeholder="End" md-min-date="startDate" name="endDate"
+                                   required>
+                    </md-datepicker>
+
+                </div>
+
+                <md-input-container class="md-block">
+                    <label>Select therapist</label>
+                    <div selector="therapist"
+                         selector-all="session.therapists"
+                         selector-title="Search for therapist.."
+                         selector-id-property=".id"
+                         selector-on-close="applyTherapist(therapist)"
+                         selector-display-item="displayItem"
+                         name="nTherapist"
+                    ></div>
+                    <div ng-messages="ctrl.form.nTherapist.$error">
+                        <div ng-message="required">Therapist is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-button class="md-raised md-primary" ng-show="therapist"
+                           aria-label="Go to therapist availability"
+                           ng-click="goToTherapistAvailability($event)"
+                           ng-disabled="ctrl.form.$invalid">
+                    <md-icon md-font-set="material-icons">event available</md-icon>
+                    Go to therapist availability
+                </md-button>
+
+            </div>
+        </form>
+    </div>
+</div>

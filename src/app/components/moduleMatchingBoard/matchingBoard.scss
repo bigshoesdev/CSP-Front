@@ -1,0 +1,30 @@
+.calendarRowTable {
+    overflow-y: auto;
+    position: relative;
+
+    .tableHeader {
+        background-color: white;
+    }
+    .columnTitle {
+        text-align: center;
+        padding: 10px;
+        min-width: 100px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background: #ffffff;
+
+        &:nth-child(2n){
+            background: #F0F3F4;
+        }
+    }
+}
+
+.matchingBoard {
+    .buttons-header md-checkbox {
+        margin-bottom: 0;
+    }
+    .confirmationLink {
+        margin: 18px 0;
+    }
+}

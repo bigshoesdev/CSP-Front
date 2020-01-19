@@ -1,0 +1,44 @@
+<div layout="column" ng-cloak>
+
+    <md-content layout="row" layout-wrap layout-align="center center" style="height: 100vh">
+
+        <form name="signInForm">
+
+            <div layout="row" layout-align="start center">
+                <img src="assets/images/logo2.png" width="154" height="64" alt="Fresh Start Health Retreats">
+            </div>
+
+            <h3>Sign in</h3>
+
+            <md-input-container class="md-block" md-no-float>
+                <input ng-model="username" name="uName" type="email" required md-no-asterisk placeholder="Email" autofocus>
+                <div ng-messages="signInForm.uName.$error">
+                    <div ng-message="required">User email is required.</div>
+                    <div ng-message="email">User email has wrong format.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" md-no-float>
+                <input ng-model="password" name="uPassword" type="password" ng-change="onChangePassword()" required placeholder="Password">
+                <div ng-messages="signInForm.uPassword.$error">
+                    <div ng-message="required">Password is required.</div>
+                    <div ng-message="wrongPassword">Wrong password.</div>
+                </div>
+            </md-input-container>
+
+            <md-checkbox ng-model="rememberMe" aria-label="Remember Me">Remember me</md-checkbox>
+
+            <div layout="row" layout-xs="column" layout-align="space-between center" layout-wrap>
+                <md-button class="md-raised md-primary" ng-click="signIn()" ng-disabled="waitResponse">
+                    Sign in
+                </md-button>
+                <md-button class="md-primary" ui-sref="authless.forgotPassword">
+                    Forgot password
+                </md-button>
+            </div>
+
+        </form>
+
+    </md-content>
+
+</div>

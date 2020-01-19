@@ -1,0 +1,12 @@
+.md-list-item-text {
+    font-weight: bold;
+    color: transparentize(#424242, 0.2);
+}
+
+[event-selector] md-list md-list-item md-input-container {
+    margin: 0;
+}
+
+[event-selector] md-list md-list-item md-input-container .md-errors-spacer {
+    float: none;
+}

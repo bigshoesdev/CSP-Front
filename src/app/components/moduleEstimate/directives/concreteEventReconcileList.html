@@ -1,0 +1,90 @@
+<md-list ng-cloak class="concreteEventReconcileList">
+
+    <div class="tableHeader" sticky style="height: auto">
+        <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+            <div flex ng-if="selectionEnabled">
+                <md-menu>
+                    <md-button ng-click="$mdMenu.open($event)" class="md-icon-button md-primary"
+                               aria-label="Open select menu">
+                        <md-icon md-font-set="material-icons">{{selectedStatusIcon()}}</md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click="selectAll()">Select all</md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="unselectAll()">Unselect all</md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-repeat="selectionAction in selectionActions">
+                            <md-button ng-click="selectionAction.fn(reconcileEventRows)">{{selectionAction.title}}
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+
+            </div>
+            <div flex>Service</div>
+            <div flex>Therapist</div>
+            <div flex>Client</div>
+            <div flex>Room</div>
+            <div flex>Date</div>
+            <div flex>Time</div>
+            <div flex>Duration</div>
+            <div flex>Status</div>
+            <div flex>Reconcile status</div>
+            <div flex>Estimate status</div>
+            <div flex>Estimate link</div>
+            <div flex>Cost</div>
+            <md-button ng-repeat="itemAction in itemActions"
+                       class="md-icon-button md-primary" aria-label="void" disabled>
+                <md-icon md-font-set="material-icons" class="ng-hide">_</md-icon>
+            </md-button>
+
+        </md-list-item>
+        <md-divider></md-divider>
+    </div>
+
+    <div ng-repeat="reconcileEventRow in reconcileEventRows">
+        <md-list-item class="md-no-sticky show-on-hover-wrapper" layout="row" layout-xs="column"
+                      layout-align="start stretch"
+                      ng-class="{ disabled: reconcileEventRow.disabled }"
+        >
+            <div flex ng-if="selectionEnabled">
+                <md-checkbox ng-model="reconcileEventRow.selected"
+                             ng-change="onRowChecked(reconcileEventRow)"
+                             aria-label="check"
+                             ng-disabled="reconcileEventRow.disabled"
+                ></md-checkbox>
+            </div>
+            <div flex>{{reconcileEventRow.serviceName}}</div>
+            <div flex>{{reconcileEventRow.therapistName}}</div>
+            <div flex>{{reconcileEventRow.clientName}}</div>
+            <div flex>{{reconcileEventRow.roomName}}</div>
+            <div flex>{{reconcileEventRow.date}}</div>
+            <div flex>{{reconcileEventRow.time}}</div>
+            <div flex>{{reconcileEventRow.durationTotal}}</div>
+            <div flex>{{reconcileEventRow.status}}</div>
+            <div flex>{{reconcileEventRow.reconcileEvent.reconcileState}}</div>
+            <div flex>
+                <span ng-class="{ badge: ifEstimated(reconcileEventRow.reconcileEvent.estimateState)}" class="badge-secondary">{{reconcileEventRow.reconcileEvent.estimateState}}</span>
+            </div>
+            <div flex>
+                <a ng-if="reconcileEventRow.estimateLink"
+                   ng-href="{{reconcileEventRow.estimateLink}}"
+                   target="_blank"
+                >Estimate</a>
+            </div>
+            <div flex>{{ reconcileEventRow.price | currency : ' ' : 2 }} CAD</div>
+
+            <md-button ng-repeat="itemAction in itemActions"
+                       ng-click="itemAction.fn(reconcileEventRow, $event)" class="md-icon-button md-primary"
+                       aria-label="{{itemAction.title}}">
+                <md-tooltip md-direction="top" md-delay="800">{{itemAction.title}}</md-tooltip>
+                <md-icon md-font-set="material-icons" class="show-on-hover">{{itemAction.iconName}}</md-icon>
+            </md-button>
+
+        </md-list-item>
+        <md-divider></md-divider>
+    </div>
+
+</md-list>

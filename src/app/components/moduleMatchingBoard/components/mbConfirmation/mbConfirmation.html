@@ -1,0 +1,51 @@
+<form name="ctrl.form" class="mbConfirmation">
+
+    <div layout="row" layout-xs="column" layout-align="space-between center" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>Confirmation for session: '{{session.name}}' and client: '{{client.name}}'</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-icon-button md-raised" ng-click="backOrDone()">
+                <md-tooltip md-direction="top" md-delay="800">Back</md-tooltip>
+                <md-icon md-font-set="material-icons">arrow_back</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+    <h4 class="confirmationLink">
+        <a href="{{confirmationLink}}" ng-show="confirmationLink">Link to confirmation</a>
+    </h4>
+
+    <md-list ng-cloak class="alignMdList">
+
+        <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+            <div flex><h4>Note</h4></div>
+            <div flex><h4>Room</h4></div>
+            <div flex><h4>Service</h4></div>
+            <div flex><h4>Therapist</h4></div>
+            <div flex><h4>Date</h4></div>
+            <div flex><h4>Duration</h4></div>
+            <div flex><h4>Time</h4></div>
+        </md-list-item>
+
+        <md-divider></md-divider>
+
+        <div ng-repeat="viewMatchingDataItem in viewMatchingDataItems">
+
+            <md-list-item layout="row" layout-xs="column" layout-align="start center">
+                <div flex>{{viewMatchingDataItem.note}}</div>
+                <div flex>{{viewMatchingDataItem.room}}</div>
+                <div flex>{{viewMatchingDataItem.service}}</div>
+                <div flex>{{viewMatchingDataItem.therapist}}</div>
+                <div flex>{{viewMatchingDataItem.date}}</div>
+                <div flex>{{viewMatchingDataItem.duration}} min</div>
+                <div flex>{{viewMatchingDataItem.time}}</div>
+            </md-list-item>
+
+            <md-divider></md-divider>
+        </div>
+
+    </md-list>
+
+</form>

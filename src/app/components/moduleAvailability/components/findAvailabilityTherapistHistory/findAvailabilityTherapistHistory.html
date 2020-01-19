@@ -1,0 +1,49 @@
+<content-header>Find Therapist's Availability History</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+
+    <md-button class="md-raised"
+               ng-click="cancel()">
+        <md-icon md-font-set="material-icons" class="ng-binding ng-scope md-csp-theme material-icons" role="img">
+            keyboard_return
+        </md-icon>
+        {{ isUnsaved() ? 'Cancel' : 'Close' }}
+    </md-button>
+</div>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+
+            <md-input-container class="md-block">
+                <label>Select session</label>
+                <div selector="session"
+                     selector-all="sessions"
+                     selector-title="Select session"
+                     selector-id-property=".id"
+                     selector-display-item="displayItem"
+                ></div>
+            </md-input-container>
+
+
+            <md-input-container class="md-block">
+                <label>Select therapist</label>
+
+                <div selector="therapist"
+                     selector-all="therapists"
+                     selector-title="Select therapist"
+                     selector-id-property=".id"
+                     selector-display-item="displayItem"
+                ></div>
+            </md-input-container>
+
+            <md-button class="md-raised md-primary" ng-show="therapist"
+                       aria-label="Go To Therapist's Availability History"
+                       ng-click="goToHistory()">
+                <md-icon md-font-set="material-icons">event available</md-icon>
+                Go To Therapist's Availability History
+            </md-button>
+
+        </form>
+    </div>
+</div>

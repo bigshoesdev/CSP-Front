@@ -1,0 +1,41 @@
+<form name="ctrl.form">
+
+    <div layout="row" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>Client: "{{ client.name }}"</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-raised md-icon-button" ng-click="back()">
+                <md-tooltip md-direction="top" md-delay="800">Back</md-tooltip>
+                <md-icon md-font-set="material-icons">arrow_back</md-icon>
+            </md-button>
+            <md-button class="md-raised" ng-href="{{healthProfileUrl}}" target="_blank">
+                Profile
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="complete()" ng-show="isEditMode()">
+                Complete
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="edit()" ng-show="isEditBtnShown()">
+                Edit
+            </md-button>
+        </div>
+    </div>
+
+
+    <div ng-repeat="hsTableConfig in hsTableConfigs">
+        <div layout="row" layout-align="start center">
+            <h4>{{ healthSections[$index].title }}</h4>
+            <md-button ng-if="isUiMode()" ng-click="customizeSection(healthSections[$index].type)" class="md-icon-button md-primary" aria-label="customize">
+                <md-tooltip md-direction="top" md-delay="800">Customize {{healthSections[$index].title}} section</md-tooltip>
+                <md-icon md-font-set="material-icons">settings</md-icon>
+            </md-button>
+        </div>
+
+        <div health-section-table="hsTableConfig"
+             health-section-table-edit="isEditMode()"
+             health-section-table-ui="isUiMode()"
+        ></div>
+    </div>
+
+</form>

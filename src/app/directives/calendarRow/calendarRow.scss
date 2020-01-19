@@ -1,0 +1,113 @@
+@import "../calendar/calendar.directive";
+@import "./perfect-scrollbar";
+
+.calendarRow {
+    .calendarBody {
+        .item {
+            &.tentative{
+                background-color: #e0e0f9;//#d0d0f0;
+            }
+            &.confirmed{
+                background-color: #aaaaff;
+            }
+            &.unavailable {
+                background-color: $borderColor;
+            }
+            &.cancelled {
+                background-color: #ffaaaa;
+            }
+            &.completed {
+                background-color: #ccc;
+            }
+            &.booked {
+                background-color: $unavailableColor;
+            }
+            &.confirmation {
+                //background-color: $availableDisabledColor;
+                background-color: yellow;
+            }
+            &.confirmation-other { // confirmation of other clients in the session (except current)
+                //background-color: $availableDisabledColor;
+                background-color: yellow;
+                opacity: 0.5;
+                z-index: 0;
+            }
+            &.calendar {
+                background-color: $primaryColor;
+            }
+            &.draggable {
+                opacity: 0.7;
+            }
+
+            .itemRow {
+                //border-bottom: 1px solid #ddd;
+                line-height: 25px;
+
+            }
+
+            &:hover{
+                z-index: 2;
+                box-shadow: 1px 1px 10px rgba(0,0,0,0.36);
+                border: 0;
+                opacity: 1;
+                background-color: #bfbfef;
+            }
+            //&:after {
+            //    content: "";
+            //    display:block;
+            //    width: 0;
+            //    height: 0;
+            //    position: relative;
+            //    border-style: solid;
+            //    border-width: 30px 0 30px 50px;
+            //    left:162px;
+            //    z-index:15;
+            //    border-color: transparent transparent transparent black;
+            //}
+
+            .editAction {
+                position: absolute;
+                top: 5px;
+                left: 0;
+
+                display: none;
+                &:hover,
+                &:focus {
+                    display: block;
+                }
+            }
+            .showAction {
+                    position: absolute;
+                    text-align: center;
+                    left: calc(50% - 25px);
+                    width: 40px;
+                    height: 25px;
+                    display: none;
+                    z-index: 2;
+            }
+            overflow-x: hidden;
+
+
+        }
+    }
+    .show-booking-event{
+        transition: width linear, height linear, left linear;
+        transition-duration: .2s;
+        padding-left: 40px;
+    }
+    .hide-booking-event{
+        transition: none;
+        padding-left: 0;
+    }
+    .calendarTimes {
+        .timeItem {
+            line-height: 25px;
+            border-right: solid 1px #838383;
+            //border-width: 1px 0 0 1px;
+        }
+        z-index: 9;
+        background-color: white;
+    }
+
+
+}

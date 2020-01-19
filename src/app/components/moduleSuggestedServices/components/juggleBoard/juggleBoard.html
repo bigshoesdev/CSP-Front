@@ -1,0 +1,84 @@
+<content-header>Juggle Board</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+
+    <md-button class="md-raised"
+               ng-click="backOrDone()">
+        <md-tooltip md-direction="top" md-delay="800">Done and Back</md-tooltip>
+        <md-icon md-font-set="material-icons" class="ng-binding ng-scope md-csp-theme material-icons" role="img">
+            keyboard_return
+        </md-icon>
+        Done and back
+    </md-button>
+</div>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="JuggleBoardController.form" class="juggleBoard">
+            <div class="md-block select-container">
+                <label>Select session</label>
+                <div selector="JuggleBoardController.session"
+                     selector-all="JuggleBoardController.sessions"
+                     selector-title="Search for session.."
+                     selector-id-property=".id"
+                     selector-on-close="applySession(JuggleBoardController.session)"
+                     selector-display-item="displayItem"
+                     name="nSession"
+                ></div>
+                <div ng-messages="JuggleBoardController.form.nSession.$error">
+                    <div ng-message="required">Session is required.</div>
+                </div>
+            </div>
+
+            <div layout="row" layout-align="center center" layout-wrap>
+                <div class="md-block select-container" flex>
+                    <label>Set client filter</label>
+                    <div nullable-selector="JuggleBoardController.client"
+                         nullable-selector-all="JuggleBoardController.clients"
+                         nullable-selector-title="Search for client.."
+                         nullable-selector-null-title="All clients"
+                         nullable-selector-id-property=".id"
+                         nullable-selector-on-close="applyClient(JuggleBoardController.client)"
+                         nullable-selector-display-item="displayItem"
+                         name="nClient"
+                    ></div>
+                </div>
+
+                <md-button class="md-icon-button md-secondary md-warn">
+                    <md-tooltip md-direction="top" md-delay="800">Clear client filter</md-tooltip>
+                    <md-icon md-font-set="material-icons" ng-click="clearClient()">clear</md-icon>
+                </md-button>
+            </div>
+
+            <div class="md-block select-container">
+                <label>Filter by Services and Categories</label>
+                <div selector="selectedServiceOrCategoryList"
+                     selector-all="JuggleBoardController.serviceOrCategoryList"
+                     selector-title="Filter by Services and Categories"
+                     selector-id-property=".id"
+                     selector-on-close="applyServiceFilter(selectedServiceOrCategoryList)"
+                     selector-display-item="displayServiceOrCategory"
+                     multiple="true"
+                ></div>
+            </div>
+
+            <div ng-show="JuggleBoardController.session" ng-cloak>
+
+                <md-tabs md-selected="selectedIndex">
+                    <md-tab md-active="isMode('daily')" ng-click="setMode('daily')">
+                        <md-tab-label>Daily</md-tab-label>
+                    </md-tab>
+                    <md-tab md-active="isMode('weekly')" ng-click="setMode('weekly')">
+                        <md-tab-label>Weekly</md-tab-label>
+                    </md-tab>
+                    <md-tab md-active="isMode('interval')" ng-click="setMode('interval')">
+                        <md-tab-label>Date Interval</md-tab-label>
+                    </md-tab>
+                </md-tabs>
+
+                <div flex layout-fill ui-view="juggleBoardModeView"></div>
+
+            </div>
+        </form>
+    </div>
+</div>

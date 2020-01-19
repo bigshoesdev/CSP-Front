@@ -1,0 +1,15 @@
+.alignMdList .md-errors-spacer {
+    float: none;
+}
+
+.alignMdList md-checkbox {
+    margin-bottom: 0;
+}
+
+.alignMdList md-list-item.md-no-proxy {
+    padding: 0;
+}
+
+.vAccordion--default v-pane-header::after, .vAccordion--default v-pane-header::before {
+    content: none   ;
+}

@@ -1,0 +1,105 @@
+<md-list ng-cloak class="suggestedServicesTable alignMdList">
+
+    <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+
+        <div>
+            <md-button disabled class="md-icon-button" aria-label="void"></md-button>
+        </div>
+
+        <div ng-repeat="column in model.columns" flex>
+            <span>{{ column.title }}</span>
+            <md-button ng-if="isColumnCustomizable(column)" ng-click="customizeColumn(column)"
+                       class="md-icon-button md-primary" aria-label="Customize column">
+                <md-tooltip md-direction="top" md-delay="800">Customize column</md-tooltip>
+                <md-icon md-font-set="material-icons">view_column</md-icon>
+            </md-button>
+        </div>
+
+        <section layout="row" layout-xs="column" layout-align="center center" layout-wrap>
+            <md-button disabled class="md-icon-button" aria-label="void"></md-button>
+            <md-button disabled class="md-icon-button" aria-label="void"></md-button>
+        </section>
+
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <v-accordion class="" multiple control="accordionCtrl">
+        <v-pane ng-repeat="clientData in model.data">
+            <v-pane-header>
+                <md-list-item layout="row" layout-xs="column" layout-align="start center" class="show-on-hover-wrapper">
+                    <div>
+                        <md-button ng-click="$pane.toggle()" class="md-icon-button md-primary"
+                                   aria-label="expand or collapse">
+                            <md-tooltip md-direction="top" md-delay="800">{{ $pane.isExpanded() ? 'collapse' :
+                                'expand'}}
+                            </md-tooltip>
+                            <md-icon md-font-set="material-icons">{{ $pane.isExpanded() ? 'arrow_drop_up' :
+                                'arrow_drop_down'}}
+                            </md-icon>
+                        </md-button>
+                    </div>
+                    <div ng-repeat="column in model.columns" ng-init="columnIndex = $index" flex>
+                        <span ht-cell="column"
+                              ht-cell-id="columnIndex"
+                              ht-cell-data="clientData"
+                              ht-cell-change="htChange"
+                              ht-cell-edit="canEditData"
+                              ht-cell-ui="canEditUi"
+                        ></span>
+                    </div>
+                    <section layout="row" layout-xs="column" layout-align="center center" layout-wrap>
+                        <md-button ng-click="viewOrEdit(clientData)" class="md-icon-button md-primary"
+                                   aria-label="View Health Sections">
+                            <md-tooltip md-direction="top" md-delay="800">View Health Sections</md-tooltip>
+                            <md-icon md-font-set="material-icons" class="show-on-hover">search</md-icon>
+                        </md-button>
+                        <md-button ng-click="goJuggleBoard(clientData)" class="md-icon-button md-primary"
+                                   aria-label="Go to Juggle Board">
+                            <md-tooltip md-direction="top" md-delay="800">Go to Juggle Board</md-tooltip>
+                            <md-icon md-font-set="material-icons" class="show-on-hover">dashboard</md-icon>
+                        </md-button>
+
+                        <h4>{{ clientData.client.name }}</h4>
+
+                    </section>
+                </md-list-item>
+            </v-pane-header>
+
+            <v-pane-content>
+                <div class="servicesExpandedContent">
+                    <md-list ng-cloak>
+                        <md-list-item layout="row">
+                            <p flex>Service</p>
+                            <p flex>Note</p>
+                            <p flex>Date</p>
+                            <p flex>Room</p>
+                            <p flex>Therapist</p>
+                            <section layout="row" layout-align="center center" layout-wrap>
+                                <md-button class="md-icon-button" aria-label="void" disabled></md-button>
+                                <md-button class="md-icon-button" aria-label="void" disabled></md-button>
+                            </section>
+                        </md-list-item>
+                        <md-divider></md-divider>
+
+                        <suggested-form ng-repeat="clientServiceDataItem in clientData.services"
+                                        table-data="data"
+                                        current-service="clientServiceDataItem"
+                                        client-data="clientData"
+                                        session="session"
+                                        on-changed-cb="addCb()"></suggested-form>
+
+                        <md-list-item ng-show="showAddBtn" layout="row" layout-align="start center">
+                            <md-button class="md-primary" ng-click="addSuggestedService(clientData.client)">
+                                + Add Suggested Service
+                            </md-button>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </v-pane-content>
+
+            <md-divider></md-divider>
+
+        </v-pane>
+    </v-accordion>
+
+</md-list>

@@ -1,0 +1,23 @@
+<content-header>{{listTitle}}</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+    <md-button class="md-raised md-primary" ui-sref="auth.settings.eventNew">
+        <md-icon md-font-set="material-icons" class="ng-binding ng-scope md-csp-theme material-icons" role="img">
+            playlist_add
+        </md-icon>
+        Add
+    </md-button>
+
+    <md-input-container class="table-filter">
+        <md-icon md-font-set="material-icons" class="ng-binding ng-scope md-csp-theme material-icons" role="img">
+            search
+        </md-icon>
+        <input ng-model="filterObj.$">
+    </md-input-container>
+</div>
+
+<div class="formContainer">
+    <div list="listConf" class="md-table"></div>
+</div>
+
+<!-- exact table from live demo -->

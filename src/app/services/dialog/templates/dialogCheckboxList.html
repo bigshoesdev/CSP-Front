@@ -1,0 +1,21 @@
+<md-dialog flex="30">
+    <md-toolbar>
+        <div class="md-toolbar-tools">{{ ::conf.title }}</div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+
+        <div>{{ ::conf.textContent }}</div>
+
+        <div ng-repeat="checkboxLabel in conf.checkboxLabels track by $index">
+            <md-checkbox ng-model="conf.checkboxValues[$index]" aria-label="{{checkboxLabel}}">
+                {{ checkboxLabel }}
+            </md-checkbox>
+        </div>
+
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="Cancel" ng-click="cancel()" class="md-raised">{{ conf.btnCancel || 'Cancel' }}
+        </md-button>
+        <md-button aria-label="Hide" ng-click="hide()" class="md-raised md-warn">{{ conf.btnHide || 'Ok' }}</md-button>
+    </md-dialog-actions>
+</md-dialog>

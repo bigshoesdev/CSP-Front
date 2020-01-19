@@ -1,0 +1,37 @@
+<content-header>History for therapist {{ therapist.name }}</content-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <div layout="row" layout-align="start center"
+             layout-xs="column" layout-align-xs="center start">
+
+            <div layout="row">
+                <md-datepicker ng-model="dateFrom"
+                               md-placeholder="Filter from"
+                               md-max-date="dateTo"
+                               ng-change="apply()"
+                ></md-datepicker>
+                <md-button ng-click="clearDateFrom()" class="md-icon-button md-warn" aria-label="Clear from date"
+                           ng-disabled="dateFrom === null">
+                    <md-icon md-font-set="material-icons">cancel</md-icon>
+                </md-button>
+            </div>
+
+            <div layout="row">
+                <md-datepicker ng-model="dateTo"
+                               md-placeholder="Filter to"
+                               md-min-date="dateFrom"
+                               ng-change="apply()"
+                ></md-datepicker>
+                <md-button ng-click="clearDateTo()" class="md-icon-button md-warn" aria-label="Clear to date"
+                           ng-disabled="dateTo === null">
+                    <md-icon md-font-set="material-icons">cancel</md-icon>
+                </md-button>
+            </div>
+
+        </div>
+
+        <div list="listConf"></div>
+
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<md-list ng-cloak class="healthTable alignMdList">
+
+    <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+
+        <div ng-repeat="column in model.columns" flex>
+            <span>{{ column.title }}</span>
+            <md-button ng-if="canEditUi && column.editable" ng-click="customizeColumn(column)"
+                       class="md-icon-button md-primary" aria-label="Customize column">
+                <md-tooltip md-direction="top" md-delay="800">Customize column</md-tooltip>
+                <md-icon md-font-set="material-icons">view_column</md-icon>
+            </md-button>
+        </div>
+
+        <div>
+            <md-button disabled class="md-icon-button" aria-label="void"></md-button>
+        </div>
+
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <div ng-repeat="clientData in model.data" ng-init="statusValue = getStatusValue(clientData)">
+        <md-list-item layout="row" layout-xs="column" layout-align="start center" class="show-on-hover-wrapper">
+
+            <div ng-repeat="column in model.columns" ng-init="columnIndex = $index" flex>
+                <span ht-cell="column"
+                      ht-cell-id="columnIndex"
+                      ht-cell-data="clientData"
+                      ht-cell-change="htChange"
+                      ht-cell-edit="canEditData"
+                      ht-cell-ui="canEditUi"
+                ></span>
+            </div>
+
+            <div>
+                <md-button ng-show="isView(statusValue)"
+                           ng-click="viewOrEdit(clientData)" class="md-icon-button md-primary" aria-label="View Health Sections">
+                    <md-tooltip md-direction="top" md-delay="800">View Health Sections</md-tooltip>
+                    <md-icon md-font-set="material-icons" class="show-on-hover">search</md-icon>
+                </md-button>
+
+                <md-button ng-hide="isView(statusValue)"
+                           ng-click="viewOrEdit(clientData)" class="md-icon-button md-primary" aria-label="Edit Health Sections">
+                    <md-tooltip md-direction="top" md-delay="800">Edit Health Sections</md-tooltip>
+                    <md-icon md-font-set="material-icons" class="show-on-hover">edit</md-icon>
+                </md-button>
+            </div>
+
+        </md-list-item>
+        <md-divider></md-divider>
+    </div>
+
+</md-list>

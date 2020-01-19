@@ -1,0 +1,25 @@
+{
+  "buildVersion" : "0.7.5",
+  "port" : "",
+  "ssl": false,
+  "hostName": "api.fsportal.site",
+  "bookingNotificationSubscriptionPath": "/topic/bookingEventNotification",
+  "baseUrl": "/",
+  "enableDebug": true,
+  "workingDayStart": "07:00",
+  "workingDayEnd": "22:00",
+  "defaultSlotSizeMin": "30",
+  "healthProfileUrlTemplate": "http://www.healthretreat.ca/fresh-start-health-retreat-team/?clientId={{clientId}}",
+  "estimationUrlTemplate": "http://www.healthretreat.ca/estimation/?estimateId={{estimateId}}",
+  "cacheExpirationMinutesMap": {
+    "services" : 2,
+    "serviceCategories": 2,
+    "events": 2,
+    "rooms": 2,
+    "equipments": 2,
+    "therapists": 2,
+    "sessions": 2,
+    "clients": 2,
+    "restrictions": 2
+  }
+}

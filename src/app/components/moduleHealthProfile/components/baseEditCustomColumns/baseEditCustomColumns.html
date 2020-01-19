@@ -1,0 +1,125 @@
+<form name="ctrl.form" class="sessionClientsEditCustomColumns">
+
+    <div layout="row" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>{{ headerTitle }}</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-icon-button md-raised" ng-click="backOrDone()">
+                <md-tooltip md-direction="top" md-delay="800">Done and Back</md-tooltip>
+                <md-icon md-font-set="material-icons">arrow_back</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+
+    <md-list ng-cloak class="alignMdList">
+
+        <md-list-item class="md-no-sticky" layout="row" layout-align="start center">
+
+            <div flex>
+                <h4>Name</h4>
+            </div>
+            <div flex>
+                <h4>Type</h4>
+            </div>
+
+            <section layout="row" layout-align="center center" layout-wrap>
+                <md-button class="md-icon-button" aria-label="void" disabled="true">
+                    <md-icon md-font-set="material-icons"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="void" disabled="true">
+                    <md-icon md-font-set="material-icons"></md-icon>
+                </md-button>
+            </section>
+
+        </md-list-item>
+
+        <md-divider></md-divider>
+
+        <md-list-item ng-repeat="customColumn in customColumns"
+                      layout="row" layout-align="start center"
+                      ng-mouseover="showItemButtons = true" ng-mouseleave="showItemButtons = false">
+
+            <md-input-container class="md-block" flex>
+                <input ng-model="customColumn.title" type="text" ng-model-options="{ updateOn: 'blur' }"
+                       ng-change="onCustomColumnChange(customColumn)"
+                       aria-label=" ">
+            </md-input-container>
+
+            <md-input-container flex>
+                <md-select ng-model="customColumn.type"
+                           md-selected-text="customColumn.type"
+                           ng-change="onCustomColumnChange(customColumn)"
+                           aria-label=" ">
+                    <md-optgroup label="Custom column types">
+                        <md-option ng-value="type" ng-repeat="type in types">
+                            {{ type }}
+                        </md-option>
+                    </md-optgroup>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+
+            <section layout="row" layout-align="center center" layout-wrap>
+                <md-button ng-click="editSelectValues(customColumn, $event)" ng-disabled="!isSelectType(customColumn)"
+                           class="md-icon-button md-primary" aria-label="Edit Select Values">
+                    <md-tooltip md-direction="top" md-delay="800">Edit Select Values</md-tooltip>
+                    <md-icon md-font-set="material-icons" ng-show="showItemButtons && isSelectType(customColumn)">edit</md-icon>
+                </md-button>
+                <md-button ng-click="remove(customColumn)" class="md-icon-button md-warn" aria-label="Remove column">
+                    <md-tooltip md-direction="top" md-delay="800">Remove Custom Column</md-tooltip>
+                    <md-icon md-font-set="material-icons" ng-show="showItemButtons">delete_forever</md-icon>
+                </md-button>
+            </section>
+
+        </md-list-item>
+
+        <md-list-item ng-hide="newCustomColumn"
+                      layout="row" layout-align="start center">
+            <md-button class="md-primary" ng-click="addNew()">+ Add new</md-button>
+        </md-list-item>
+
+        <md-list-item ng-show="newCustomColumn"
+                      layout="row" layout-align="start center">
+
+                <md-input-container class="md-block" flex>
+                    <input ng-model="newCustomColumn.title" type="text" ng-model-options="{ updateOn: 'blur' }"
+                           ng-change="onNewCustomColumnChange(newCustomColumn)"
+                           placeholder="Custom column name"
+                           aria-label=" ">
+                </md-input-container>
+
+                <md-input-container flex>
+                    <md-select ng-model="newCustomColumn.type"
+                               md-selected-text="newCustomColumn.type"
+                               ng-change="onNewCustomColumnChange(newCustomColumn)"
+                               aria-label=" ">
+                        <md-optgroup label="Custom column types">
+                            <md-option ng-value="type" ng-repeat="type in types">
+                                {{ type }}
+                            </md-option>
+                        </md-optgroup>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+
+            <section layout="row" layout-align="center center" layout-wrap>
+                <md-button ng-click="editSelectValues(newCustomColumn, $event)" class="md-icon-button md-primary"
+                           aria-label="Remove column">
+                    <md-tooltip md-direction="top" md-delay="800">Edit Select Values</md-tooltip>
+                    <md-icon md-font-set="material-icons" ng-show="isSelectType(newCustomColumn)">edit</md-icon>
+                </md-button>
+                <md-button ng-click="onNewCustomColumnAdd(newCustomColumn)"
+                           class="md-icon-button md-primary" aria-label="Add column">
+                    <md-tooltip md-direction="top" md-delay="800">Add column</md-tooltip>
+                    <md-icon md-font-set="material-icons">add</md-icon>
+                </md-button>
+            </section>
+
+        </md-list-item>
+
+    </md-list>
+
+</form>

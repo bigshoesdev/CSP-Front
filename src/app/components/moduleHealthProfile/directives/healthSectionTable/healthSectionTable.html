@@ -1,0 +1,59 @@
+<md-list ng-cloak class="healthSectionTable alignMdList">
+
+    <md-card>
+
+    <md-list-item class="md-no-sticky"
+                  layout="row" layout-xs="column" layout-align="start center" layout-padding>
+
+        <div ng-repeat="column in config.columns" flex>
+            <span>{{ column.title }}</span>
+            <md-button ng-if="isUiMode && column.editable && isColumnCustomize(column)" ng-click="customizeColumn(column)"
+                       class="md-icon-button md-primary" aria-label="Customize column">
+                <md-tooltip md-direction="top" md-delay="800">Customize column</md-tooltip>
+                <md-icon md-font-set="material-icons">view_column</md-icon>
+            </md-button>
+        </div>
+
+        <section layout="row" layout-align="center center" layout-wrap>
+            <md-button class="md-icon-button" aria-label="null" disabled="true" ng-if="isEditMode">
+                <md-icon md-font-set="material-icons" ng-show="false"></md-icon>
+            </md-button>
+        </section>
+
+    </md-list-item>
+
+    <md-divider></md-divider>
+
+    <md-list-item ng-repeat="row in config.rows"
+                  layout="row" layout-xs="column" layout-align="start center" layout-padding
+                  class="show-on-hover-wrapper">
+
+        <div ng-repeat="column in config.columns" ng-init="columnIndex = $index" flex>
+                <span hs-cell="column"
+                      hs-cell-id="columnIndex"
+                      hs-cell-data="row"
+                      hs-cell-change="hsChange"
+                      hs-cell-readonly="!isEditMode"
+                ></span>
+        </div>
+
+        <section layout="row" layout-align="center center" layout-wrap>
+            <md-button ng-click="removeRow(row.id)" class="md-icon-button md-warn" aria-label="Remove row" ng-if="isEditMode"
+                       ng-disabled="isRowsFixed || waitFlag">
+                <md-tooltip md-direction="top" md-delay="800">Remove Row</md-tooltip>
+                <md-icon md-font-set="material-icons" class="show-on-hover">delete_forever</md-icon>
+            </md-button>
+        </section>
+
+    </md-list-item>
+
+    <md-list-item layout="row" layout-align="start center">
+        <md-button ng-if="!isRowsFixed" ng-show="isEditMode"
+                   class="md-primary" ng-disabled="waitFlag"
+                   ng-click="addRow()">+ Add row
+        </md-button>
+    </md-list-item>
+
+    </md-card>
+
+</md-list>

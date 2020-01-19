@@ -1,0 +1,14 @@
+<div ng-if="isReadOnly" ng-init="conditionColumnValue = getConditionById(rowItem.selectValue)">
+    {{ conditionColumnValue.title }}
+    <md-icon ng-if="isReadOnly && conditionColumnValue" md-font-set="material-icons" style="color: {{ conditionColumnValue.defaultFlagColor }}">flag</md-icon>
+</div>
+
+<md-input-container ng-if="!isReadOnly">
+    <md-select ng-model="rowItem.selectValue" ng-change="onChange(column, row)"
+               ng-disabled="isReadOnly" aria-label=" ">
+        <md-option ng-repeat="v in values" value="{{v.id}}">
+            {{v.title}}
+            <md-icon md-font-set="material-icons" style="color: {{ ::v.defaultFlagColor }}">flag</md-icon>
+        </md-option>
+    </md-select>
+</md-input-container>

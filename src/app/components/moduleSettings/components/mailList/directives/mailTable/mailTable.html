@@ -1,0 +1,73 @@
+<!--Simple text-->
+<!--<div class="row pl-82 col-xs-6 preview" ng-hide="isEdit || isPreview">-->
+<!--<div ng-bind-html="mailItem.body"></div>-->
+<!--</div>-->
+<!--Preview-->
+
+<!--End preview-->
+<div class="row pl-82" >
+    <div class="col-xs-6" >
+        <div class="row preview" ng-show="isPreview || !isEdit">
+            <span class="badge alert-success badge-right" ng-hide="!mailItem.active">Active</span>
+            <span class="badge alert-danger badge-right" ng-hide="mailItem.active">Not active</span>
+            <h5><span class="badge badge-secondary">Subject:</span> {{mailItem.subject}}</h5>
+            <div ng-bind-html="preview"></div>
+        </div>
+        <div class="row" ng-show="isEdit &&! isPreview">
+            <div class="ta-toolbar">
+                <input type="text" ng-model="mailItem.subject" placeholder="Mail subject" class="form-control"/>
+            </div>
+        </div>
+        <div class="row" ng-show="isEdit &&! isPreview" >
+                <div text-angular
+                     ng-model="mailItem.body"
+                     ta-toolbar="[
+                ['undo', 'redo'],
+                ['h1', 'h2', 'h3'],
+                ['bold', 'italics', 'underline', 'strikeThrough'],
+                ['ul', 'ol'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],['clear','hr']]">
+
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <p></p>
+                <button type="button" class="btn btn-default" ng-hide="isPreview || !isEdit" ng-click="onPreview(true)">Preview</button>
+                <!--<button type="button" class="btn btn-default" ng-show="isPreview && !isEdit" ng-click="onPreview(false)">Close Preview</button>-->
+                <button type="button" class="btn btn-default" ng-show="isPreview && isEdit" ng-click="onPreview(false)">Back to edit </button>
+                <button type="button" class="btn btn-success" ng-show="isEdit && !isPreview" ng-click="onSave()">Save</button>
+                <button type="button" class="btn btn-danger" ng-show="isEdit && !isPreview" ng-click="onCancel()">Cancel</button>
+                <button type="button" class="btn btn-default" ng-hide="isEdit || isPreview" ng-click="onEdit()">Edit</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div ng-show="isEdit &&! isPreview"
+             dnd-droppable="true"
+             dnd-on-dragenter="editorDrop()"
+        >
+            <div class="form-check exp_container label_container">
+                <input type="checkbox" ng-model="mailItem.active" ng-attr-id="{{mailItem.id}}">
+                <label ng-attr-for="{{mailItem.id}}">Sending mail {{mailItem.active}}</label>
+            </div>
+
+            <h5>Available expressions:</h5>
+            <div class="exp_container" ng-repeat="exp in mailItem.expressions">
+                <button
+                    type="button" class="btn btn-info draggable"
+                    draggable="true"
+                    ondragstart="angular.element(this).scope().dStart(event)"
+                    data-value="{{exp.expression}}"
+                    ondrag="angular.element(this).scope().dDrag(event)"
+                    ng-click="expressionClick(exp.expression)"
+                >
+                    {{exp.expression}}
+                </button>
+                <div class="exp_description">{{exp.description}}</div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

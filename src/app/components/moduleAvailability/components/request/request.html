@@ -1,0 +1,122 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form" class="request">
+            <md-input-container class="md-block" ng-hide="isReadOnly">
+                <label>Select session</label>
+                <div selector="session"
+                     selector-all="sessions"
+                     selector-title="Search for session.."
+                     selector-id-property=".id"
+                     selector-on-close="applySession(session)"
+                     selector-display-item="displayItem"
+                     name="nSession"
+                     required="true"
+                ></div>
+                <div ng-messages="ctrl.form.nSession.$error">
+                    <div ng-message="required">Session is required.</div>
+                </div>
+            </md-input-container>
+
+            <div layout="row" layout-xs="column" layout-align="start center">
+
+                <md-datepicker ng-model="formModel.startDate" md-placeholder="Beginning" md-max-date="formModel.endDate"
+                               name="formModel.startDate" required
+                               ng-disabled="isReadOnly || isEdit">
+                </md-datepicker>
+                <div ng-messages="ctrl.form.formModel.startDate.$error">
+                    <div ng-message="required" class="ngMessageStyle">Start date is required.</div>
+                </div>
+                <md-datepicker ng-model="formModel.endDate" md-placeholder="End" md-min-date="formModel.startDate"
+                               name="formModel.endDate" required
+                               ng-disabled="isReadOnly || isEdit">
+                </md-datepicker>
+
+            </div>
+
+            <div ng-show="formModel.therapistsCheckList.length">
+                <h4>Therapists</h4>
+
+                <div ng-cloak class="therapistsCheckList">
+
+                    <div layout="row" ng-show="formModel.therapistsCheckList.length > 1 && !isReadOnly"
+                         layout-align="start center" layout-padding>
+
+                        <md-checkbox aria-label="Select All"
+                                     ng-checked="isAllChecked()"
+                                     md-indeterminate="isAllCheckedIndeterminate()"
+                                     ng-click="toggleAll()"
+                                     class="md-warn"
+                                     flex>
+                            <span ng-show="isAllChecked()">Un-select All</span>
+                            <span ng-show="!isAllChecked()">Select All</span>
+                        </md-checkbox>
+
+                        <md-input-container class="md-block" flex="70">
+                            <label>Message for all therapists</label>
+                            <input ng-model="formModel.messageForAll" ng-disabled="!isSomeChecked()">
+                        </md-input-container>
+
+                    </div>
+
+
+                    <div ng-repeat="therapistsCheckItem in formModel.therapistsCheckList"
+                         ng-init="therapistId = therapistsCheckItem.therapist.id"
+                         layout="column">
+                        <div layout="row" layout-align="start center" layout-padding>
+
+                            <md-checkbox ng-model="therapistsCheckItem.checked" aria-label="Check therapist"
+                                         ng-disabled="isReadOnly"></md-checkbox>
+
+                            <a flex
+                               ui-sref="auth.availability.viewTherapist({ therapistId: therapistsCheckItem.therapist.id, dateFrom: dateToFormat(formModel.startDate), dateTo: dateToFormat(formModel.endDate) })">
+                                <md-tooltip md-direction="top" md-delay="800">Show therapist availability</md-tooltip>
+                                {{ therapistsCheckItem.therapist.name }}
+                            </a>
+
+                            <md-button class="md-icon-button md-primary" aria-label="Offer therapist availability"
+                                       ng-click="offerTherapistAvailability(therapistsCheckItem.therapist.id, $event)"
+                                       ng-show="isEdit"
+                                       ng-disabled="isReadOnly || !therapistsCheckItem.checked">
+                                <md-tooltip md-direction="top" md-delay="800">Add Request time information for
+                                    therapist
+                                </md-tooltip>
+                                <md-icon md-font-set="material-icons">event available</md-icon>
+                            </md-button>
+
+                            <div flex="70" layout="row">
+                                <md-input-container class="md-block" flex>
+                                    <label>Message for {{ therapistsCheckItem.therapist.name }}</label>
+                                    <input ng-model="therapistsCheckItem.message"
+                                           ng-disabled="isReadOnly || !therapistsCheckItem.checked">
+                                </md-input-container>
+
+                                <p>{{ therapistsCheckItem.status }}</p>
+                            </div>
+                        </div>
+                        <div ng-if="showTherapistCalendar[therapistId]">
+
+                            <div layout="row" layout-align="space-between center" class="buttons-header">
+                                <h3>Request time information for therapist</h3>
+
+                                <div layout="row" layout-align="space-between center" layout-wrap>
+                                    <md-button class="md-raised md-primary" ng-click="addTimeInfo(therapistId)">
+                                        Add
+                                    </md-button>
+                                    <md-button class="md-raised" ng-click="discardTimeInfo()">
+                                        Discard
+                                    </md-button>
+                                </div>
+                            </div>
+
+                            <div availability-calendar="calendarConf"
+                                 calendar-ctrl="calendarCtrl"
+                                 class="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

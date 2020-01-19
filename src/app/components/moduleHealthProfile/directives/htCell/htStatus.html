@@ -1,0 +1,6 @@
+<md-button ng-init="v = clientDataItem.textValue" md-no-ink
+           class="md-icon-button" ng-class="{ 'md-primary': v == 'done', 'md-warn': v == 'not_started' }"
+           aria-label=" " style="cursor: default">
+    <md-tooltip md-direction="top" md-delay="800">{{ v == 'done' ? 'Done' : ( v == 'not_started' ? 'Not Started' : 'Edit' ) }}</md-tooltip>
+    <md-icon md-font-set="material-icons">{{ v == 'done' ? 'stop' : ( v == 'not_started' ? 'play_arrow' : 'pause' ) }}</md-icon>
+</md-button>

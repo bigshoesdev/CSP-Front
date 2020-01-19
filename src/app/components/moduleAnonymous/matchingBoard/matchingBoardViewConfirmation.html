@@ -1,0 +1,43 @@
+<div class="matchingBoardViewConfirmation">
+
+    <div layout="row" layout-xs="column" layout-align="space-between center"
+         class="buttons-header">
+        <h3>Matching Info</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-click="confirm()">
+                Confirm
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="decline()">
+                Decline
+            </md-button>
+        </div>
+    </div>
+
+
+    <md-list>
+        <div sticky style="height: auto" class="header">
+            <md-list-item layout="row">
+                <div flex>Time</div>
+                <div flex>Service</div>
+                <div flex>Room</div>
+                <div flex>Therapist</div>
+                <div flex>Duration</div>
+            </md-list-item>
+            <md-divider></md-divider>
+        </div>
+
+        <div ng-repeat="matchingInfo in matchingInfoArr">
+            <md-subheader>{{showDate(matchingInfo.date)}}</md-subheader>
+            <md-list-item ng-repeat="item in matchingInfo.items" layout="row">
+                <div flex>{{item.time}}</div>
+                <div flex>{{item.service}}</div>
+                <div flex>{{item.room}}</div>
+                <div flex>{{item.therapist}}</div>
+                <div flex>{{item.duration}}</div>
+            </md-list-item>
+            <md-divider></md-divider>
+        </div>
+    </md-list>
+
+</div>

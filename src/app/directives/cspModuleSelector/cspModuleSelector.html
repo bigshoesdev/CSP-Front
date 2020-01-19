@@ -1,0 +1,15 @@
+<md-menu ng-show="modulesSelectorConf.modulesConfigs.length">
+    <md-button aria-label="Open module selection menu" ng-click="$mdOpenMenu($event)">
+        <md-tooltip md-direction="bottom" md-delay="800">Select Module</md-tooltip>
+        <md-icon md-font-set="material-icons" md-menu-origin>{{ currentModuleConf && currentModuleConf.iconName || 'view_module' }}</md-icon>
+        {{ currentModuleConf && currentModuleConf.title || 'select module' }}
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item ng-repeat="moduleConfig in modulesSelectorConf.modulesConfigs">
+            <md-button ui-sref="{{ ::moduleConfig.sref }}">
+                <md-icon md-font-set="material-icons" md-menu-align-target>{{ ::moduleConfig.iconName }}</md-icon>
+                {{ ::moduleConfig.title }}
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

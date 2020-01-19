@@ -1,0 +1,111 @@
+<div layout="column" ng-cloak>
+
+    <div class="header" layout="column" sticky style="height: 75px">
+
+        <div class="border" layout="row" layout-align="space-between center" style="height: 50px">
+
+            <md-button class="md-raised"
+                       ng-click="goPreviousWeek()"
+                       ng-show="isWeekButtonsShow()"
+                       ng-disabled="isPreviousWeekDisabled()">
+                <md-icon md-font-set="material-icons">arrow_back</md-icon>
+                Previous week
+            </md-button>
+
+            <div layout="row" layout-align="center center" flex>
+
+                <div calendar-grid-mode="gridMode"
+                     calendar-grid-mode-change="setGridMode(gridMode)"
+                     ng-if="!config.disableGridMode"
+                ></div>
+
+                <div week-selector="weekDays" disabled-days="disabledWeekDays" ng-show="isEveryDayMode()"></div>
+
+                <div calendar-slot-size="slotSize"
+                     calendar-slot-size-change="setSlotSize(slotSize)"
+                ></div>
+
+                <md-datepicker ng-model="currentDate"
+                               md-placeholder="Go To Date"
+                               md-min-date="startDate"
+                               md-max-date="endDate"
+                               ng-change="goToDate(currentDate)"
+                               ng-show="isGoToDateShown()"
+                ></md-datepicker>
+
+            </div>
+
+            <md-button class="md-raised pull-right"
+                       ng-click="goNextWeek()"
+                       ng-show="isWeekButtonsShow()"
+                       ng-disabled="isNextWeekDisabled()">
+                Next week
+                <md-icon md-font-set="material-icons">arrow_forward</md-icon>
+            </md-button>
+
+        </div>
+
+        <div layout="row" style="height: 25px">
+            <div class="border" style="width: 12.5%">Time</div>
+            <div layout="row" style="width: 87.5%;">
+                <div ng-repeat="day in days" class="border dayTitle" flex>{{ day }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="calendarScrolled" layout="row">
+
+        <div class="calendarTimes" style="width: 12.5%">
+            <div ng-repeat="time in times" style="height: 25px"
+                 class="border">{{ ::time }}
+            </div>
+        </div>
+
+        <div class="calendarBody" style="width: 87.5%;"
+             dnd-droppable="canDnd" dnd-model="dropmodel"
+             dnd-on-dragenter="onDragenter($dropmodel, $dragmodel)"
+             dnd-on-dragleave="onDragleave($dropmodel, $dragmodel)"
+             dnd-on-drop="onDrop($dropmodel, $dragmodel)"
+             dnd-lasso-area="canDnd"
+             dnd-on-lassostart="lassoOnStart($rect)"
+             dnd-on-lasso="lassoOnDrag($rect)"
+             dnd-on-lassoend="lassoOnEnd($rect)"
+             ng-click="onBodyClick($event)"
+        >
+
+            <div class="draggable item {{item.clazz}}"
+                 ng-repeat="item in items"
+                 ng-style="setZIndex(item)"
+                 dnd-draggable="canDnd" dnd-rect="item.rect" dnd-model="item.model"
+                 dnd-draggable-opts="{useAsPoint: false}"
+            >
+                <div ng-repeat="itemStr in showItem(item)" class="itemRow">{{itemStr}}</div>
+
+                <md-button ng-click="onItemClick($event, item)" class="md-icon-button md-raised md-primary editAction"
+                           aria-label="edit">
+                    <md-icon md-font-set="material-icons" ng-if="canEdit">edit</md-icon>
+                    <md-icon md-font-set="material-icons" ng-if="!canEdit">search</md-icon>
+                </md-button>
+            </div>
+
+            <div class="item itemAdd"
+                 ng-show="isPlusItemShown"
+                 dnd-rect="plusItem.rect"
+                 ng-mousedown="onPlusClick($event)"
+                 ng-if="canAdd"
+            >
+                + Add
+            </div>
+
+            <div class="item lassoFrame"
+                 ng-show="isLassoFrameShown"
+                 dnd-rect="lassoFrameRect"></div>
+
+            <canvas class="virtualGrid"
+                    ng-mousedown="onCanvasMousedown($event)"></canvas>
+
+        </div>
+
+    </div>
+
+</div>

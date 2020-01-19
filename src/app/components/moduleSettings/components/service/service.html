@@ -1,0 +1,83 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+            <md-input-container class="md-block" >
+                <label>Service name</label>
+                <input name="cName"
+                       ng-model="model.name"
+                       type="text"
+                       placeholder="Service name"
+                       ng-disabled="disableEdit"
+                       required>
+            </md-input-container>
+
+            <div class="select-container margin-0">
+
+                <md-input-container class="md-block margin-0">
+                    <label>Billing description</label>
+                    <textarea
+                        ng-model="model.billingDescription"
+                        name="cBillingDescription"
+                        autofocus=""
+                        ng-disabled="disableEdit"
+                        required>
+                    </textarea>
+                </md-input-container>
+            </div>
+
+            <md-input-container class="md-block" >
+                <label>Sale price</label>
+                <input ng-pattern="/^[0-9]*.{0,3}$/"
+                       ng-model="model.price"
+                       type="number"
+                       placeholder="Sale price"
+                       autofocus=""
+                       ng-disabled="disableEdit">
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Purchase  price</label>
+                <input ng-pattern="/^[0-9]*.{0,3}$/"
+                       ng-model="model.pricePurchase"
+                       placeholder="Purchase  price"
+                       type="number"
+                       autofocus=""
+                       ng-disabled="disableEdit">
+            </md-input-container>
+
+            <md-input-container class="md-block" >
+                <label>Duration</label>
+                <input ng-model="model.time.processing"
+                       placeholder="Duration"
+                       type="number"
+                       ng-disabled="disableEdit"
+                       required>
+            </md-input-container>
+
+            <md-input-container class="md-block" >
+                <label>Minutes to clean after service</label>
+                <input ng-model="model.time.clean"
+                       ng-disabled="disableEdit"
+                       placeholder="Clear time"
+                       type="number"
+                       required >
+            </md-input-container>
+
+            <div class="md-block select-container">
+                <label>Tax</label>
+                <div chips-selector-title="Taxes list"
+                     chips-selector="model.tax"
+                     chips-selector-all="taxes"
+                     searchable="false"
+                     multiple="false"
+                     selector-display-item="displayItem"
+                     required="true"
+                     disabled="disableEdit"
+                >
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

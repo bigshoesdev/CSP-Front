@@ -1,0 +1,21 @@
+<form name="ctrl.form">
+    <div layout="row" layout-xs="column" layout-align="start center">
+
+        <md-datepicker ng-model="date" md-min-date="minDate" md-max-date="maxDate"
+                       ng-change="onDateChange(date)"
+                       md-placeholder="Day"
+                       name="date" required>
+        </md-datepicker>
+
+    </div>
+
+
+    <div jb-table="juggleTable"
+         jb-row-type="rowType"
+         jb-show-item="showItem"
+         jb-on-drop-post="onDropPostProcess"
+         jb-session="JuggleBoardController.session"
+         jb-client="JuggleBoardController.client"
+    ></div>
+
+</form>

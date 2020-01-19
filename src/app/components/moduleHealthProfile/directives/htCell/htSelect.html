@@ -1,0 +1,6 @@
+<md-input-container>
+    <md-select ng-model="clientDataItem.selectValue" ng-change="onChange(column, clientData)"
+               ng-disabled="!canEditData" aria-label=" ">
+        <md-option ng-repeat="v in values" value="{{v.value}}">{{v.title}}</md-option>
+    </md-select>
+</md-input-container>

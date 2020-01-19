@@ -1,0 +1,41 @@
+<div ng-cloak>
+
+    <div layout="row" layout-align="space-between center"  class="buttons-header" >
+        <div layout="row" layout-align="space-between center">
+            <img src="assets/images/logo2.png" alt="Fresh Start Health Retreats" class="logo">
+        </div>
+        <menu-button></menu-button>
+        <h3 flex>Welcome to Custom Site Portal</h3>
+        <csp-user-menu></csp-user-menu>
+    </div>
+
+    <section class="body-container">
+
+        <left-menu style="display: table-cell"></left-menu>
+
+        <div ui-view="main" class="content-main"></div>
+
+        <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+            <div layout-fill right-sidebar="rightSidebarConfig"></div>
+        </md-sidenav>
+
+    </section>
+
+    <md-fab-speed-dial md-open="isOpen" md-direction="left" class="md-scale md-fab-bottom-right md-hover-full"
+                       ng-mouseenter="isOpen = true" ng-mouseleave="isOpen = false"
+                       ng-hide="hideRightToggle()">
+        <md-fab-trigger>
+            <md-button aria-label="Right sidebar" class="md-fab md-warn" ng-click="toggleRight()">
+                <md-tooltip md-direction="top" md-visible="isOpen" md-autohide="false">Check warnings</md-tooltip>
+                <md-icon md-font-set="material-icons">warning</md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button aria-label="Clear right sidebar" class="md-fab md-raised md-mini" ng-click="clearRight()">
+                <md-tooltip md-direction="top" md-visible="isOpen" md-autohide="false">Discard warnings</md-tooltip>
+                <md-icon md-font-set="material-icons">close</md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+
+</div>

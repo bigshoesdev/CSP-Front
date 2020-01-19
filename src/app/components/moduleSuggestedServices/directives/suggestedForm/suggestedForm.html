@@ -1,0 +1,113 @@
+<div class="panel"
+     animate-on-change="updateTable"
+     ng-class="{
+                    hidden: updateTable === false
+                 }">
+    <div>
+        <form name="ctrl.form" ng-submit="save()" ng-keyup="listenEvents($event)">
+
+            <div class="ngMessagesContainer select-container">
+                <md-datepicker ng-model="date"
+                               ng-change="sugService.date = convertDate2Model(date)"
+                               md-placeholder="Date"
+                               md-current-view="year"
+                               md-min-date="startDate"
+                               md-max-date="endDate"
+                               name="fDate"
+                               required>
+                </md-datepicker>
+
+                <div ng-messages="ctrl.form.fDate.$error">
+                    <div ng-message="required" class="ngMessageStyle">Date is required.</div>
+                </div>
+            </div>
+
+            <div class="md-block select-container">
+                <md-tooltip md-direction="left top">
+                    Services of therapists of the session (also included in therapist's categories).
+                </md-tooltip>
+                <label>Service</label>
+
+                <div selector="sugService.service"
+                     selector-all="services"
+                     selector-title="Search for service.."
+                     selector-id-property=".id"
+                     selector-on-close="updateService(sugService.service)"
+                     disabled="isEdit"
+                     required="true"
+                     multiple="false"
+                     name="fServices"></div>
+                <div ng-messages="ctrl.form.fServices.$error">
+                    <div ng-message="required">Service is required.</div>
+                </div>
+            </div>
+
+            <div class="md-block select-container">
+                <md-tooltip md-direction="left top">Therapists of the session who can do chosen service.</md-tooltip>
+                <label>Therapist</label>
+                <div selector="sugService.therapist"
+                     selector-all="therapists"
+                     selector-title="Search for therapist.."
+                     selector-id-property=".id"
+                     selector-on-close="updateTherapist()"
+                     required="true"
+                     name="fTherapist"
+                     disabled="!sugService.service || isEdit"></div>
+                <div ng-messages="ctrl.form.fTherapist.$error">
+                    <div ng-message="required">Therapist is required.</div>
+                </div>
+            </div>
+
+            <div class="md-block select-container">
+                <md-tooltip md-direction="left top">Rooms available for the therapist and the service</md-tooltip>
+                <label>Room</label>
+                <div selector="sugService.room"
+                     selector-all="rooms"
+                     selector-title="Search for room.."
+                     selector-id-property=".id"
+                     required="true"
+                     name="fRoom"
+                     disabled="!(sugService.service && sugService.therapist)"></div>
+                <div ng-messages="ctrl.form.fRoom.$error">
+                    <div ng-message="required">Room is required.</div>
+                </div>
+            </div>
+
+            <md-input-container class="md-block">
+                <label>note</label>
+                <input ng-model="sugService.note" name="fNote" type="text" autofocus="" placeholder="Note..">
+            </md-input-container>
+
+            <md-list-item layout="row" layout-align="start center">
+                <md-button type="submit" ng-disabled="ctrl.form.$invalid || waitResponse" class="md-primary">Save
+                    changes
+                </md-button>
+                <md-button class="md-raised" ng-click="cancel()">
+                    {{ isUnsaved() ? 'Cancel' : 'Close' }}
+                </md-button>
+            </md-list-item>
+        </form>
+    </div>
+</div>
+
+<md-list-item ng-if="!updateTable" class="show-on-hover-wrapper" layout="row">
+    <p flex class="truncate">{{ sugService.service.name }}</p>
+    <p flex class="truncate">{{ sugService.note }}</p>
+    <p flex class="truncate">{{ fDate(sugService.date) }}</p>
+    <p flex class="truncate">{{ sugService.room.name }}</p>
+    <p flex class="truncate">{{ sugService.therapist.name }}</p>
+    <section layout="row" layout-xs="column" layout-align="center center" layout-wrap>
+        <md-button ng-click="edit()"
+                   class="md-icon-button md-primary"
+                   aria-label="Edit Suggested Service">
+            <md-tooltip md-direction="top" md-delay="800">Edit Suggested Service</md-tooltip>
+            <md-icon md-font-set="material-icons" class="show-on-hover">edit</md-icon>
+        </md-button>
+        <md-button ng-click="remove($event)"
+                   class="md-icon-button md-warn"
+                   aria-label="Remove Suggested Service">
+            <md-tooltip md-direction="top" md-delay="800">Remove Suggested Service</md-tooltip>
+            <md-icon md-font-set="material-icons" class="show-on-hover">delete_forever</md-icon>
+        </md-button>
+    </section>
+</md-list-item>

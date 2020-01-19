@@ -1,0 +1,15 @@
+<div layout="row" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+    <menu-button></menu-button>
+
+    <h3 flex>Therapist with no account</h3>
+
+    <div layout="row" layout-align="space-between center" layout-wrap>
+        <md-button class="md-primary md-raised" ng-click="creteAccounts()"
+                   ng-disabled="!ifSomeChecked() || waitResponse">
+            Create accounts for selected therapists
+        </md-button>
+    </div>
+</div>
+
+<div list="listConf" class="md-table"></div>
+

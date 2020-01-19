@@ -1,0 +1,24 @@
+<div layout="row" layout-align="start center">
+    <div class="week-day-box">
+        <div>All</div>
+        <md-checkbox aria-label="Select All"
+                     ng-checked="ctrl.isChecked()"
+                     md-indeterminate="ctrl.isIndeterminate()"
+                     ng-click="!ngDisabled && ctrl.toggleAll()"
+                     ng-disabled="ngDisabled">
+
+        </md-checkbox>
+    </div>
+
+    <div class="week-day-box"></div>
+
+    <div layout="column" layout-align="start start" class="week-day-box"
+         ng-repeat="item in items"
+         ng-click="!ngDisabled && ctrl.toggle(item, selected)">
+        <div>{{ ::weekDaysShort[item] }}</div>
+        <md-checkbox ng-checked="ctrl.exists(item, selected)"
+                     aria-label="week day"
+                     ng-disabled="ngDisabled"
+        ></md-checkbox>
+    </div>
+</div>

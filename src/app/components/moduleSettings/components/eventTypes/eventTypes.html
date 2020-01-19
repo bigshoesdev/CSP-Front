@@ -1,0 +1,14 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <form name="ctrl.form">
+        <div flex>
+            <md-input-container class="md-block">
+                <label>Name *</label>
+                <input ng-model="model.name"
+                       ng-disabled="disableEdit"
+                       name="cName" type="text" placeholder="Unique code" required ng-maxlength="80" autofocus="">
+            </md-input-container>
+        </div>
+    </form>
+</div>

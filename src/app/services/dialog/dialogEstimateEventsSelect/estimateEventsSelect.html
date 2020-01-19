@@ -1,0 +1,70 @@
+<md-dialog flex="30">
+    <md-toolbar>
+        <div class="md-toolbar-tools">Concrete Event</div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+        <form name="ctrl.form">
+
+            <md-input-container class="md-block" flex>
+                <label>Session</label>
+                <div selector="session"
+                     selector-all="sessions"
+                     selector-title="Session"
+                     selector-id-property=".id"
+                     selector-on-close="applySession(session)"
+                     selector-display-item="displayItem"
+                     name="fSession"
+                     required="true"
+                ></div>
+                <div ng-messages="ctrl.form.fSession.$error">
+                    <div ng-message="required">Session is require</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex>
+                <label>Client</label>
+                <div selector="client"
+                     selector-all="clients"
+                     selector-title="Client"
+                     selector-id-property=".id"
+                     selector-display-item="displayItem"
+                     name="fClietn"
+                     required="true"
+                     disabled="!session"
+                ></div>
+                <div ng-messages="ctrl.form.fClietn.$error">
+                    <div ng-message="required">Client is require</div>
+                </div>
+            </md-input-container>
+
+            <md-datepicker ng-model="fromDate" md-max-date="toDate"
+                           ng-change="onDateChange(fromDate, toDate)"
+                           md-placeholder="From date"
+                           name="fFromDate" required
+                           ng-disabled="!session">
+            </md-datepicker>
+
+            <md-datepicker ng-model="toDate" md-min-date="fromDate"
+                           ng-change="onDateChange(fromDate, toDate)"
+                           md-placeholder="To date"
+                           name="fToDate" required
+                           ng-disabled="!session">
+            </md-datepicker>
+
+            <h4>Statuses</h4>
+            <div chips-string-selector-title="Statuses"
+                 chips-string-selector="selectedStates" chips-string-selector-all="statuses">
+            </div>
+
+
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="Apply" ng-click="apply()" class="md-raised md-primary" ng-disabled="ctrl.form.$invalid">
+            Apply
+        </md-button>
+        <md-button aria-label="Cancel" ng-click="cancel()" class="md-raised">
+            Cancel
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

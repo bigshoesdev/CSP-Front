@@ -1,0 +1,52 @@
+<content-header>Suggested Services Table</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+    <md-button class="md-raised" ng-click="isEditing = !isEditing" ng-disabled="true">
+        {{ isEditing ? 'View table mode' : 'Edit table mode' }}
+    </md-button>
+
+    <md-button class="md-raised md-primary" ng-click="customize()" ng-disabled="true" ng-show="canEditUi">
+        Customize
+    </md-button>
+
+    <md-button class="md-raised md-primary" ng-click="juggleBoard()">
+        <md-icon md-font-set="material-icons">dashboard</md-icon>
+        Juggle Board
+    </md-button>
+</div>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="SuggestedServicesController.form">
+
+            <div class="md-block select-container">
+                <label>Select session</label>
+                <div selector="session"
+                     selector-all="SuggestedServicesController.sessions"
+                     selector-title="Search for session.."
+                     selector-id-property=".id"
+                     selector-on-close="applySession(SuggestedServicesController.session)"
+                     selector-display-item="displayItem"
+                     name="nSession"
+                ></div>
+                <div ng-messages="SuggestedServicesController.form.nSession.$error">
+                    <div ng-message="required">Session is required.</div>
+                </div>
+            </div>
+
+            <suggested-services-table suggested-services-table-edit="isEditing"
+                                      suggested-services-table-ui="canEditUi"
+                                      suggested-services-table-data="tableData"
+                                      session="session">
+
+            </suggested-services-table>
+            <!--<div suggested-services-table="SuggestedServicesController.session.id"-->
+                 <!--suggested-services-table-edit="isEditing"-->
+                 <!--suggested-services-table-ui="canEditUi"-->
+                 <!--suggested-services-table-data="tableData"-->
+                 <!--session="session"-->
+            <!--&gt;</div>-->
+
+        </form>
+    </div>
+</div>

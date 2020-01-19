@@ -1,0 +1,43 @@
+<div layout="column" ng-cloak>
+
+    <div class="calendarScrolled" layout="row">
+
+        <div class="calendarTimes" style="width: 70px">
+            <div ng-repeat="time in times track by $index" style="height: 25px"
+                 class="border">{{ ::time }}</div>
+        </div>
+
+        <div class="calendarBody" style="width: calc(100% - 70px);"
+             dnd-droppable="isDndAble" dnd-model="items"
+             dnd-on-dragenter="onDragenter($dropmodel, $dragmodel)"
+             dnd-on-dragleave="onDragleave($dropmodel, $dragmodel)"
+             dnd-on-drop = "onDrop($dropmodel, $dragmodel)"
+        >
+
+            <div class="draggable item"
+                 ng-repeat="item in items"
+                 dnd-draggable="isDndAble" dnd-rect="item.rect" dnd-model="item.model"
+                 dnd-on-dragstart="onDragstart($dropmodel, $dragmodel)"
+                 dnd-on-dragend="onDragend($dropmodel, $dragmodel)"
+                 dnd-draggable-opts="{useAsPoint: true}"
+                 ng-click="onItemClick($event, item)"
+            >
+                {{ showItem(item) }}
+            </div>
+
+            <div class="item itemAdd"
+                 ng-show="isPlusItemShown"
+                 dnd-rect="plusItem.rect"
+                 ng-click="onPlusClick($event)"
+            >
+                + Add
+            </div>
+
+            <canvas class="virtualGrid"
+                    ng-click="onClick($event)"></canvas>
+
+        </div>
+
+    </div>
+
+</div>

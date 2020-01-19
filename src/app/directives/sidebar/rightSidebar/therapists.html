@@ -1,0 +1,14 @@
+<md-list>
+    <md-subheader>
+        <h4><md-icon md-font-set="material-icons md-warn">warning</md-icon> Warning</h4>
+        <div>The category can not be deleted as it is contained in each therapist listed below.
+            Remove the category from therapists before delete it.</div>
+    </md-subheader>
+    <md-list-item ng-repeat="therapist in config.therapists" ui-sref="auth.settings.therapistEdit({ therapistId: therapist.id })"
+                  layout="row" layout-align="start center">
+        <md-button class="md-icon-button md-primary" aria-label="Edit">
+            <md-icon md-font-set="material-icons">edit</md-icon>
+        </md-button>
+        <p>{{ ::therapist.name }}</p>
+    </md-list-item>
+</md-list>

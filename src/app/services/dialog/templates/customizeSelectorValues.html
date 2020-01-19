@@ -1,0 +1,96 @@
+<md-dialog flex="30" class="editSelectValues">
+    <md-toolbar>
+        <div class="md-toolbar-tools">Edit select values</div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+
+
+        <md-list ng-cloak ui-sortable="sortableOptions" ng-model="values" class="alignMdList">
+
+            <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+                <div>
+                    <md-icon md-font-set="material-icons"></md-icon>
+                </div>
+                <div flex>
+                    <h4>Title</h4>
+                </div>
+                <div flex>
+                    <h4>Value</h4>
+                </div>
+
+                <md-button class="md-icon-button" aria-label="void" disabled="true">
+                    <md-icon md-font-set="material-icons"></md-icon>
+                </md-button>
+
+            </md-list-item>
+            <md-divider></md-divider>
+
+            <md-list-item ng-repeat="value in values" ng-init="position = $index"
+                          layout="row" layout-xs="column" layout-align="start center"
+                          class="show-on-hover-wrapper">
+
+                <div class="cursor-pointer">
+                    <md-icon md-font-set="material-icons">reorder</md-icon>
+                </div>
+
+                <div flex>
+                    <md-input-container class="md-block" flex>
+                        <input ng-model="value.title" type="text" ng-model-options="{ updateOn: 'blur' }" aria-label=" ">
+                    </md-input-container>
+                </div>
+
+                <div flex>
+                    <md-input-container class="md-block" flex>
+                        <input ng-model="value.value" type="number" ng-model-options="{ updateOn: 'blur' }" aria-label=" ">
+                    </md-input-container>
+                </div>
+
+                <md-button ng-click="remove(value, position)" class="md-icon-button md-warn" aria-label="Remove value">
+                    <md-tooltip md-direction="top" md-delay="800">Remove value</md-tooltip>
+                    <md-icon md-font-set="material-icons" class="show-on-hover">clear</md-icon>
+                </md-button>
+
+            </md-list-item>
+
+            <md-list-item ng-hide="newValue"
+                          layout="row" layout-xs="column" layout-align="start center">
+                <md-button class="md-primary" ng-click="addNew()">+ Add new</md-button>
+            </md-list-item>
+
+            <md-list-item ng-show="newValue"
+                layout="row" layout-xs="column" layout-align="start center">
+
+                <div class="cursor-pointer">
+                    <md-icon md-font-set="material-icons"></md-icon>
+                </div>
+
+                <div flex>
+                    <md-input-container class="md-block" flex>
+                        <input ng-model="newValue.title" type="text" ng-model-options="{ updateOn: 'blur' }"
+                               ng-change="onNewValueAdd(newValue)" aria-label=" ">
+                    </md-input-container>
+                </div>
+
+                <div flex>
+                    <md-input-container class="md-block" flex>
+                        <input ng-model="newValue.value" type="number" ng-model-options="{ updateOn: 'blur' }"
+                               ng-change="onNewValueAdd(newValue)" aria-label=" ">
+                    </md-input-container>
+                </div>
+
+                <md-button ng-click="onNewValueAdd(newValue)" class="md-icon-button md-primary" aria-label="Add value">
+                    <md-tooltip md-direction="top" md-delay="800">Add value</md-tooltip>
+                    <md-icon md-font-set="material-icons">add</md-icon>
+                </md-button>
+
+            </md-list-item>
+
+        </md-list>
+
+
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="Close" ng-click="cancel()" class="md-raised">Close</md-button>
+        <md-button aria-label="Hide" ng-click="hide()" class="md-raised md-warn">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

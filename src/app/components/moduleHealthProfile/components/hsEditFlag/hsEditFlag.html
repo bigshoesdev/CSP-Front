@@ -1,0 +1,112 @@
+<form name="ctrl.form" class="healthSectionsEditValues">
+
+    <div layout="row" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>Edit Flag Values ({{ sectionType }})</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-icon-button md-raised" ng-click="backOrDone()">
+                <md-tooltip md-direction="top" md-delay="800">Done and Back</md-tooltip>
+                <md-icon md-font-set="material-icons">arrow_back</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+
+    <md-list ng-cloak class="alignMdList">
+
+        <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+
+            <div flex>
+                <h4>Title</h4>
+            </div>
+
+            <div flex>
+                <h4>Color</h4>
+            </div>
+
+            <md-button class="md-icon-button" aria-label="void" disabled="true">
+                <md-icon md-font-set="material-icons"></md-icon>
+            </md-button>
+
+        </md-list-item>
+
+        <md-divider></md-divider>
+
+        <md-list-item ng-repeat="value in healthSectionFlagColumn.values"
+                      layout="row" layout-xs="column" layout-align="start center"
+                      class="show-on-hover-wrapper">
+
+            <div flex>
+                <md-input-container class="md-block" flex>
+                    <input ng-model="value.title" type="text" ng-model-options="{ updateOn: 'blur' }" aria-label=" "
+                           ng-change="onValueChange(value)"
+                           ng-disabled="isDisabled(value)"
+                    >
+                </md-input-container>
+            </div>
+
+            <div flex>
+
+                <div
+                    ng-if="!isDisabled(value)"
+                    md-color-picker
+                    ng-model="value.color" ng-change="onValueChange(value)"
+                    default="#f00"
+                    md-color-clear-button="false"
+                    open-on-input="true">
+                </div>
+
+                <md-icon
+                    ng-if="isDisabled(value)"
+                    md-font-set="material-icons" style="color: {{ ::value.color }}">
+                    flag
+                </md-icon>
+
+            </div>
+
+            <md-button ng-click="remove(value)" class="md-icon-button md-warn" aria-label="Remove value"
+                       ng-disabled="isDisabled(value)">
+                <md-tooltip md-direction="top" md-delay="800">Remove column</md-tooltip>
+                <md-icon md-font-set="material-icons" class="show-on-hover">delete_forever</md-icon>
+            </md-button>
+
+        </md-list-item>
+
+        <md-list-item ng-hide="newValue"
+                      layout="row" layout-xs="column" layout-align="start center">
+            <md-button class="md-primary" ng-click="addNew()">+ Add new</md-button>
+        </md-list-item>
+
+        <md-list-item ng-show="newValue"
+                      layout="row" layout-xs="column" layout-align="start center">
+
+            <div flex>
+                <md-input-container class="md-block" flex>
+                    <input ng-model="newValue.title" type="text" ng-model-options="{ updateOn: 'blur' }" aria-label=" "
+                           ng-change="onNewValueChange(newValue)"
+                    >
+                </md-input-container>
+            </div>
+
+            <div flex>
+                <div
+                    md-color-picker
+                    ng-model="newValue.color" ng-change="onNewValueChange(newValue)"
+                    default="#f00"
+                    md-color-clear-button="false"
+                    open-on-input="true">
+                </div>
+            </div>
+
+            <md-button ng-click="onNewValueChange(newValue)" class="md-icon-button md-primary" aria-label="Add value">
+                <md-tooltip md-direction="top" md-delay="800">Add value</md-tooltip>
+                <md-icon md-font-set="material-icons">add</md-icon>
+            </md-button>
+
+        </md-list-item>
+
+    </md-list>
+
+</form>

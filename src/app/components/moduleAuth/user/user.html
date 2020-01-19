@@ -1,0 +1,89 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+            <md-progress-linear md-mode="query" ng-show="waitResponse"></md-progress-linear>
+
+            <md-input-container class="md-block">
+
+                <label>User name</label>
+
+                <input ng-model="model.name"
+                       name="uName"
+                       type="text"
+                       ng-disabled="disableEdit"
+                       required
+                       autofocus="">
+
+                <div ng-messages="ctrl.form.uName.$error">
+                    <div ng-message="required">User name is required.</div>
+                </div>
+            </md-input-container>
+
+
+            <md-input-container class="md-block">
+
+                <label>{{ isEdit ? 'Set New Password' : 'Password' }}</label>
+
+                <div flex layout="row">
+                    <md-button
+                        flex="1"
+                        ng-click="showPassword = !showPassword"
+                        class="md-icon-button md-primary"
+                        ng-disabled="disableEdit"
+                        aria-label="Show password">
+                        <md-tooltip md-direction="top" md-delay="800">{{!showPassword ? 'Show Password' : 'Hide
+                            Password'}}
+                        </md-tooltip>
+                        <md-icon md-font-set="material-icons">{{!showPassword ? 'remove_red_eye' : 'block'}}</md-icon>
+                    </md-button>
+
+                    <input ng-model="model.password"
+                           flex="90"
+                           name="uPassword"
+                           type="{{showPassword ? 'text' : 'password'}}"
+                           placeholder="******"
+                           ng-disabled="disableEdit"
+                           ng-required="!isEdit"
+                           autofocus="">
+                </div>
+
+                <div ng-show="!isEdit">
+                    <div ng-messages="ctrl.form.uPassword.$error">
+                        <div ng-message="required">User password is required.</div>
+                    </div>
+                </div>
+            </md-input-container>
+
+            <md-input-container></md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Email</label>
+
+                <input ng-model="model.email"
+                       name="uEmail"
+                       type="email"
+                       required
+                       ng-disabled="isEdit || disableEdit">
+
+                <div ng-messages="ctrl.form.uEmail.$error">
+                    <div ng-message="email">Please enter valid email.</div>
+                    <div ng-message="required">Email is required.</div>
+                </div>
+
+            </md-input-container>
+
+            <md-switch ng-model="model.locked" aria-label="locked" class="md-warn" ng-disabled="disableEdit">
+                {{ model.locked ? 'Locked' : 'Unlocked' }}
+            </md-switch>
+
+            <h4>Modules</h4>
+            <div chips-string-selector-title="Select Modules"
+                 chips-string-selector="model.modules"
+                 chips-string-selector-all="modules"
+                 disabled="disableEdit">
+            </div>
+        </form>
+    </div>
+</div>

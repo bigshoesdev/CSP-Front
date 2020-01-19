@@ -1,0 +1,84 @@
+<form name="ctrl.form" class="mbConfirmationList">
+
+    <div layout="row" layout-align="space-between center" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>Confirmation List</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-icon-button md-raised" ng-click="backOrDone()">
+                <md-tooltip md-direction="top" md-delay="800">Back</md-tooltip>
+                <md-icon md-font-set="material-icons">arrow_back</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+    <h4 class="confirmationLink">
+        <a href="{{confirmationLink}}" ng-show="confirmationLink">Link to confirmation</a>
+    </h4>
+
+
+    <md-input-container class="md-block">
+        <label>Select session</label>
+        <div selector="session"
+             selector-all="sessions"
+             selector-title="Search for session.."
+             selector-id-property=".id"
+             selector-on-close="applySession(session)"
+             selector-display-item="displayEntity"
+        ></div>
+    </md-input-container>
+
+    <md-list ng-cloak class="alignMdList">
+
+        <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+            <div flex><h4>Client</h4></div>
+            <div flex><h4>Link</h4></div>
+            <section layout="row" layout-align="center center" layout-wrap>
+                <md-button class="md-icon-button md-primary" aria-label="void" disabled>
+                    <md-icon md-font-set="material-icons"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button md-primary" aria-label="void" disabled>
+                    <md-icon md-font-set="material-icons"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button md-primary" aria-label="void" disabled>
+                    <md-icon md-font-set="material-icons"></md-icon>
+                </md-button>
+            </section>
+        </md-list-item>
+
+        <md-divider></md-divider>
+
+        <div ng-repeat="matchingData in matchingDataArr"
+             class="show-on-hover-wrapper">
+
+            <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+                <div flex>{{matchingData.clientName}}</div>
+                <div flex>
+                    <a href="/#/matchingBoardConfirmation/{{matchingData.confirmationData.secret}}">Confirmation</a>
+                </div>
+                <section layout="row" layout-align="center center" layout-wrap>
+                    <md-button ng-click="applyConfirmation(matchingData, $event)"
+                               class="md-icon-button md-primary" aria-label="Apply the Confirmation">
+                        <md-tooltip md-direction="top" md-delay="800">Apply the Confirmation</md-tooltip>
+                        <md-icon md-font-set="material-icons" class="show-on-hover">check_circle</md-icon>
+                    </md-button>
+                    <md-button ng-click="viewConfirmation(matchingData, $event)"
+                               class="md-icon-button" aria-label="View the Confirmation">
+                        <md-tooltip md-direction="top" md-delay="800">View the Confirmation</md-tooltip>
+                        <md-icon md-font-set="material-icons" class="show-on-hover">pageview</md-icon>
+                    </md-button>
+                    <md-button ng-click="cancelConfirmation(matchingData, $event)"
+                               class="md-icon-button md-warn" aria-label="Cancel the Confirmation">
+                        <md-tooltip md-direction="top" md-delay="800">Cancel the Confirmation</md-tooltip>
+                        <md-icon md-font-set="material-icons" class="show-on-hover">cancel</md-icon>
+                    </md-button>
+                </section>
+            </md-list-item>
+
+            <md-divider></md-divider>
+        </div>
+
+    </md-list>
+
+</form>

@@ -1,0 +1,17 @@
+<md-select ng-model="selected"
+           ng-model-options="{ trackBy: '$value' + idPropertyChain }"
+           md-selected-text="_selectedText()"
+           md-on-close="onClose()"
+           data-md-container-class="selectdemoSelectHeader selectAllHeader"
+           aria-label="{{ title }}"
+           name="{{ name }}"
+           ng-required="required"
+           ng-disabled="disabled">
+    <md-option ng-value="empty">
+        {{::nullTitle}}
+    </md-option>
+    <md-divider></md-divider>
+    <md-option ng-value="item" ng-repeat="item in allList | filter:searchTerm">
+        {{ ::_displayItem(item) }}
+    </md-option>
+</md-select>

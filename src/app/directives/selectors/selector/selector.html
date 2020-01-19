@@ -1,0 +1,63 @@
+<span ng-if="isMultiple">
+    <md-select ng-model="$parent.selected"
+               ng-model-options="{ trackBy: '$value' + idPropertyChain }"
+               md-selected-text="_selectedText()"
+               md-on-close="searchTerm = ''; onClose()"
+               data-md-container-class="selectdemoSelectHeader selectAllHeader"
+               aria-label="{{ title }}"
+               name="{{ name }}"
+               ng-required="ngRequired"
+               ng-disabled="disabled"
+               multiple="true"
+    >
+        <md-select-header class="demo-select-header" ng-if="searchable">
+            <input ng-model="shareObj.searchTerm"
+                   ng-keydown="updateSearch($event)"
+                   type="search"
+                   placeholder="Filter items.."
+                   class="demo-header-searchbox md-text">
+        </md-select-header>
+        <md-optgroup label="{{ title }}">
+            <md-checkbox aria-label="Select All"
+                         ng-checked="isChecked()"
+                         md-indeterminate="isIndeterminate()"
+                         ng-click="toggleAll()"
+            >
+                All
+            </md-checkbox>
+            <md-divider></md-divider>
+            <md-option ng-value="item" ng-repeat="item in allList | filter:shareObj.searchTerm">
+                {{ ::shareObj.displayName(item) }}
+            </md-option>
+        </md-optgroup>
+
+    </md-select>
+</span>
+
+<span ng-if="!isMultiple">
+    <md-select
+        ng-model="$parent.selected"
+        ng-model-options="{ trackBy: '$value' + idPropertyChain }"
+        md-selected-text="_selectedText()"
+        md-on-close="searchTerm = ''; onClose(); "
+        data-md-container-class="selectdemoSelectHeader selectAllHeader"
+        aria-label="{{ title }}"
+        name="{{ name }}"
+        ng-required="ngRequired"
+        ng-disabled="disabled"
+        multiple="false"
+    >
+        <md-select-header layout="column" class="demo-select-header" ng-if="searchable">
+            <input ng-model="shareObj.searchTerm"
+                   type="search"
+                   placeholder="Filter items.."
+                   ng-keydown="updateSearch($event)"
+                   class="demo-header-searchbox md-text">
+        </md-select-header>
+        <md-optgroup>
+            <md-option ng-value="item" ng-repeat="item in allList | filter:shareObj.searchTerm">
+                {{ shareObj.displayName(item) }}
+            </md-option>
+        </md-optgroup>
+    </md-select>
+</span>

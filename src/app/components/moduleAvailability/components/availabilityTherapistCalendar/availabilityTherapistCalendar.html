@@ -1,0 +1,26 @@
+<content-header>{{ title }}</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+    <md-button type="submit" class="md-raised md-primary" ng-click="save($event)"
+               ng-disabled="ctrl.form.$invalid || waitResponse || !isModelChanged()"
+               ng-if="!isReadOnly">
+        Save
+    </md-button>
+    <md-button class="md-raised" ng-click="cancel()">
+        {{ isReadOnly || !isModelChanged() ? 'Close' : 'Cancel' }}
+    </md-button>
+</div>
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form" style="min-height: calc(100vh - 80px)">
+            <div layout="row" layout-align="start center" ng-show="!isReadOnly">
+                Default Availability:
+                <default-availability></default-availability>
+            </div>
+
+            <div availability-calendar="calendarConf"
+                 calendar-ctrl="calendarCtrl"
+                 class="calendar"></div>
+        </form>
+    </div>
+</div>

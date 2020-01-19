@@ -1,0 +1,62 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+            <md-input-container class="md-block">
+                <label>Restriction name *</label>
+                <input ng-model="model.name"
+                       ng-change="onNameChange()"
+                       name="fName" type="text"
+                       required
+                       ng-disabled="disableEdit"
+                       ng-maxlength="255"
+                       autofocus="">
+
+                <div ng-messages="ctrl.form.fName.$error">
+                    <div ng-message="required">Restriction name is required.</div>
+                    <div ng-message="notUniqueName">Restriction name is not unique.</div>
+                    <div ng-message="maxlength">Restriction name is too long.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Linked Service or Category</label>
+
+                <div selector="linkedObject"
+                     selector-all="allLinkedObjects"
+                     selector-title="Search for service or category.."
+                     selector-id-property=".id"
+                     selector-on-close="updateModelFromLinkedObject()"
+                     selector-display-item="displayItem"
+                     required="true"
+                     name="fLinkedId"
+                     disabled="disableEdit"
+                ></div>
+
+                <div ng-messages="ctrl.form.fLinkedId.$error">
+                    <div ng-message="required">Service or Category is required.</div>
+                    <div ng-message="restrictionAlreadyExists">Restriction with the linked Service or Category already
+                        exists.
+                    </div>
+                </div>
+            </md-input-container>
+
+
+            <h4>Rooms (used any)</h4>
+            <div chips-selector-title="Select Rooms"
+                 chips-selector="model.rooms"
+                 chips-selector-all="rooms"
+                 disabled="disableEdit">
+            </div>
+
+            <h4>Equipments (used all)</h4>
+            <div chips-selector-title="Select Equipments"
+                 chips-selector="model.equipments"
+                 chips-selector-all="equipments"
+                 disabled="disableEdit">
+            </div>
+
+        </form>
+    </div>
+</div>

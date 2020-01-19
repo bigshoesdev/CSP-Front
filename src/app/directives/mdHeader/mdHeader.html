@@ -1,0 +1,44 @@
+<content-header>{{ title }}</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+
+    <md-button class="md-raised"
+               ng-click="cancel()">
+        <md-icon md-font-set="material-icons" class="ng-binding ng-scope md-csp-theme material-icons" role="img">
+            keyboard_return
+        </md-icon>
+        {{ isUnsaved() ? 'Cancel' : 'Close' }}
+    </md-button>
+
+    <md-button type="submit"
+               class="md-raised md-primary"
+               ng-click="save()"
+               ng-show="!disableEdit"
+               ng-disabled="ctrl.form.$invalid || waitResponse">
+        <md-icon md-font-set="material-icons" class="ng-binding ng-scope md-csp-theme material-icons" role="img">
+            save
+        </md-icon>
+        {{ isEdit ? 'Save' : 'Create' }}
+    </md-button>
+
+    <md-button type="submit"
+               class="md-raised md-primary"
+               ng-click="edit()"
+               ng-show="disableEdit"
+               >
+        <md-icon md-font-set="material-icons" class="ng-binding ng-scope md-csp-theme material-icons" role="img">
+            edit
+        </md-icon>
+        Edit
+    </md-button>
+
+    <md-button class="md-raised md-warn"
+               ng-show="isEdit && !disableEdit"
+               ng-click="delete($event)"
+               ng-disabled="waitResponse">
+        <md-icon md-font-set="material-icons" class="ng-binding ng-scope md-csp-theme material-icons" role="img">
+            delete
+        </md-icon>
+        Delete
+    </md-button>
+</div>

@@ -1,0 +1,40 @@
+<div class="bookingEventConfirmation">
+
+    <div layout="row" layout-xs="column" layout-align="space-between center"
+         class="buttons-header">
+        <h3>Booking Concrete Event Confirmation</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-click="confirm()" ng-disabled="waitResponse">
+                Confirm
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="decline()" ng-disabled="waitResponse">
+                Decline
+            </md-button>
+        </div>
+    </div>
+
+
+    <md-list>
+        <div sticky style="height: auto" class="header">
+            <md-list-item layout="row">
+                <div flex>Fields</div>
+                <div flex>Previous Event</div>
+                <div flex>New Event</div>
+            </md-list-item>
+            <md-divider></md-divider>
+        </div>
+
+        <div ng-repeat="field in fields"
+             ng-init="preValue = eventChange.preValue[field];
+                      newValue = eventChange.newValue[field]">
+            <md-list-item layout="row" ng-class="{ red: preValue !== newValue }">
+                <div flex>{{ field }}</div>
+                <div flex>{{ preValue }}</div>
+                <div flex>{{ newValue }}</div>
+            </md-list-item>
+            <md-divider></md-divider>
+        </div>
+    </md-list>
+
+</div>

@@ -1,0 +1,40 @@
+<div class="reportTableContainer">
+
+    <h1 class="reportTableTitle">{{ ::title }}
+        <md-button type="text/css" media="print" class='no-print'>
+            <img src="assets/images/print.svg" height="30" width="35" onclick="window.print(); return false;">
+        </md-button>
+    </h1>
+
+    <div class="formContainer">
+        <div ng-repeat="(key,trItems) in reportGroups">
+            <H3>DATE: {{key}}</H3>
+
+            <md-list ng-cloak class="alu-table">
+                <!--table-header-->
+                <md-list-item class="alu-table-row no-hover alu-table-header">
+                    <div ng-repeat="th in thList"
+                         class="alu-table-cell"
+                         ng-style="{ width: th.width ? th.width + '%' : auto }"
+                         nowrap>
+                        <button class="column-title" ng-click="toggleSort(th.sortKey)">
+                            {{ ::th.title }}
+                        </button>
+                    </div>
+                </md-list-item>
+                <!--table-body-->
+
+                <md-list-item class="alu-table-row" ng-repeat="tr in trItems">
+                    <div ng-repeat="(key,td) in ctrl.getOrderedItem(tr)" class="alu-table-cell">
+                        {{ ctrl.getModelValue(key,tr) }}
+                    </div>
+                </md-list-item>
+            </md-list>
+        </div>
+    </div>
+    <script type="text/javascript">
+        setInterval(function () {
+            window.location.reload();
+        }, 60000);
+    </script>
+</div>

@@ -1,0 +1,19 @@
+<div selector="selectedList"
+     selector-all="allList"
+     selector-title="{{ title }}"
+     selector-id-property=""
+     multiple="true"
+></div>
+<md-list>
+    <md-list-item ng-repeat="selectedName in selectedList">
+        <div class="md-list-item-text">
+            <p>{{ ::selectedName }}</p>
+        </div>
+
+        <md-button class="md-icon-button md-secondary md-warn">
+            <md-tooltip md-direction="top" md-delay="800">Remove Item</md-tooltip>
+            <md-icon md-font-set="material-icons" ng-click="unselect(selectedName)">clear</md-icon>
+        </md-button>
+        <md-divider></md-divider>
+    </md-list-item>
+</md-list>

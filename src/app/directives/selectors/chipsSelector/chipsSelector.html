@@ -1,0 +1,18 @@
+<div selector="selectedList"
+     selector-all="allList"
+     selector-title="{{ title }}"
+     selector-id-property=".id"
+     selector-display-item="displayItem"
+     selector-on-close="onClose()"
+     multiple="{{ multiple }}"
+     disabled="disabled"
+     searchable="searchable"
+     ng-required="ngRequired"
+></div>
+<md-chips ng-model="selectedList"
+          readonly="disabled"
+          md-on-remove="onClose()"
+          ng-show="selectedList && selectedList.length > 0">
+    <input disabled="true" ng-hide="true">
+    <md-chip-template>{{$chip.name}}</md-chip-template>
+</md-chips>

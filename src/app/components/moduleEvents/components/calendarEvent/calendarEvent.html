@@ -1,0 +1,179 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+            <md-input-container class="md-block">
+                <label>Calendar Event name</label>
+                <input ng-model="model.name"
+                       ng-change="onNameChange()"
+                       name="fName" type="text"
+                       ng-disabled="disableEdit"
+                       required
+                       autofocus="">
+                <div ng-messages="ctrl.form.fName.$error" class="error-container">
+                    <div ng-message="required">Calendar Event name is required.</div>
+                    <div ng-message="notUniqueName">Calendar Event name is not unique.</div>
+                </div>
+            </md-input-container>
+
+            <div class="md-block select-container" layout="column" flex>
+                <label>Event</label>
+                <div selector="model.event"
+                     selector-all="events"
+                     selector-on-close="updateTherapists(model.event)"
+                     selector-title="Select event"
+                     selector-id-property=".id"
+                     selector-display-item="displayItem"
+                     name="fEvent"
+                     ng-required="true"
+                     disabled="disableEdit"
+                ></div>
+            </div>
+
+            <md-input-container class="md-block">
+                <label>Capacity</label>
+                <input type="number"
+                       ng-model="model.capacity"
+                       name="fCapacity"
+                       required
+                       aria-label="Capacity"
+                       ng-disabled="disableEdit"
+                       min="0">
+                <div ng-messages="ctrl.form.fCapacity.$error" class="error-container">
+                    <div ng-message="required">Capacity is required.</div>
+                    <div ng-message="min">Capacity can't be a negative number.</div>
+                </div>
+            </md-input-container>
+
+            <div layout="row" layout-xs="column" layout-align="start center">
+                <div class="ngMessagesContainer">
+                    <md-tooltip md-direction="top" md-delay="800">Event beginning ( Inclusive )</md-tooltip>
+
+                    <md-datepicker ng-model="model.dateStart" required
+                                   md-placeholder="Beginning"
+                                   name="fDateStart"
+                                   md-min-date="minDate(model.dateStart, dateToday)"
+                                   ng-disabled="disableEdit || equalsDates() || model.dateStart < dateToday"
+                                   md-max-date="model.dateEnd"
+                    ></md-datepicker>
+
+                    <div ng-messages="ctrl.form.fDateStart.$error" class="error-container">
+                        <div ng-message="required" class="ngMessageStyle">Start date is required.</div>
+                        <div ng-message="mindate" class="ngMessageStyle">Start date must be greater than or equal to
+                            today's.
+                        </div>
+                        <div ng-message="maxdate" class="ngMessageStyle">Start date must be less than or equal to End
+                            date.
+                        </div>
+                    </div>
+                </div>
+                <div class="ngMessagesContainer">
+                    <md-tooltip md-direction="top" md-delay="800">Event ending ( Exnclusive )</md-tooltip>
+
+                    <md-datepicker ng-model="model.dateEnd" required
+                                   md-placeholder="End"
+                                   md-min-date="model.dateStart"
+                                   name="fDateEnd"
+                                   md-min-date="minDate(dateStart, dateToday)"
+                                   ng-disabled="disableEdit || model.dateEnd < dateToday"></md-datepicker>
+
+                    <div ng-messages="ctrl.form.fDateEnd.$error" class="error-container">
+                        <div ng-message="required" class="ngMessageStyle">End date is required.</div>
+                        <div ng-message="mindate" class="ngMessageStyle">Start date must be greater than or equal to
+                            today's.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ngMessagesContainer">
+                <input type="number"
+                       ng-model="model.days.length"
+                       min="1"
+                       name="fDays"
+                       class="ng-hide"
+                       ng-disabled="disableEdit"
+                />
+                <div inline-week-selector="model.days" ng-disabled="disableEdit"></div>
+                <div ng-messages="ctrl.form.fDays.$error" class="error-container">
+                    <div ng-message="min" class="ngMessageStyle">Some week day is required.</div>
+                </div>
+            </div>
+
+            <md-input-container class="md-block" flex>
+                <label>Time</label>
+                <input type="time"
+                       ng-model="time"
+                       ng-change="model.time = convertTime2Model(time)"
+                       name="fTime"
+                       ng-disabled="disableEdit"
+                       required>
+                <div ng-messages="ctrl.form.fTime.$error" class="error-container">
+                    <div ng-message="required">Time is require</div>
+                    <div ng-message="time">Fill in the time field</div>
+                </div>
+            </md-input-container>
+
+            <div>
+
+                <div layout="row" layout-align="start center">
+
+                    <md-input-container class="md-block select-container" flex>
+                        <label>Room</label>
+                        <div selector="model.room"
+                             selector-all="rooms"
+                             selector-title="Select room"
+                             selector-id-property=".id"
+                             selector-display-item="displayItem"
+                             name="fRoom"
+                             disabled="disableEdit"
+                        ></div>
+                    </md-input-container>
+                    <md-button class="md-icon-button md-secondary md-warn">
+                        <md-tooltip md-direction="top" md-delay="800">Remove room</md-tooltip>
+                        <md-icon md-font-set="material-icons" ng-click="model.room = null">clear</md-icon>
+                    </md-button>
+                </div>
+
+                <div layout="row" layout-align="start center">
+                    <md-input-container class="md-block" flex>
+                        <label>Therapist</label>
+                        <div selector="model.therapist"
+                             selector-all="therapists"
+                             selector-title="{{ therapistTitle }}"
+                             selector-id-property=".id"
+                             selector-display-item="displayItem"
+                             selector-on-close="applyTherapist(model.therapist)"
+                             disabled="disableEdit || !model.event || (therapists.length < 1)"
+                             name="fTherapist"
+                        ></div>
+                    </md-input-container>
+                    <md-button class="md-icon-button md-secondary md-warn">
+                        <md-tooltip md-direction="top" md-delay="800">Remove therapist</md-tooltip>
+                        <md-icon md-font-set="material-icons" ng-click="model.therapist = null">clear</md-icon>
+                    </md-button>
+                </div>
+
+                <div layout="row" layout-align="start center">
+                    <div class="md-block" flex>
+                        <label>Equipments</label>
+
+                        <div chips-selector-title="Select equipments"
+                             chips-selector="model.equipment"
+                             display-item="displayItem"
+                             chips-selector-all="equipments"
+                             searchable="true"
+                             disabled="disableEdit || !model.event || (equipments.length < 1)"
+                             multiple="true"
+                        >
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>

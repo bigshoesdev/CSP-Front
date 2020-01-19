@@ -1,0 +1,48 @@
+<form name="EstimateController.form" class="estimate">
+
+    <div layout="row" layout-align="space-between center" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>Estimate</h3>
+
+        <div layout="row" layout-align="center center" layout-wrap>
+            <md-button class="md-raised"
+                       ng-click="onCancel($event)"
+                       ng-if="EstimateController.isAdditionMode">
+                Cancel
+            </md-button>
+            <md-button class="md-raised"
+                       ng-click="onSelect($event)"
+                       ng-if="!EstimateController.estimate.sent && !EstimateController.isAdditionMode"
+                       ng-disabled="EstimateController.isReadOnly">
+                Select {{ EstimateController.isCreationMode ? '' : 'to Add' }}
+            </md-button>
+            <md-button class="md-raised md-primary"
+                       ng-click="onCreate($event)"
+                       ng-if="EstimateController.isCreationMode"
+                       ng-disabled="!ifSomeRowSelected">
+                Create
+            </md-button>
+            <md-button class="md-raised md-primary"
+                       ng-click="onAddSelected($event)"
+                       ng-if="EstimateController.isAdditionMode"
+                       ng-disabled="!ifSomeRowSelected">
+                Add
+            </md-button>
+            <md-button class="md-raised md-warn"
+                       ng-click="onSendEstimation($event)"
+                       ng-if="!EstimateController.isCreationMode && !EstimateController.estimate.sent"
+                       ng-disabled="EstimateController.isAdditionMode">
+                Send
+            </md-button>
+        </div>
+    </div>
+
+    <div concrete-event-reconcile-list="reconcileEventRows"
+         selection-enabled="EstimateController.isCreationMode || EstimateController.isAdditionMode"
+         selection-actions="selectionActions"
+         item-actions="itemActions"
+         on-row-checked="onRowChecked"
+    ></div>
+
+</form>

@@ -1,0 +1,29 @@
+<md-content layout-padding class="csp-sidebar" layout="column">
+
+    <csp-module-selector></csp-module-selector>
+
+    <md-divider></md-divider>
+
+    <md-list ng-show="items.length">
+        <md-list-item ng-repeat="item in items" ui-sref-active="active">
+
+            <a ui-sref="{{ ::item.sref }}">{{ ::item.title }}</a>
+
+            <section layout="row" layout-align="end center" layout-wrap class="md-secondary">
+                <md-button class="md-icon-button md-primary" ng-repeat="btn in item.btns"
+                           ui-sref="{{ ::btn.sref }}">
+                    <md-tooltip md-direction="top" md-delay="800">{{ ::btn.title }}</md-tooltip>
+                    <md-icon md-font-set="material-icons">{{ ::btn.iconName }}</md-icon>
+                </md-button>
+            </section>
+
+        </md-list-item>
+    </md-list>
+
+    <span flex></span>
+
+    <md-divider ng-show="items.length"></md-divider>
+
+    <csp-user-menu></csp-user-menu>
+
+</md-content>

@@ -1,0 +1,35 @@
+<div layout="row" layout-xs="column" layout-align="start center" class="dateNav">
+
+    <md-datepicker ng-model="date"
+                   ng-change="onDateChange(date)"
+                   md-min-date="minDate"
+                   md-max-date="maxDate"
+                   md-placeholder="Date"
+                   ng-disabled="ngDisabled"
+                   ng-required="ngRequired"
+                   name="dateName"
+    >
+    </md-datepicker>
+
+    <md-button class="md-icon-button " ng-click="previousDay(date)"
+               ng-disabled="ngDisabled || isPrevDisabled()">
+        <md-tooltip md-direction="top" md-delay="800">Previous day</md-tooltip>
+        <!--<md-icon md-font-set="material-icons">keyboard_arrow_left</md-icon>-->
+        <md-icon md-font-set="material-icons">arrow_back</md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button " ng-click="goToday()">
+        <md-tooltip md-direction="top" md-delay="800">Go to Today</md-tooltip>
+        <!--<md-icon md-font-set="material-icons">today</md-icon>-->
+        <md-icon md-font-set="material-icons">event</md-icon>
+    </md-button>
+
+
+    <md-button class="md-icon-button " ng-click="nextDay(date)"
+               ng-disabled="ngDisabled || isNextDisabled()">
+        <md-tooltip md-direction="top" md-delay="800">Next day</md-tooltip>
+        <!--<md-icon md-font-set="material-icons">keyboard_arrow_right</md-icon>-->
+        <md-icon md-font-set="material-icons">arrow_forward</md-icon>
+    </md-button>
+
+</div>

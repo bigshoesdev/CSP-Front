@@ -1,0 +1,44 @@
+.ta-toolbar {
+    background-color: #F0F0F0;
+    padding: 10px 10px 15px;
+    margin-left: 0;
+    border: 1px solid #EEE;
+}
+
+.editorSelected {
+    border: 2px solid #5bc0de;
+}
+
+.pl-82 {
+    padding-left: 82px;
+    margin-bottom: 10px;
+}
+
+.preview > div {
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+}
+.color-picker{
+    padding: 4px 10px;
+}
+
+.exp_container{
+    background: #e3e3e3;
+    padding: 2px 0;
+}
+
+.label_container{
+    padding: 10px;
+    label{
+        font-weight: normal;
+    }
+}
+.exp_description{
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.badge-right{
+    float: right;
+    margin-top: 15px;
+}

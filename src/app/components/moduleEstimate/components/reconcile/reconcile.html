@@ -1,0 +1,59 @@
+<form name="ctrl.form" class="reconcile">
+
+    <div layout="row" layout-align="space-between center" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>Reconcile</h3>
+
+        <div layout="row" layout-align="center center" layout-wrap>
+            <md-button class="md-raised" ng-click="makeAudit($event)" ng-disabled="!isAuditAvailable()">
+                Audit
+            </md-button>
+            <md-button class="md-raised" ng-click="makeReconcile($event)" ng-disabled="!isReconcileAvailable()">
+                Reconcile
+            </md-button>
+            <md-button class="md-raised" ng-click="makeEstimate($event)" ng-disabled="!isEstimateAvailable()">
+                Estimate
+            </md-button>
+        </div>
+    </div>
+
+    <div style="margin-top: 10px" layout="row">
+        <div date-nav="date"
+             on-change="onDateChange"
+             min="minDate"
+             max="maxDate"
+             ng-disabled="false"
+             ng-required="true"
+        ></div>
+
+        <div flex></div>
+
+        <h4>Total Cost: {{ totalCost | currency : ' ' : 2 }} CAD</h4>
+    </div>
+
+    <div>Client filter</div>
+    <div chips-selector="filteredClients"
+         chips-selector-all="clients"
+         chips-selector-on-close="applyFilter()"
+         chips-selector-title="Select Clients to filter">
+    </div>
+
+    <div>Therapist filter</div>
+    <div chips-selector="filteredTherapists"
+         chips-selector-all="therapists"
+         chips-selector-on-close="applyFilter()"
+         chips-selector-title="Select Therapists to filter">
+    </div>
+
+    <md-button class="md-raised md-primary" ng-click="onAdd($event)">
+        Add
+    </md-button>
+
+    <div concrete-event-reconcile-list="reconcileEventRows"
+         selection-enabled="true"
+         selection-actions="selectionActions"
+         item-actions="itemActions"
+    ></div>
+
+</form>

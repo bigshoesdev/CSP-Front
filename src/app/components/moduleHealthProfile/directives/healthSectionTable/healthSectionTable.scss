@@ -1,0 +1,9 @@
+.healthSectionTable{
+    md-card {
+        margin: 0;
+
+        md-input-container.md-csp-theme:not(.md-input-invalid).md-input-focused md-icon{
+            color: #444444;
+        }
+    }
+}

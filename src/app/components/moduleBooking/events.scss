@@ -1,0 +1,58 @@
+.fixed-width{
+    min-width: 200px;
+}
+
+.toolbar{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.columnContainer{
+    position: relative;
+    flex: 0 0 auto;
+    margin-left: 70px;
+}
+
+.md-button.md-icon-button {
+    margin: 0 0.6rem;
+    height: 4.8rem;
+    min-width: 0;
+    line-height: 4.8rem;
+    padding-left: 0;
+    padding-right: 0;
+    width: 4.8rem;
+}
+.comm-button{
+    background-color: #f0f3f4;
+}
+.md-button.md-csp-theme.md-primary:not([disabled]) md-icon {
+    color: #636363;
+}
+
+.selectdemoSelectHeader {
+    /* Please note: All these selectors are only applied to children of elements with the 'selectdemoSelectHeader' class */ }
+.selectdemoSelectHeader .demo-header-searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0; }
+.selectdemoSelectHeader .demo-select-header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 10.667px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: auto; }
+.selectdemoSelectHeader md-content._md {
+    max-height: 240px; }
+
+
+md-list-item {
+    &.md-no-proxy,
+    .md-no-style {
+        padding: 0;
+    }
+}

@@ -1,0 +1,34 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+
+            <md-input-container class="md-block">
+                <label>Category name *</label>
+                <input ng-model="model.name"
+                       ng-change="onNameChange()"
+                       ng-disabled="disableEdit"
+                       name="cName" type="text"
+                       placeholder="Category name"
+                       required
+                       ng-maxlength="255"
+                       autofocus="">
+
+                <div ng-messages="ctrl.form.cName.$error">
+                    <div ng-message="required">Category name is required.</div>
+                    <div ng-message="notUniqueName">Category name is not unique.</div>
+                    <div ng-message="maxlength">Category name is too long.</div>
+                </div>
+            </md-input-container>
+
+            <div objects-selector="model.services"
+                 disabled="disableEdit"
+                 objects-selector-all="services"
+                 objects-selector-text="Select services">
+            </div>
+
+            </md-input-container>
+        </form>
+    </div>
+</div>

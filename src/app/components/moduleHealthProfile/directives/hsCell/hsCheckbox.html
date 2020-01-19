@@ -1,0 +1,5 @@
+<!--<md-checkbox ng-model="rowItem.textValue" ng-change="onChange(column, row)"
+             ng-disabled="isReadOnly" aria-label=" "></md-checkbox>-->
+<md-switch ng-init="textValue = rowItem.textValue !== 'false'"
+           ng-model="textValue" ng-change="rowItem.textValue = textValue; onChange(column, row)"
+           ng-disabled="isReadOnly" aria-label=" "></md-switch>

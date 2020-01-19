@@ -1,0 +1,28 @@
+<md-autocomplete ng-disabled="disabled" md-selected-item="selectedItem" md-search-text="searchText"
+                 md-items="item in items" md-item-text="item.name"
+                 md-selected-item-change="addItem(selectedItem)"
+                 md-search-text-change="onSearchTextChange(searchText)"
+                 md-min-length="config.minLength"
+                 md-floating-label="{{config.floatingLabel}}"
+                 md-no-cache="config.noCache"
+                 md-delay="config.delay"
+                 md-autoselect="config.autoselect">
+    <md-item-template>
+        <span md-highlight-text="searchText">{{ ::item.name }}</span>
+    </md-item-template>
+    <md-not-found>
+        No items found.
+    </md-not-found>
+</md-autocomplete>
+<md-list>
+    <md-list-item ng-repeat="collectedItem in config.collectedItems track by collectedItem.id">
+        <div class="md-list-item-text">
+            <p>{{ ::collectedItem.name }} ({{ ::collectedItem.id }})</p>
+        </div>
+        <md-button class="md-icon-button md-secondary md-warn">
+            <md-tooltip md-direction="top" md-delay="800">Remove Item</md-tooltip>
+            <md-icon md-font-set="material-icons" ng-click="removeItem(collectedItem,$event)">clear</md-icon>
+        </md-button>
+        <md-divider></md-divider>
+    </md-list-item>
+</md-list>

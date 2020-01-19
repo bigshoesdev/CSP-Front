@@ -1,0 +1,14 @@
+<form name="ctrl.form">
+    <div layout="row" layout-xs="column" layout-align="start center">
+        <md-datepicker ng-model="week" md-min-date="minDate" md-max-date="maxDate"
+                       ng-change="onWeekChange(week)"
+                       md-placeholder="Week"
+                       name="fWeek" required>
+        </md-datepicker>
+    </div>
+
+
+    <div mb-table="mbTableConf"
+         mb-table-row-type="rowType"></div>
+
+</form>

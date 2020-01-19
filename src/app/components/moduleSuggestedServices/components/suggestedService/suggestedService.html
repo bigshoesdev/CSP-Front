@@ -1,0 +1,96 @@
+<content-header>{{ title }}</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+    <md-button class="md-raised md-warn" ng-show="isEdit" ng-click="delete($event)"
+               ng-disabled="waitResponse">
+        Delete
+    </md-button>
+
+    <md-button type="submit" class="md-raised md-primary" ng-click="save()"
+               ng-disabled="ctrl.form.$invalid || waitResponse">
+        Save
+    </md-button>
+
+    <md-button class="md-raised" ng-click="cancel()">
+        {{ isUnsaved() ? 'Cancel' : 'Back' }}
+    </md-button>
+</div>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+            <div class="ngMessagesContainer">
+                <!--<md-tooltip md-direction="top" md-delay="800">Date</md-tooltip>-->
+                <md-datepicker ng-model="date"
+                               ng-change="suggestedService.date = convertDate2Model(date)"
+                               md-placeholder="Date" md-min-date="startDate" md-max-date="endDate" name="fDate"
+                               required>
+                </md-datepicker>
+                <div ng-messages="ctrl.form.fDate.$error">
+                    <div ng-message="required" class="ngMessageStyle">Date is required.</div>
+                </div>
+            </div>
+
+            <md-input-container class="md-block">
+                <md-tooltip md-direction="left top">Services of therapists of the session (also included in therapist's
+                    categories).
+                </md-tooltip>
+                <label>Service</label>
+                <div selector="service"
+                     selector-all="services"
+                     selector-title="Search for service.."
+                     selector-id-property=".id"
+                     selector-on-close="updateService(service)"
+                     selector-display-item="displayName"
+                     disabled="isEdit"
+                     required="true"
+                     name="fServices"
+                ></div>
+                <div ng-messages="ctrl.form.fServices.$error">
+                    <div ng-message="required">Service is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <md-tooltip md-direction="left top">Therapists of the session who can do chosen service.</md-tooltip>
+                <label>Therapist</label>
+                <div selector="suggestedService.therapist"
+                     selector-all="therapists"
+                     selector-title="Search for therapist.."
+                     selector-id-property=".id"
+                     selector-on-close="updateTherapist()"
+                     selector-display-item="displayName"
+                     required="true"
+                     name="fTherapist"
+                     disabled="!service"
+                ></div>
+                <div ng-messages="ctrl.form.fTherapist.$error">
+                    <div ng-message="required">Therapist is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <md-tooltip md-direction="left top">Rooms available for the therapist and the service</md-tooltip>
+                <label>Room</label>
+                <div selector="suggestedService.room"
+                     selector-all="rooms"
+                     selector-title="Search for room.."
+                     selector-id-property=".id"
+                     selector-display-item="displayName"
+                     required="true"
+                     name="fRoom"
+                     disabled="!(service && suggestedService.therapist)"
+                ></div>
+                <div ng-messages="ctrl.form.fRoom.$error">
+                    <div ng-message="required">Room is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex>
+                <label>note</label>
+                <input ng-model="suggestedService.note" name="fNote" type="text" autofocus="">
+            </md-input-container>
+
+        </form>
+    </div>
+</div>

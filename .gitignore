@@ -1,0 +1,17 @@
+node_modules/
+bower_components/
+coverage/
+.sass-cache/
+.idea/
+.tmp/
+dist/
+typings/
+.tmp
+bower_components
+dist
+node_modules
+.DS_Store
+*.iml
+src/env.js
+/src/env.js
+src/env.js

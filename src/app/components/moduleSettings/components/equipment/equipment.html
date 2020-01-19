@@ -1,0 +1,43 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+
+            <md-input-container class="md-block" flex>
+                <label>Equipment name *</label>
+                <input ng-model="model.name"
+                       name="fName"
+                       type="text"
+                       required
+                       autofocus=""
+                       ng-disabled="disableEdit"
+                       ng-maxlength="255">
+
+                <div ng-messages="ctrl.form.fName.$error">
+                    <div ng-message="required">Equipment name is required.</div>
+                    <div ng-message="maxlength">Equipment name is too long.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex>
+                <label>Capacity *</label>
+                <input ng-model="model.capacity"
+                       name="fCapacity"
+                       type="number"
+                       ng-disabled="disableEdit"
+                       min="0"
+                       max="{{ maxCapacity }}">
+
+                <div ng-messages="ctrl.form.fCapacity.$error">
+                    <div ng-message="required">Equipment capacity is required.</div>
+                    <div ng-message="max">Maximum equipment capacity is {{ maxCapacity }}. Use 0 for infinite
+                        capacity.
+                    </div>
+                    <div ng-message="min">Equipment capacity can't be less than 0.</div>
+                </div>
+            </md-input-container>
+
+        </form>
+    </div>
+</div>

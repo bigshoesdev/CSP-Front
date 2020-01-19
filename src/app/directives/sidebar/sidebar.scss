@@ -1,0 +1,12 @@
+// buttons in sidebar should be little bit closer
+@import "../../style.variable";
+
+.csp-sidebar {
+    height: 100vh;
+    border-right: solid 1px $borderGray;
+    top: 90px;
+
+    section > .md-button.md-icon-button {
+        margin: 0;
+    }
+}

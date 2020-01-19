@@ -1,0 +1,130 @@
+@import "../../style.variable";
+
+$cellHeight: 25px;
+/* Colors */
+$deepGreen: $accentColor;
+//$backgroundColor: $primarySoftColor;
+$backgroundColor: #f0f3f4;
+$backgroundDisabledColor: #CCCCCC;
+$borderColor: #838383;
+$availableColor: $primaryColor;
+$availableDisabledColor: $accentSoftColor;
+$unavailableColor: $warnColor;
+$unavailableDisabledColor: $warnSoftColor;
+
+.calendar {
+    .itemBg {
+        position: absolute;
+        background: transparent;
+        text-align: center;
+        z-index: 1;
+        overflow: hidden;
+        border: solid $borderColor 1px;
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: default;
+        &.available {
+            background: linear-gradient(to left top,
+                transparent 48.9%,
+                #8eff86 51%, #8EFF86 78%,
+                transparent 80%
+            ),
+            linear-gradient(to left top,
+                    #8EFF86 28%,
+                    transparent 30%
+            );
+            background-size: 10px 10px;
+        }
+        &.unavailable {
+            background: linear-gradient(to left top,
+                transparent 48.9%,
+                #bbb 51%, #bbb 78%,
+                transparent 80%
+            ),
+            linear-gradient(to left top,
+                    #bbb 28%,
+                    transparent 30%
+            );
+            background-size: 10px 10px;
+        }
+    }
+
+    .item {
+        position: absolute;
+        border: solid $borderColor 1px;
+        background-color: $backgroundColor;
+        text-align: center;
+        cursor: pointer;
+        z-index: 1;
+        overflow: hidden;
+
+        .editAction {
+            position: absolute;
+            top: 5px;
+            right: 0;
+
+            display: none;
+            &:hover,
+            &:focus {
+                display: block;
+            }
+        }
+
+        &:hover,
+        &:focus {
+            .editAction {
+                display: block;
+            }
+        }
+
+        &.itemAdd:hover{
+            min-height: 25px !important;
+        }
+    }
+
+    .lassoFrame {
+        opacity: 0.3;
+        border: 1px solid #6e9430;
+        background: #a9ce6d;
+    }
+
+    .border {
+        border: solid $borderColor 1px;
+        background-color: $backgroundColor;
+        border-bottom: 0;
+        border-right: 0;
+        padding-left: 10px;
+        line-height: 25px;
+    }
+
+    .dayTitle {
+        text-align: center;
+    }
+
+    .droppable {
+        background: #aaa;
+        width: 200px;
+        height: 200px;
+        position: relative;
+        top: 100px;
+        left: 100px;
+
+        &.active {
+            opacity: .5;
+        }
+    }
+
+    .calendarBody {
+        position: relative; // critical for beginning coordinate [0,0]
+    }
+
+    .calendarTimes {
+    }
+
+    canvas.virtualGrid {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+}

@@ -1,0 +1,3 @@
+<md-select ng-model="rowItem.selectValue" ng-change="onChange(column, row)" ng-disabled="isReadOnly" aria-label=" ">
+    <md-option ng-repeat="v in values" value="{{v.value}}">{{v.title}}</md-option>
+</md-select>

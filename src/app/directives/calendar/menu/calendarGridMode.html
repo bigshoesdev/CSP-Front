@@ -1,0 +1,19 @@
+<md-menu md-position-mode="target">
+    <md-button aria-label="Calendar grid mode" ng-click="$mdOpenMenu($event)">
+        <div layout="row" flex>
+            <md-tooltip md-direction="top" md-delay="800">Calendar Mode</md-tooltip>
+            <md-icon md-font-set="material-icons">{{ getCalendarGridModeIconName(gridMode) }}</md-icon>
+            <span flex>{{ getCalendarGridModeName(gridMode) }}</span>
+        </div>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item ng-repeat="mode in allGridModes">
+            <md-button ng-click="onGridModeChange({ gridMode: mode })">
+                <div layout="row" flex>
+                    <md-icon md-font-set="material-icons">{{ ::getCalendarGridModeIconName(mode) }}</md-icon>
+                    <span flex>{{ ::getCalendarGridModeName(mode) }}</span>
+                </div>
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

@@ -1,0 +1,61 @@
+<md-header></md-header>
+
+<div class="formContainer">
+    <div flex>
+    <form name="ctrl.form">
+            <md-input-container class="md-block">
+                <label>Session name *</label>
+                <input ng-model="model.name"
+                       ng-change="onChangeUniqueness()"
+                       ng-disabled="disableEdit"
+                       name="fName" type="text" required autofocus="">
+
+                <div ng-messages="ctrl.form.fName.$error">
+                    <div ng-message="required">Session name is required.</div>
+                    <div ng-message="alreadyExists">Session name for the dates already exist.</div>
+                </div>
+            </md-input-container>
+
+            <div layout="row" layout-xs="column" layout-align="start center">
+                <div class="ngMessagesContainer">
+                    <md-tooltip md-direction="top" md-delay="800">Session beginning ( Inclusive )</md-tooltip>
+                    <md-datepicker ng-model="model.startDate"
+                                   md-max-date="model.endDate"
+                                   ng-change="onChangeUniqueness()"
+                                   ng-disabled="disableEdit"
+                                   md-placeholder="Beginning" name="fStartDate" required>
+                    </md-datepicker>
+                    <div ng-messages="ctrl.form.fStartDate.$error">
+                        <div ng-message="required" class="ngMessageStyle">Start date is required.</div>
+                        <div ng-message="alreadyExists" class="ngMessageStyle">The session already exists.</div>
+                    </div>
+                </div>
+
+                <div class="ngMessagesContainer">
+                    <md-tooltip md-direction="top" md-delay="800">Session ending ( Exnclusive )</md-tooltip>
+                    <md-datepicker ng-model="model.endDate"
+                                   ng-change="onChangeUniqueness()"
+                                   ng-disabled="disableEdit"
+                                   md-placeholder="End" md-min-date="model.startDate" name="fEndDate" required>
+                    </md-datepicker>
+
+                    <div ng-messages="ctrl.form.fEndDate.$error">
+                        <div ng-message="required" class="ngMessageStyle">End date is required.</div>
+                        <div ng-message="alreadyExists" class="ngMessageStyle">The session already exists.</div>
+                        <div ng-message="dateIsLess" class="ngMessageStyle">Is less than the session beginning.</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <h4>Clients</h4>
+            <div autocomplete-list="autocompleteClientsConfig"
+                 disabled="disableEdit"></div>
+
+            <h4>Therapists</h4>
+            <div autocomplete-list="autocompleteTherapistsConfig"
+                 disabled="disableEdit"></div>
+
+    </form>
+    </div>
+</div>

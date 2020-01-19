@@ -1,0 +1,73 @@
+<div layout="row" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+    <menu-button></menu-button>
+    <h3 flex>Therapist availability. History record #{{ record.id }}</h3>
+</div>
+
+<div layout="row" layout-align="start center"
+     layout-xs="column" layout-align-xs="center start">
+
+    <md-list flex>
+        <md-list-item>
+            <div flex>Date of edit</div>
+            <div flex>{{record.editDate}}</div>
+        </md-list-item>
+        <md-list-item>
+            <div flex>User who edit</div>
+            <div flex>{{record.userSimple.name}} ({{record.userSimple.email}})</div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-list-item>
+            <div layout="row" flex>
+                <div flex layout="column">
+                    <md-list ng-if="record.prevState" flex>
+                        <md-subheader>Previous State</md-subheader>
+                        <md-list-item>
+                            <div flex>Date</div>
+                            <div flex>{{record.prevState.date}}</div>
+                        </md-list-item>
+                        <md-list-item>
+                            <div flex>Time Start</div>
+                            <div flex>{{convertMin2Time(record.prevState.timeStart)}}</div>
+                        </md-list-item>
+                        <md-list-item>
+                            <div flex>Time End</div>
+                            <div flex>{{convertMin2Time(record.prevState.timeEnd)}}</div>
+                        </md-list-item>
+                        <md-list-item>
+                            <div flex>Type</div>
+                            <div flex>{{availabilityType2String(record.prevState.type)}}</div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+
+                <div style="border-left: solid 1px rgba(0,0,0,0.12);"></div>
+
+                <div flex layout="column">
+                    <md-list ng-if="record.newState" flex>
+                        <md-subheader>New State</md-subheader>
+                        <md-list-item>
+                            <div flex>Date</div>
+                            <div flex>{{record.newState.date}}</div>
+                        </md-list-item>
+                        <md-list-item>
+                            <div flex>Time Start</div>
+                            <div flex>{{convertMin2Time(record.newState.timeStart)}}</div>
+                        </md-list-item>
+                        <md-list-item>
+                            <div flex>Time End</div>
+                            <div flex>{{convertMin2Time(record.newState.timeEnd)}}</div>
+                        </md-list-item>
+                        <md-list-item>
+                            <div flex>Type</div>
+                            <div flex>{{availabilityType2String(record.newState.type)}}</div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </div>
+
+        </md-list-item>
+
+    </md-list>
+
+</div>
+

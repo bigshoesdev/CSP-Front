@@ -1,0 +1,38 @@
+<form name="ctrl.form">
+
+    <div layout="row" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>Session Clients</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-raised" ng-click="isEditing = !isEditing" ng-disabled="!session" ng-show="canEditUi">
+                {{ isEditing ? 'View table mode' : 'Edit table mode' }}
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="customize()" ng-disabled="!session" ng-show="canEditUi">
+                Customize
+            </md-button>
+        </div>
+    </div>
+
+    <md-input-container class="md-block">
+        <label>Select session</label>
+        <div selector="session"
+             selector-all="sessions"
+             selector-title="Search for session.."
+             selector-id-property=".id"
+             selector-on-close="applySession(session)"
+             selector-display-item="displayItem"
+             name="nSession"
+        ></div>
+        <div ng-messages="ctrl.form.nSession.$error">
+            <div ng-message="required">Session is required.</div>
+        </div>
+    </md-input-container>
+
+    <div health-table="sessionId"
+         health-table-edit="canEditData && isEditing"
+         health-table-ui="canEditUi"
+    ></div>
+
+</form>

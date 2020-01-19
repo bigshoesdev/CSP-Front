@@ -1,0 +1,147 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+
+            <div class="md-block select-container">
+                <label>Choose session</label>
+                <div chips-selector-title="Sessions"
+                     chips-selector="model.session"
+                     chips-selector-all="sessions"
+                     searchable="false"
+                     multiple="false"
+                     selector-display-item="displayRoomItem"
+                     disabled="disableEdit"
+                     ng-required="true"
+                >
+                </div>
+            </div>
+
+            <md-input-container class="md-block select-container">
+                <label ng-show="model.type!==underfined">Report type *</label>
+                <md-select
+                    ng-model="model.type"
+                    placeholder="Report Type *"
+                    ng-change="fetchRecordType(model.type)"
+                    ng-disabled="disableEdit || !model.session"
+                    required
+                    md-no-asterisk>
+                    <md-option value="rooms">Rooms</md-option>
+                    <md-option value="clients">Clients</md-option>
+                    <md-option value="therapists">Therapists</md-option>
+                </md-select>
+            </md-input-container>
+
+            <div class="panel"
+                 animate-on-change="model.type"
+                 ng-class="{
+                    hidden: model.type === underfined
+                 }">
+                <md-input-container class="md-block no-label">
+                    <md-checkbox ng-model="model.selectedAll" aria-label="internal" ng-disabled="disableEdit"> Select
+                        all
+                    </md-checkbox>
+                </md-input-container>
+
+                <div class="md-block select-container" ng-if="model.type==='rooms'">
+                    <label>Select rooms for report</label>
+                    <div chips-selector-title="Rooms"
+                         chips-selector="model.rooms"
+                         chips-selector-all="rooms"
+                         searchable="true"
+                         multiple="true"
+                         required="false"
+                         selector-display-item="displayRoomItem"
+                         disabled="disableEdit || model.selectedAll || !model.session"
+                    >
+                    </div>
+
+                </div>
+
+                <!--Therapists-->
+                <div class="md-block select-container" ng-if="model.type==='therapists'">
+                    <label>Select therapists for report</label>
+                    <div chips-selector-title="Therapists"
+                         chips-selector="model.therapists"
+                         chips-selector-all="therapists"
+                         searchable="true"
+                         multiple="true"
+                         selector-display-item="displayRoomItem"
+                         disabled="disableEdit || model.selectedAll || !model.session"
+                    >
+                    </div>
+                </div>
+
+                <!--Clients-->
+                <div class="md-block select-container" ng-if="model.type==='clients'">
+                    <label>Select clients for report</label>
+                    <div chips-selector-title="Clients"
+                         chips-selector="model.clients"
+                         chips-selector-all="clients"
+                         searchable="true"
+                         multiple="true"
+                         selector-display-item="displayRoomItem"
+                         disabled="disableEdit || model.selectedAll || !model.session"
+                    >
+                    </div>
+                </div>
+
+            </div>
+
+
+            <md-input-container class="md-block no-label">
+                <md-checkbox
+                    ng-model="model.autoupdate"
+                    aria-label="internal"
+                    ng-disabled="disableEdit || !model.session">
+                    Autoupdate
+                </md-checkbox>
+            </md-input-container>
+
+            <md-input-container class="md-block select-container">
+                <label ng-show="dateType!==underfined">Date type</label>
+                <md-select
+                    ng-model="dateType"
+                    placeholder="Date interval"
+                    ng-change="setDateType(dateType)"
+                    ng-disabled="disableEdit || !model.session"
+                    required
+                >
+                    <md-option value="1">Single day</md-option>
+                    <md-option value="2">Session</md-option>
+                    <md-option value="3">Date range</md-option>
+                </md-select>
+            </md-input-container>
+            <div class="panel"
+                 animate-on-change="dateType"
+                 ng-class="{
+                    hidden: dateType === underfined
+                 }">
+                <div flex>
+                    <md-input-container class="flex-container md-input-has-value" md-no-float	>
+                        <label>Date from</label>
+                            <md-datepicker ng-model="model.dateFrom"
+
+                                           ng-disabled="disableEdit || dateType === '2'"
+                                           md-current-view="year"
+                            ></md-datepicker>
+                    </md-input-container>
+
+                    <md-input-container class="flex-container md-input-has-value"
+                                        md-no-float
+                                        ng-if="dateType !== '1'">
+                        <label>Date to</label>
+                        <md-datepicker ng-model="model.dateTo"
+                                       md-placeholder="maxDate"
+                                       ng-disabled="disableEdit || dateType === '2'"
+                                       md-current-view="year"
+                        >
+                        </md-datepicker>
+                    </md-input-container>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

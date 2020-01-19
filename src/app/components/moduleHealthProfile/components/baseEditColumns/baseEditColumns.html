@@ -1,0 +1,132 @@
+<content-header>{{ headerTitle }}</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+    <md-button class="md-raised md-primary" ng-click="backOrDone()">
+        <md-tooltip md-direction="top" md-delay="800">Done and Back</md-tooltip>
+        <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        Back
+    </md-button>
+    <md-button class="md-raised md-primary" ng-click="editCustomFields()">
+        Edit Columns Types
+    </md-button>
+</div>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form" class="healthSectionsEditColumns">
+            <md-list ng-cloak ui-sortable="sortableOptions" ng-model="columns" class="alignMdList">
+
+                <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+                    <div>
+                        <md-icon md-font-set="material-icons"></md-icon>
+                    </div>
+                    <div flex>
+                        <h4>Column Title</h4>
+                    </div>
+                    <div flex>
+                        <h4>Column Type</h4>
+                    </div>
+
+                    <md-button class="md-icon-button" aria-label="void" disabled="true">
+                        <md-icon md-font-set="material-icons"></md-icon>
+                    </md-button>
+
+                </md-list-item>
+                <md-divider></md-divider>
+
+                <md-list-item ng-repeat="column in columns" ng-init="columnPosition = $index"
+                              layout="row" layout-xs="column" layout-align="start center"
+                              class="show-on-hover-wrapper">
+
+                    <div class="cursor-pointer">
+                        <md-icon md-font-set="material-icons">reorder</md-icon>
+                    </div>
+
+                    <md-input-container class="md-block" flex>
+                        <input ng-model="column.title" type="text" ng-model-options="{ updateOn: 'blur' }"
+                               ng-change="onColumnChange(column, selectedColumnTypes[column.id], columnPosition)"
+                               aria-label=" ">
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <md-select ng-model="selectedColumnTypes[column.id]"
+                                   ng-model-options="{ trackBy: '$value.id' }"
+                                   ng-change="onColumnChange(column, selectedColumnTypes[column.id], columnPosition)"
+                                   aria-label=" ">
+                            <md-optgroup label="Standard Fields">
+                                <md-option ng-value="columnType" ng-repeat="columnType in standardColumnTypes">
+                                    {{ selectTypeToString(columnType) }}
+                                </md-option>
+                            </md-optgroup>
+                            <md-optgroup label="Custom Fields">
+                                <md-option ng-value="columnType" ng-repeat="columnType in customColumnTypes">
+                                    {{ selectTypeToString(columnType) }}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-button ng-click="remove(column)" ng-if="column.permanent" class="md-icon-button md-warn"
+                               aria-label="Hide standard column">
+                        <md-tooltip md-direction="top" md-delay="800">Hide standard column</md-tooltip>
+                        <md-icon md-font-set="material-icons" class="show-on-hover">visibility_off</md-icon>
+                    </md-button>
+                    <md-button ng-click="remove(column)" ng-if="!column.permanent" class="md-icon-button md-warn"
+                               aria-label="Remove column">
+                        <md-tooltip md-direction="top" md-delay="800">Remove column</md-tooltip>
+                        <md-icon md-font-set="material-icons" class="show-on-hover">delete_forever</md-icon>
+                    </md-button>
+
+                </md-list-item>
+
+                <md-list-item ng-hide="newColumn"
+                              layout="row" layout-xs="column" layout-align="start center">
+                    <md-button class="md-primary" ng-click="addNew()">+ Add new</md-button>
+                </md-list-item>
+
+                <md-list-item ng-show="newColumn"
+                              layout="row" layout-xs="column" layout-align="start center">
+
+                    <div class="cursor-pointer">
+                        <md-icon md-font-set="material-icons"></md-icon>
+                    </div>
+
+                    <md-input-container class="md-block" flex>
+                        <label>New column title</label>
+                        <input ng-model="newColumn.title" type="text" ng-model-options="{ updateOn: 'blur' }"
+                               ng-change="onNewColumnChange(newColumn, newSelectedColumnType)"
+                               aria-label=" ">
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <label>New column type</label>
+                        <md-select ng-model="newSelectedColumnType"
+                                   ng-model-options="{ trackBy: '$value.id' }"
+                                   ng-change="onNewColumnChange(newColumn, newSelectedColumnType)"
+                                   aria-label=" ">
+                            <md-optgroup label="Standard Fields">
+                                <md-option ng-value="columnType" ng-repeat="columnType in standardColumnTypes">
+                                    {{ selectTypeToString(columnType) }}
+                                </md-option>
+                            </md-optgroup>
+                            <md-optgroup label="Custom Fields">
+                                <md-option ng-value="columnType" ng-repeat="columnType in customColumnTypes">
+                                    {{ selectTypeToString(columnType) }}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-button ng-click="onNewColumnAdd(newColumn, newSelectedColumnType)"
+                               class="md-icon-button md-primary" aria-label="Add column">
+                        <md-tooltip md-direction="top" md-delay="800">Add column</md-tooltip>
+                        <md-icon md-font-set="material-icons">add</md-icon>
+                    </md-button>
+
+                </md-list-item>
+
+            </md-list>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+@import "calendar.directive";
+
+[bimodel-event-calendar].calendar .item.concrete-event {
+    background-color: $accentSoftColor;
+}
+[bimodel-event-calendar].calendar .item.concrete-calendar-event {
+    background-color: $primarySoftColor;
+}

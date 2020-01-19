@@ -1,0 +1,67 @@
+<form name="ctrl.form" class="myRequest">
+
+    <div layout="row" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>{{ 'Request #' + request.id }}</h3>
+
+        <div layout="row" layout-align="space-between center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-click="approve($event)"
+                       ng-disabled="waitResponse || isReadOnly">
+                Approve
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="decline($event)"
+                       ng-disabled="waitResponse || isReadOnly">
+                Decline
+            </md-button>
+            <md-button class="md-raised" ng-click="cancel()">
+                Close
+            </md-button>
+        </div>
+    </div>
+
+    <div layout="row" layout-xs="column" layout-align="start center" class="datesRow">
+
+        <md-datepicker ng-model="startDate" md-placeholder="Beginning" disabled="true"></md-datepicker>
+
+        <md-datepicker ng-model="endDate" md-placeholder="End" disabled="true"></md-datepicker>
+
+    </div>
+
+    <div ng-show="request.therapistsRequests.length">
+
+        <md-list flex>
+
+            <md-list-item layout="row">
+                <h4 class="md-list-item-text" flex="30">
+                    Therapist Name
+                </h4>
+                <h4 class="md-list-item-text" flex>
+                    Message for therapist
+                </h4>
+                <h4 class="md-list-item-text" flex="15">
+                    Status
+                </h4>
+            </md-list-item>
+            <md-divider></md-divider>
+
+            <div ng-repeat="request in request.therapistsRequests">
+                <md-list-item layout="row">
+                    <p class="md-list-item-text" flex="30">
+                        {{ ::id2NameMap[request.therapistId] || 'therapist id not found' }}
+                    </p>
+                    <p class="md-list-item-text" flex>
+                        {{ ::request.message }}
+                    </p>
+                    <p class="md-list-item-text" flex="15">
+                        {{ ::request.status }}
+                    </p>
+                </md-list-item>
+                <md-divider></md-divider>
+            </div>
+
+        </md-list>
+
+    </div>
+
+</form>

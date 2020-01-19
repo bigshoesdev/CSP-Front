@@ -1,0 +1,86 @@
+<content-header>Matching Board</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer">
+    <md-checkbox ng-model="force" aria-label="Force" ng-disabled="isConfirmDisabled()" class>
+        Force Confirm
+    </md-checkbox>
+    <md-button class="md-raised md-primary" ng-click="confirm(force, $event);force=false"
+               ng-disabled="isConfirmDisabled()">
+        Confirm
+    </md-button>
+    <md-button class="md-raised md-warn" ng-click="unconfirm($event)" ng-disabled="isUnconfirmDisabled()">
+        Un-Confirm
+    </md-button>
+</div>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="MatchingBoardController.form" class="matchingBoard">
+            <h4 class="confirmationLink"><a href="{{confirmationLink}}"
+                                            ng-show="confirmationLink">Link to confirmation</a></h4>
+
+            <div class="md-block select-container">
+                <label>Select session</label>
+                <div selector="session"
+                     selector-all="MatchingBoardController.sessions"
+                     selector-title="Search for session.."
+                     selector-id-property=".id"
+                     selector-on-close="applySession(session)"
+                     selector-display-item="displayEntity"
+                ></div>
+            </div>
+
+            <div
+                ng-show="MatchingBoardController.session && (!MatchingBoardController.clients || MatchingBoardController.clients.length === 0)">
+                <h4>No more customers with preliminary events in the session.</h4>
+            </div>
+
+            <div ng-show="MatchingBoardController.clients && MatchingBoardController.clients.length > 0">
+
+                <div class="md-block select-container">
+                    <label>Select client</label>
+                    <div nullable-selector="client"
+                         nullable-selector-all="MatchingBoardController.clients"
+                         nullable-selector-title="Search for client.."
+                         nullable-selector-null-title="All clients"
+                         nullable-selector-id-property=".id"
+                         nullable-selector-on-close="applyClient(client)"
+                         nullable-selector-display-item="displayEntity"
+                         name="nClient"
+                    ></div>
+
+                </div>
+
+                <div class="md-block select-container">
+                    <label>Filtered by Categories of Services</label>
+                    <div selector="categoriesFilter"
+                         selector-all="MatchingBoardController.categories"
+                         selector-title="Select Categories to filter by.."
+                         selector-id-property=".id"
+                         selector-on-close="applyCategories(categoriesFilter)"
+                         selector-display-item="displayEntity"
+                         multiple="true"
+                    ></div>
+                </div>
+
+                <div ng-show="MatchingBoardController.matchingEvents && MatchingBoardController.confirmationEvents"
+                     ng-cloak>
+
+                    <md-tabs md-selected="selectedIndex">
+                        <md-tab md-active="isMode('daily')" ng-click="setMode('daily')">
+                            <md-tab-label>Daily</md-tab-label>
+                        </md-tab>
+                        <md-tab md-active="isMode('weekly')" ng-click="setMode('weekly')">
+                            <md-tab-label>Weekly</md-tab-label>
+                        </md-tab>
+                        <md-tab md-active="isMode('interval')" ng-click="setMode('interval')">
+                            <md-tab-label>Date Interval</md-tab-label>
+                        </md-tab>
+                    </md-tabs>
+
+                    <div flex layout-fill ui-view="matchingBoardModeView"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

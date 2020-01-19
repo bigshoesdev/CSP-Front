@@ -1,0 +1,93 @@
+.expanded-table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto;
+    text-align: left;
+    tr {
+        display: table-row;
+        flex: none;
+        padding: 0;
+        margin: 0;
+        border-bottom: 1px solid $borderTable;
+
+        &:hover {
+            background: #a9ce6d;
+            td {
+                border-right: 1px solid #a9ce6d;
+            }
+        }
+
+        &.no-hover:hover {
+            background: white;
+        }
+
+        &:nth-child(2n) {
+            background: $borderTable;
+            &:hover {
+                background: #a9ce6d;
+            }
+        }
+
+        &.expanded-table-header {
+            border-bottom: 2px solid $borderTable;
+            padding: 10px 0;
+            .alu-table-cell {
+                border-right: 1px solid $borderTable;
+                &.last {
+                    border: none
+                }
+            }
+            &:hover {
+                background: white;
+
+            }
+            md-icon {
+                position: relative;
+                left: 0;
+                top: -2px;
+            }
+        }
+
+        td {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: left;
+            padding: 0 5px;
+            border-right: 1px solid $borderTable;
+
+            &.last {
+                width: 1%;
+                border: none;
+            }
+
+            .listItem {
+                border: none;
+            }
+
+            .expand {
+                max-height: 0;
+                transition: max-height 0.3s ease-in;
+                overflow: hidden;
+                text-align: right;
+                padding-right: 20px;
+                button{
+                    background: #a9ce6d;
+                    border: 1px solid #a9ce6d;
+                    margin: 10px 0;
+                    border-radius: 4px;
+                    color: white;
+                    text-shadow: 1px 1px 1px #435a1e;
+                    &:hover{
+                        box-shadow: 1px 1px 4px #435a1e;
+                    }
+                }
+            }
+
+            .expanded {
+                max-height: 800px;
+                transition: max-height 0.15s ease-in;
+            }
+        }
+    }
+}

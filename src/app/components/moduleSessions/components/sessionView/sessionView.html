@@ -1,0 +1,31 @@
+<form name="ctrl.form">
+
+    <div layout="row" layout-align="space-between center" sticky style="height: auto" class="buttons-header">
+        <menu-button></menu-button>
+
+        <h3 flex>{{ session.name }}</h3>
+
+        <div layout="row" layout-align="center center" layout-wrap>
+            <md-button class="md-raised" ng-click="cancel()">
+                Close
+            </md-button>
+        </div>
+    </div>
+
+    <div layout="row" layout-xs="column" layout-align="start center">
+
+        <md-datepicker ng-model="startDate" md-placeholder="Beginning" md-max-date="endDate" name="startDate" ng-disabled="true">
+        </md-datepicker>
+
+        <md-datepicker ng-model="endDate" md-placeholder="End" md-min-date="startDate" name="endDate" ng-disabled="true">
+        </md-datepicker>
+
+    </div>
+
+    <h4>Clients</h4>
+    <div simple-list="session.clients"></div>
+
+    <h4>Therapists</h4>
+    <div simple-list="session.therapists"></div>
+
+</form>

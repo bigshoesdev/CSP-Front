@@ -1,0 +1,10 @@
+<div selector="selectedList"
+     selector-all="allList"
+     selector-title="{{ title }}"
+     selector-id-property=""
+     multiple="{{ multiple }}"
+></div>
+<md-chips ng-model="selectedList">
+    <input disabled="true" ng-hide="true">
+    <md-chip-template>{{ $chip }}</md-chip-template>
+</md-chips>

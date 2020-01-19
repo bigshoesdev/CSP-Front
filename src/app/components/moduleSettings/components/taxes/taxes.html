@@ -1,0 +1,32 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <form name="ctrl.form">
+        <div flex>
+            <md-input-container class="md-block">
+                <label>Code *</label>
+                <input ng-model="model.code"
+                       name="cCode"
+                       type="text"
+                       placeholder="Unique code"
+                       ng-disabled="disableEdit"
+                       required
+                       ng-maxlength="80"
+                       autofocus="">
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Title *</label>
+                <input ng-model="model.title"
+                       name="cTitle"
+                       type="text"
+                       placeholder="Displayed title"
+                       required
+                       ng-disabled="disableEdit"
+                       ng-maxlength="80"
+                       autofocus="">
+            </md-input-container>
+
+        </div>
+    </form>
+</div>

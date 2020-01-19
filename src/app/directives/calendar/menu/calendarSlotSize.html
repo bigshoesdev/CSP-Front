@@ -1,0 +1,19 @@
+<md-menu md-position-mode="target">
+    <md-button aria-label="Slot size" ng-click="$mdOpenMenu($event)">
+        <md-tooltip md-direction="top" md-delay="800">Grid Step</md-tooltip>
+        <div layout="row" flex>
+            <md-icon md-font-set="material-icons">access_time</md-icon>
+            <span flex>{{ slotSize }} min</span>
+        </div>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item ng-repeat="size in allSlotSize">
+            <md-button ng-click="onSlotSizeChange({ slotSize: size })">
+                <div layout="row" flex>
+                    <md-icon md-font-set="material-icons">access_time</md-icon>
+                    <span flex>{{ ::size }} min</span>
+                </div>
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

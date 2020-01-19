@@ -1,0 +1,97 @@
+<md-switch ng-model="hideHeaderInfo" aria-label="Hide Additional Info" class="ng-warn" ng-change="onChangeHideHeaderInfo()">
+    Hide Additional Info
+</md-switch>
+
+<md-list ng-cloak class="juggleTable">
+
+    <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center" layout-padding>
+
+        <div flex="15" layout="row">
+            <md-button ng-click="toggleAllItemsHidden()" class="md-icon-button md-primary" aria-label="show hide">
+                <md-tooltip md-direction="top" md-delay="800">{{ isAllItemsShown() ? 'Hide All' : 'Show All' }}</md-tooltip>
+                <md-icon md-font-set="material-icons">{{ isAllItemsShown() ? 'arrow_drop_up' : 'arrow_drop_down' }}
+                </md-icon>
+            </md-button>
+            <md-select ng-model="rowType"
+                       ng-model-options="{ trackBy: '$value' }"
+                       md-selected-text="displayRowType(rowType)"
+                       md-on-close="applyRowType(rowType)"
+                       data-md-container-class="selectdemoSelectHeader"
+                       aria-label="Select row type.."
+                       style="margin: 0" flex>
+                <md-option ng-value="rt" ng-repeat="rt in rowTypes">
+                    {{ ::displayRowType(rt) }}
+                </md-option>
+            </md-select>
+        </div>
+
+        <div ng-repeat="column in table.columns" flex>
+            {{ column }}
+        </div>
+
+    </md-list-item>
+
+    <md-divider></md-divider>
+
+    <div ng-repeat="jtRow in table.rows track by $index" ng-init="jtRowId = $index">
+        <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start stretch"
+                      layout-padding>
+
+            <div flex="15">
+                <md-button ng-click="hideItems[jtRowId]=!hideItems[jtRowId]" class="md-icon-button md-primary" aria-label="show hide">
+                    <md-tooltip md-direction="top" md-delay="800">Show | Hide</md-tooltip>
+                    <md-icon md-font-set="material-icons">{{ hideItems[jtRowId] ? 'arrow_drop_down' : 'arrow_drop_up' }}
+                    </md-icon>
+                </md-button>
+
+                <!--<a ui-sref="auth.settings.therapistEdit({ therapistId: jtRow.therapistId })"></a>-->
+                    {{ jtRow.rowName }}
+            </div>
+
+            <div ng-repeat="jtCell in jtRow.cells" flex layout="column">
+
+                <div layout="column" class="subHeader" ng-if="!hideHeaderInfo">
+                    <div layout="row" layout-align="start center">
+                        <md-tooltip ng-show="isRowTherapist()" md-direction="top" md-delay="800">Free Time = Therapist Availability - Concrete events</md-tooltip>
+                        <md-tooltip ng-hide="isRowTherapist()" md-direction="top" md-delay="800">Free Time = Working day - Room's Booked time</md-tooltip>
+                        <div>{{ jtCell.subHeader.freeTime }} m FREE</div>
+                    </div>
+                    <div layout="row" layout-align="start center">
+                        <md-tooltip ng-show="isRowTherapist()" md-direction="top" md-delay="800">Concrete Events Duration for the Therapist</md-tooltip>
+                        <md-tooltip ng-hide="isRowTherapist()" md-direction="top" md-delay="800">Booked time for the Room</md-tooltip>
+                        <div>{{ jtCell.subHeader.busyTime }} m BUSY</div>
+                    </div>
+                    <div layout="row" layout-align="start center">
+                        <md-tooltip md-direction="top" md-delay="800">Pre-Events Duration</md-tooltip>
+                        <div>{{ jtCell.subHeader.preEventsDuration }} m PRE EVENTS</div>
+                    </div>
+                    <div layout="row" layout-align="start center">
+                        <md-tooltip md-direction="top" md-delay="800">Free Time with Pre-Events</md-tooltip>
+                        <div>{{ jtCell.subHeader.preFreeTime }} m PRE FREE</div>
+                    </div>
+                </div>
+
+                <ul flex ng-hide="hideItems[jtRowId]"
+                    dndl-list="jtCell.listItems"
+                    dndl-drop="onDrop(jtCell.listItems, item)"
+                >
+                    <li ng-repeat="item in jtCell.listItems track by $index"
+                        dndl-draggable="item"
+                        dndl-moved="onMoved(jtCell.listItems, item, $index)"
+                    >
+                        <div ng-repeat="itemStr in showItem(item)" class="underscore">{{itemStr}}</div>
+
+                        <md-button ng-click="editItem(item)" class="md-icon-button md-raised md-primary editAction" aria-label="edit">
+                            <md-icon md-font-set="material-icons">edit</md-icon>
+                        </md-button>
+
+                    </li>
+                </ul>
+
+            </div>
+
+        </md-list-item>
+        <md-divider></md-divider>
+    </div>
+
+</md-list>

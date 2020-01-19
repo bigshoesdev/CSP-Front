@@ -1,0 +1,38 @@
+@import '../../style.variable.scss';
+
+.actionsContainer {
+    padding: 10px 20px;
+    background: #a9ce6d;
+    border-radius: 4px 4px 0 0;
+
+    md-checkbox{
+        margin: 0;
+    }
+
+    .md-button.md-raised:not([disabled]) {
+        padding: 0 15px;
+        span{
+            position: relative;
+            top: 1px;
+        }
+        &:hover {
+            background-color: #ffec9c;
+        }
+    }
+
+    .md-button.md-csp-theme.md-primary.md-fab, .md-button.md-csp-theme.md-primary.md-raised {
+        background: white;
+        &:hover {
+            background-color: #ffec9c;
+        }
+    }
+
+    .md-button.md-csp-theme.md-fab[disabled], .md-button.md-csp-theme.md-raised[disabled] {
+        background-color: #a9ce6d;
+        outline: 1px solid #d9ff9c;
+        color: white;
+        &:hover {
+            background-color: #a9ce6d;
+        }
+    }
+}

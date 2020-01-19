@@ -1,0 +1,112 @@
+<md-header></md-header>
+
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+        <form name="ctrl.form">
+            <md-input-container class="md-block">
+                <label>Name *</label>
+                <input ng-model="model.name"
+                       ng-disabled="disableEdit"
+                       name="cName"
+                       type="text"
+                       placeholder="Unique code"
+                       required
+                       ng-maxlength="80"
+                       autofocus="">
+            </md-input-container>
+
+            <div class="select-container margin-0">
+                <label>Billing description</label>
+                <md-input-container class="md-block margin-0">
+                    <textarea
+                        ng-model="model.billingDescription"
+                        name="cBillingDescription"
+                        ng-disabled="disableEdit"
+                        autofocus=""
+                        required
+                    ></textarea>
+                </md-input-container>
+            </div>
+
+            <md-input-container class="md-block">
+                <label>Price</label>
+                <input ng-model="model.price"
+                       name="cPrice"
+                       ng-disabled="disableEdit"
+                       type="number"
+                       placeholder="0"
+                       min="0"
+                       required
+                       autofocus="">
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Purchase price</label>
+                <input ng-model="model.pricePurchase"
+                       name="cPricePurchase"
+                       ng-disabled="disableEdit"
+                       type="number"
+                       placeholder="0"
+                       min="0"
+                       required
+                       autofocus="">
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Time Clean</label>
+                <input ng-model="model.time.clean"
+                       min="0"
+                       name="cPriceClean"
+                       type="number"
+                       placeholder="Time clean"
+                       ng-disabled="disableEdit"
+                       required
+                       autofocus="">
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Duration</label>
+                <input ng-model="model.time.processing"
+                       min="0"
+                       name="cTimeProcessing"
+                       type="number"
+                       placeholder="Time processing"
+                       ng-disabled="disableEdit"
+                       required
+                       autofocus="">
+            </md-input-container>
+
+            <md-input-container class="md-block no-label">
+                <md-checkbox ng-model="model.internal" aria-label="internal" ng-disabled="disableEdit"> Internal</md-checkbox>
+            </md-input-container>
+
+            <div class="md-block select-container">
+                <label>Tax</label>
+                <div chips-selector-title="Taxes list"
+                     chips-selector="model.tax"
+                     chips-selector-all="taxes"
+                     searchable="false"
+                     multiple="false"
+                     selector-display-item="displayItem"
+                     disabled="disableEdit"
+                >
+                </div>
+            </div>
+
+            <div class="md-block select-container">
+                <label>Event type</label>
+                <div chips-selector-title="Event types"
+                     chips-selector="model.eventType"
+                     chips-selector-all="eventTypes"
+                     searchable="false"
+                     multiple="false"
+                     disabled="disableEdit"
+                >
+                </div>
+            </div>
+
+            <input type="hidden" ng-model="model.time.prep" name="cPricePrep" ng-value="0">
+        </form>
+    </div>
+
+</div>

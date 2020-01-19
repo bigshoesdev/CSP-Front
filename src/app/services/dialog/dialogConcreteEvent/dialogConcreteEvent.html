@@ -1,0 +1,232 @@
+<md-dialog flex="30">
+    <md-toolbar>
+        <div class="md-toolbar-tools">Concrete Event</div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+        <div layout="row" layout-xs="column" class="formContainer">
+            <div flex>
+                <form name="ctrl.form" layout="row" layout-xs="column">
+                    <div flex>
+                        <md-datepicker ng-model="date"
+                                       ng-change="baseConcreteEvent.date = dateToString(date)"
+                                       md-placeholder="Date"
+                                       name="fDate"
+                                       required
+                                       flex
+                                       ng-disabled="!canEdit"
+                        ></md-datepicker>
+
+
+                        <md-input-container class="md-block" flex>
+                            <label>Time</label>
+                            <input type="time"
+                                   ng-model="time"
+                                   ng-change="baseConcreteEvent.time = timeToString(time)"
+                                   name="fTime"
+                                   required
+                                   ng-disabled="!canEdit">
+                            <div ng-messages="ctrl.form.fTime.$error">
+                                <div ng-message="required">Time is require</div>
+                                <div ng-message="time">Fill in the time field</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Session</label>
+                            <div selector="baseConcreteEvent.session"
+                                 selector-all="sessions"
+                                 selector-title="Session"
+                                 selector-id-property=".id"
+                                 selector-on-close="applySession(baseConcreteEvent.session)"
+                                 selector-display-item="displayItem"
+                                 name="fsession"
+                                 ng-required="true"
+                                 disabled="!canEdit"
+                            ></div>
+                            <div ng-messages="ctrl.form.fsession.$error">
+                                <div ng-message="required">Session is require</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Client</label>
+                            <div selector="baseConcreteEvent.client"
+                                 selector-all="clients"
+                                 selector-title="Client"
+                                 selector-id-property=".id"
+                                 selector-display-item="displayItem"
+                                 name="fclient"
+                                 ng-required="true"
+                                 disabled="!baseConcreteEvent.session || !canEdit"
+                            ></div>
+                            <div ng-messages="ctrl.form.fclient.$error">
+                                <div ng-message="required">Client is require</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Therapist</label>
+                            <div selector="baseConcreteEvent.therapist"
+                                 selector-all="therapists"
+                                 selector-title="Therapist"
+                                 selector-id-property=".id"
+                                 selector-on-close="applyTherapist(baseConcreteEvent.therapist)"
+                                 selector-display-item="displayItem"
+                                 name="ftherapist"
+                                 ng-required="true"
+                                 multiple="false"
+                                 disabled="!baseConcreteEvent.session || !canEdit"
+                            ></div>
+                            <div ng-messages="ctrl.form.ftherapist.$error">
+                                <div ng-message="required">Therapist is require</div>
+                            </div>
+                        </md-input-container>
+
+                            <md-input-container class="md-block" flex>
+                                <label>Service</label>
+                                <div
+                                    selector="baseConcreteEvent.service"
+                                    selector-all="services"
+                                    selector-title="Service"
+                                    selector-id-property=".id"
+                                    selector-on-close="applyService(baseConcreteEvent.service)"
+                                    selector-display-item="displayItem"
+                                    name="fservice"
+                                    ng-required="true"
+                                    disabled="!baseConcreteEvent.therapist || !canEdit || services.length < 1"
+                                ></div>
+                                <div ng-messages="ctrl.form.fservice.$error">
+                                    <div ng-message="required">Service is require</div>
+                                </div>
+                                <div ng-class="{'md-input-message-animation': true}" ng-if="services < 1">Therapist has no
+                                    services
+                                </div>
+                            </md-input-container>
+                        <md-checkbox ng-if="canEdit || canRemove || canCancel" ng-model="setDefault.Service" ng-click="setDefaultServiceForTherapist()">
+                            Set default
+                        </md-checkbox>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Room</label>
+                            <div selector="baseConcreteEvent.room"
+                                 selector-all="rooms"
+                                 selector-title="Room"
+                                 selector-id-property=".id"
+                                 selector-display-item="displayItem"
+                                 name="froom"
+                                 ng-required="true"
+                                 disabled="!baseConcreteEvent.service || !canEdit"
+                            ></div>
+                            <div ng-messages="ctrl.form.froom.$error">
+                                <div ng-message="required">Room is require</div>
+                            </div>
+                        </md-input-container>
+                        <md-checkbox ng-if="canEdit || canRemove || canCancel" ng-model="setDefault.Room" ng-click="setDefaultRoomForTherapist()">
+                            Set default
+                        </md-checkbox>
+
+                        <input type="hidden" ng-model="baseConcreteEvent.duration.prep" value="0"/>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Processing time</label>
+                            <input type="number"
+                                   ng-model="baseConcreteEvent.duration.processing"
+                                   ng-min="0"
+                                   ng-max="1440"
+                                   name="fprocessing" required ng-disabled="!canEdit">
+                            <div ng-messages="ctrl.form.fprocessing.$error">
+                                <div ng-message="required">Processing time is require</div>
+                                <div ng-message="min">Processing time can't be less than 0</div>
+                                <div ng-message="max">Processing time can't take more than a day</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Cleaning time</label>
+                            <input type="number"
+                                   ng-model="baseConcreteEvent.duration.clean"
+                                   ng-min="0"
+                                   ng-max="1440"
+                                   name="fclean" required ng-disabled="!canEdit">
+                            <div ng-messages="ctrl.form.fclean.$error">
+                                <div ng-message="required">Cleaning time is require</div>
+                                <div ng-message="min">Cleaning time can't be less than 0</div>
+                                <div ng-message="max">Cleaning time can't take more than a day</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div flex>
+                        <md-input-container class="md-block">
+                            <label>Client goals</label>
+                            <textarea
+                                ng-model="baseConcreteEvent.goals_client"
+                                placeholder="..."
+                                name="cClientGoals"
+                                ng-disabled="!canEdit"
+                                autofocus=""
+                            ></textarea>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>Therapist goals</label>
+                            <textarea
+                                ng-model="baseConcreteEvent.goals_therapist"
+                                name="cTherapistGoals"
+                                placeholder="..."
+                                ng-disabled="!canEdit"
+                                autofocus=""
+                            ></textarea>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>Note</label>
+                            <input type="text"
+                                   placeholder="Note"
+                                   ng-model="baseConcreteEvent.note"
+                                   name="fnote"
+                                   ng-disabled="!canEdit">
+                            <div ng-messages="ctrl.form.fclean.$error"></div>
+                        </md-input-container>
+
+                        <div class="select-container margin-0">
+                            <label>Sub Status</label>
+                            <md-select ng-model="baseConcreteEvent.subStatus"
+                                       ng-disabled="!canEdit"
+                                       placeholder="Select event status">
+                                <md-option ng-repeat="subStatus in subStatuses" value="{{subStatus}}">
+                                    {{subStatus}}
+                                </md-option>
+                            </md-select>
+                        </div>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Status</label>
+                            <md-select ng-model="baseConcreteEvent.state" ng-disabled="!canEdit">
+                                <md-option ng-repeat="status in statuses" value="{{status}}">
+                                    {{status}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-checkbox ng-model="noEmails" aria-label="noEmails"
+                                     ng-if="canEdit || canRemove || canCancel">
+                            Do not send email
+                        </md-checkbox>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="Save" ng-click="save()" class="md-raised md-primary" ng-if="canEdit"
+                   ng-disabled="ctrl.form.$invalid">Save
+        </md-button>
+        <md-button aria-label="Close" ng-click="close()" class="md-raised">Close</md-button>
+        <md-button aria-label="Remove" ng-click="remove()" class="md-raised md-warn" ng-if="canEdit && canRemove">
+            Remove
+        </md-button>
+        <md-button aria-label="Cancel" ng-click="cancel()" class="md-raised md-warn" ng-if="canCancel">Cancel
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

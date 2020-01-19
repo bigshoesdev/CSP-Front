@@ -1,0 +1,20 @@
+<md-menu>
+    <md-button aria-label="Open user menu" ng-click="$mdOpenMenu($event)">
+        {{currentUser.email}}
+        <md-icon md-font-set="material-icons">keyboard_arrow_down</md-icon>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item>
+            <md-button ui-sref="auth.password">
+                <!--<md-icon md-font-set="material-icons" md-menu-align-target>{{item.iconName}}</md-icon>-->
+                Change password
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="logout()">
+                <md-icon md-font-set="material-icons" md-menu-align-target>exit_to_app</md-icon>
+                Log Out
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

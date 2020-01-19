@@ -1,0 +1,147 @@
+<content-header>Concrete Events</content-header>
+
+<div layout="row" layout-align="start center" layout-wrap class="actionsContainer"></div>
+<div layout="row" layout-xs="column" class="formContainer">
+    <div flex>
+            <form name="ctrl.form" class="booking">
+
+                <div layout="row" layout-xs="column" class="toolbar">
+
+                    <div layout="row" layout-xs="column" layout-align="start center">
+                        <div calendar-slot-size="slotSize"
+                             calendar-slot-size-change="setSlotSize(slotSize)"
+                        ></div>
+
+                        <div date-nav="date"
+                             on-change="onDateChange"
+                             min="minDate"
+                             max="maxDate"
+                             ng-disabled="false"
+                             ng-required="true"
+                        ></div>
+                    </div>
+
+                    <div layout="row" layout-xs="column" layout-align="start center">
+                        <md-input-container class="fixed-width">
+                            <label>Column type:</label>
+                            <md-select ng-model="rowType"
+                                       ng-model-options="{ trackBy: '$value' }"
+                                       md-selected-text="displayColumnType(rowType)"
+                                       data-md-container-class="selectdemoSelectHeader"
+                                       aria-label="Select column type.."
+                                       style="margin: 0">
+                                <md-option ng-value="rt" ng-repeat="rt in rowTypes">
+                                    {{ ::displayColumnType(rt) }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row" layout-xs="column" layout-align="start center">
+                        <md-input-container class="md-block fixed-width" >
+                            <label>Category of Services</label>
+                            <div selector="selectedCategory"
+                                 selector-all="categories"
+                                 selector-title="Filter by Category of Services"
+                                 selector-id-property=".id"
+                                 selector-display-item="displayItem"
+                                 selector-on-close="applyCategoriesFilter(selectedCategory)"
+                                 multiple="false"
+                            ></div>
+                        </md-input-container>
+
+                        <md-button class="md-icon-button md-secondary md-warn"
+                                   ng-click="clearCategoriesFilter()"
+                                    ng-if="selectedCategory">
+                            <md-tooltip md-direction="top" md-delay="800">Clear Categories Filter</md-tooltip>
+                            <md-icon md-font-set="material-icons">clear</md-icon>
+                        </md-button>
+                    </div>
+
+                    <div layout="row" layout-xs="column" layout-align="start center">
+                        <md-input-container class="md-block fixed-width" >
+                            <label>Filter by Session</label>
+                            <div selector="_session"
+                                 selector-all="sessions"
+                                 selector-title="Filter by Session"
+                                 selector-id-property=".id"
+                                 selector-on-close="applySessionFilter(_session)"
+                                 selector-display-item="displayItem"
+                            ></div>
+                        </md-input-container>
+
+                        <md-button class="md-icon-button md-secondary md-warn"
+                                   ng-click="clearSessionFilter()"
+                                    ng-if="_session">
+                            <md-tooltip md-direction="top" md-delay="800">Clear Session Filter</md-tooltip>
+                            <md-icon md-font-set="material-icons">clear</md-icon>
+                        </md-button>
+                    </div>
+
+                    <div layout="row" layout-xs="column" layout-align="start center">
+                        <md-input-container class="md-block fixed-width" >
+                            <label>Filter by Therapist Week</label>
+                            <div selector="week"
+                                 selector-all="weeks"
+                                 selector-title="Filter by Therapist Week"
+                                 selector-id-property=".id"
+                                 selector-on-close="applyTherapistWeekFilter(week)"
+                                 selector-display-item="displayItem"
+                            ></div>
+                        </md-input-container>
+
+                        <md-button class="md-icon-button md-secondary md-warn"
+                                   ng-click="clearTherapistWeekFilter()"
+                                   ng-if="week">
+                            <md-tooltip md-direction="top" md-delay="800">Clear Therapist Week Filter</md-tooltip>
+                            <md-icon md-font-set="material-icons">clear</md-icon>
+                        </md-button>
+
+                    </div>
+
+                </div>
+
+                <div class="calendarRowTable" id="calendarRowTableId"  flexible-sticky-column style="overflow-x: hidden">
+                    <!--<perfect-scrollbar wheel-propagation="true" wheel-speed="10" min-scrollbar-length="20">      style="overflow-x: hidden;"-->
+
+                        <md-list ng-cloak>
+
+                            <div class="tableHeader" flexible-sticky>
+                                <md-list-item class="md-no-sticky" layout="row" layout-xs="column" layout-align="start center">
+
+                                    <div layout="row" flex>
+                                        <div style="width: 70px"></div>
+                                        <div style="width: calc(100% - 70px);" layout="row" class="columnContainer">
+                                            <div ng-repeat="column in columns" flex class="columnTitle">
+                                                {{ column.columnTitle }}
+                                                <div ng-repeat="room in column.columnMeta.preferredRooms" ng-style="room.color && {'background-color': '#ffcc99'}">
+                                                    {{ room.name }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </md-list-item>
+                                <md-divider></md-divider>
+                            </div>
+
+                            <md-list-item layout="row" layout-xs="column" layout-align="start stretch">
+                                <div calendar-row-concrete-events
+                                     calendar-row-model="calendarRowModel"
+                                     calendar-row-columns="columns"
+                                     calendar-row-ctrl="calendarRowCtrl"
+                                     calendar-row-on-drop="onDrop"
+                                     calendar-row-on-add="onAdd"
+                                     calendar-row-on-edit="onEdit"
+                                     class="calendar" flex></div>
+
+                            </md-list-item>
+
+                        </md-list>
+                        </ng-scrollbar>
+                <!--</perfect-scrollbar>-->
+                    </div>
+
+            </form>
+    </div>
+</div>

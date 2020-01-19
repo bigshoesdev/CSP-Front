@@ -1,0 +1,290 @@
+@import 'style.variable.scss';
+
+html {
+    //height: auto !important;
+}
+
+body {
+    height: auto !important;
+    *:focus {
+        outline: none;
+    }
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ngMessageStyle {
+    font-size: 12px;
+    line-height: 14px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    opacity: 1;
+    margin-top: 0;
+    padding-top: 5px;
+    color: rgb(221, 44, 0);
+}
+
+.ngMessagesContainer {
+    margin: 18px 0;
+}
+
+md-icon {
+    font-size: 1px;
+}
+
+md-select {
+    margin: 0;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.md-datepicker-input-container {
+    input.md-datepicker-input {
+        pointer-events: none;
+    }
+}
+
+.show-on-hover-wrapper {
+    .show-on-hover {
+
+        display: none !important;
+        &:hover,
+        &:focus {
+            display: block !important;
+        }
+    }
+
+    &:hover,
+    &:focus {
+        .show-on-hover {
+            display: block !important;
+        }
+    }
+}
+
+md-input-container.md-csp-theme .md-placeholder, md-input-container.md-csp-theme label {
+    font-size: 18px;
+    color: #444;
+}
+
+md-input-container.md-csp-theme:not(.md-input-invalid).md-input-has-value label {
+    color: #444;
+}
+
+md-input-container .md-input[disabled], [disabled] md-input-container .md-input {
+    border: 0;
+}
+
+md-checkbox.md-csp-theme.md-checked .md-icon {
+    background-color: $primaryColor;
+}
+
+@keyframes bounceIn {
+    from,
+    20%,
+    40%,
+    60%,
+    80%,
+    to {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    0% {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    20% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1);
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9);
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+
+    60% {
+        opacity: 1;
+        -webkit-transform: scale3d(1.03, 1.03, 1.03);
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+
+    80% {
+        -webkit-transform: scale3d(0.97, 0.97, 0.97);
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes bounceOut {
+    20% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9);
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+
+    50%,
+    55% {
+        opacity: 1;
+        -webkit-transform: scale3d(1.1, 1.1, 1.1);
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+}
+
+.formContainer {
+    padding: 40px 30px;
+    background: white;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .25);
+    .panel {
+        background: transparentize(#a9ce6d, 0.65);
+        margin: 0 -30px 40px -30px;
+        border-radius: 0;
+        padding: 50px 20px 0 30px;
+        overflow: hidden;
+        min-height: 40px;
+        transition: min-height 0.75s linear;
+
+        &.change {
+            animation-duration: 0.75s;
+            animation-name: bounceIn;
+        }
+
+        &.hidden {
+            display: block !important;
+            transform: scale3d(0, 0, 1);
+            min-height: 0;
+            height: 0;
+            padding: 0;
+            margin: 0;
+        }
+
+        &.change-up {
+            animation-duration: 1s;
+            animation-name: bounceIn;
+        }
+    }
+    .error-container {
+        margin: 20px 0;
+        color: red;
+        font-size: 12px;
+        line-height: 14px;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+        opacity: 1;
+        padding-top: 5px;
+    }
+}
+
+.select-container {
+    padding: 2px;
+    position: relative;
+    margin-bottom: 42px;
+    label {
+        position: absolute;
+        top: -26px;
+        font-size: 13px;
+        color: #444;
+    }
+    &.flex {
+        & > div {
+            flex: 1;
+        }
+        .error-container:before {
+            content: '';
+            width: 100%;
+            order: 1;
+        }
+    }
+}
+
+.flex-container {
+    display: inline-flex;
+    padding-bottom: 10px;
+}
+
+md-input-container:not(.md-input-has-value) input:not(:focus),
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-ampm-field,
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-day-field,
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-hour-field,
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-millisecond-field,
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-minute-field,
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-month-field,
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-second-field,
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-week-field,
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-year-field,
+md-input-container:not(.md-input-has-value) input:not(:focus)::-webkit-datetime-edit-text {
+    color: rgba(0, 0, 0, 0.38);
+}
+
+.md-block {
+    &.no-label {
+        margin-top: -18px;
+        margin-bottom: 28px;
+    }
+}
+
+.md-table {
+    md-list {
+
+        > div:hover {
+            background: #ebf3e2;
+        }
+        > div:nth-child(2n+1) {
+            background: #f0f3f4;
+            &:hover {
+                background: #ebf3e2;
+            }
+            md-list-item {
+                //background: #F0F3F4;
+                .listItem {
+                    position: relative;
+                    z-index: 2;
+                }
+            }
+        }
+    }
+}
+
+.margin-0 {
+    margin: 0;
+}
+
+//pagination
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+    background-color: $primaryColorSoft;
+    border-color: $primaryColorSoft;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: $background
+}
+
+.table-filter {
+    display: flex;
+    padding: 0;
+    margin: 0 0 0 auto;
+    md-icon.md-csp-theme {
+        position: absolute;
+        top: 5px;
+        color: $accentColor !important;
+    }
+}
