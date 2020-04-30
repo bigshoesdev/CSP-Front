@@ -5,7 +5,7 @@
     "@angular/cdk": "^7.0.4",
     "@types/jquery": "^3.3.4",
     "full-countries-cities": "0.0.8",
-    "jquery": "^3.3.1"
+    "jquery": "^3.5.0"
   },
   "scripts": {
     "test": "gulp test",
